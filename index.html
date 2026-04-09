@@ -4,7 +4,36 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#e91e8c" />
-  <title>Dulce Vis — Patiserie Artizanală</title>
+  <title>Dulce Vis — Patiserie Artizanală | Prăjituri, Torturi &amp; Macarons</title>
+
+  <!-- SEO Primar -->
+  <meta name="description" content="Dulce Vis – patiserie artizanală cu prăjituri făcute manual din ingrediente fine. Torturi personalizate, macarons parizieni, eclere, cheesecake și tiramisu. Comandă acum!" />
+  <meta name="keywords" content="prăjituri artizanale, torturi personalizate, patiserie artizanală, macarons parizieni, eclere ciocolată belgiană, cheesecake fructe de pădure, tiramisu, red velvet, comandă prăjituri, Dulce Vis, Bianca Murariu" />
+  <meta name="author" content="Bianca Murariu" />
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Dulce Vis — Patiserie Artizanală | Prăjituri cu Dragoste" />
+  <meta property="og:description" content="Prăjituri artizanale făcute cu dragoste din ingrediente fine. Torturi personalizate, macarons parizieni, eclere și cheesecake. Comandă acum!" />
+  <meta property="og:image" content="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=1200&q=85" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="800" />
+  <meta property="og:image:alt" content="Tort elegant cu fragi și frișcă naturală — Dulce Vis Patiserie Artizanală" />
+  <meta property="og:locale" content="ro_RO" />
+  <meta property="og:site_name" content="Dulce Vis" />
+  <meta property="og:url" content="" id="og-url-meta" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Dulce Vis — Patiserie Artizanală" />
+  <meta name="twitter:description" content="Prăjituri artizanale făcute cu dragoste din ingrediente fine. Torturi personalizate, macarons, eclere, cheesecake." />
+  <meta name="twitter:image" content="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=1200&q=85" />
+
+  <!-- Performance -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="dns-prefetch" href="https://images.unsplash.com" />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet" />
   <style>
     /* =============================================
@@ -44,6 +73,22 @@
       -webkit-tap-highlight-color: transparent;
       touch-action: manipulation;
     }
+
+    .skip-link {
+      position: absolute;
+      top: -100px;
+      left: 24px;
+      background: var(--roz);
+      color: var(--alb);
+      padding: 8px 20px;
+      border-radius: 0 0 10px 10px;
+      font-weight: 700;
+      font-size: 0.85rem;
+      z-index: 9999;
+      transition: top 0.2s;
+      text-decoration: none;
+    }
+    .skip-link:focus { top: 0; }
 
     /* =============================================
        NAVBAR
@@ -1199,6 +1244,8 @@
 </head>
 <body>
 
+  <a href="#continut-principal" class="skip-link">Sari la conținut</a>
+
   <!-- =============================================
        ⚙️  CONFIGURARE — modifică valorile de mai jos
   ============================================= -->
@@ -1249,25 +1296,27 @@
     <a href="#contact" class="mobile-cta">Comandă acum</a>
   </div>
 
+  <main id="continut-principal" tabindex="-1">
+
   <!-- =============================================
        HERO CAROUSEL
   ============================================= -->
-  <section class="hero" id="hero">
+  <section class="hero" id="hero" aria-label="Pagina principală">
     <div class="carousel-track" id="carouselTrack">
       <div class="carousel-slide">
-        <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=1400&q=85" alt="Tort elegant cu fragi" />
+        <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=1400&q=85" alt="Tort elegant cu fragi și frișcă naturală — Dulce Vis Patiserie Artizanală" loading="eager" fetchpriority="high" />
       </div>
       <div class="carousel-slide">
-        <img src="https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=1400&q=85" alt="Patiserie artizanală" />
+        <img src="https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=1400&q=85" alt="Produse de patiserie artizanală asortate — Dulce Vis" loading="lazy" />
       </div>
       <div class="carousel-slide">
-        <img src="https://images.unsplash.com/photo-1558326567-98ae2405596b?w=1400&q=85" alt="Macarons colorați" />
+        <img src="https://images.unsplash.com/photo-1558326567-98ae2405596b?w=1400&q=85" alt="Macarons parizieni colorați asortați — Dulce Vis" loading="lazy" />
       </div>
       <div class="carousel-slide">
-        <img src="https://images.unsplash.com/photo-1542124948-dc391252a940?w=1400&q=85" alt="Tiramisu clasic" />
+        <img src="https://images.unsplash.com/photo-1542124948-dc391252a940?w=1400&q=85" alt="Tiramisu clasic italian cu mascarpone — Dulce Vis" loading="lazy" />
       </div>
       <div class="carousel-slide">
-        <img src="https://images.unsplash.com/photo-1606890737304-57a1ca8a5b62?w=1400&q=85" alt="Desert fin" />
+        <img src="https://images.unsplash.com/photo-1606890737304-57a1ca8a5b62?w=1400&q=85" alt="Desert fin de patiserie artizanală — Dulce Vis" loading="lazy" />
       </div>
     </div>
 
@@ -1292,7 +1341,7 @@
   <!-- =============================================
        PRAJITURI SLIDER
   ============================================= -->
-  <section class="prajituri-section" id="prajituri">
+  <section class="prajituri-section" id="prajituri" aria-label="Specialitățile noastre">
     <div class="section-header" data-animate>
       <span class="section-label">✦ Specialitățile noastre</span>
       <h2 class="section-title">Prăjiturile <em>noastre</em></h2>
@@ -1314,7 +1363,7 @@
   <!-- =============================================
        QUOTE STRIP
   ============================================= -->
-  <section class="quote-strip">
+  <section class="quote-strip" aria-label="Filosofia noastră">
     <p class="quote-text">"Dulciurile bune nu au nevoie de ocazie specială — ele <em>creează</em> ocazia."</p>
     <p class="quote-author">— Dulce Vis, cu drag ❤</p>
   </section>
@@ -1322,7 +1371,7 @@
   <!-- =============================================
        CONTACT SECTION
   ============================================= -->
-  <section class="contact-section" id="contact">
+  <section class="contact-section" id="contact" aria-label="Contact">
     <div class="contact-grid">
       <div class="contact-left" data-animate>
         <span class="section-label">✦ Hai să vorbim</span>
@@ -1360,6 +1409,8 @@
       </div>
     </div>
   </section>
+
+  </main><!-- /#continut-principal -->
 
   <!-- =============================================
        FOOTER
@@ -1516,7 +1567,7 @@
     document.getElementById('logo-text').innerHTML =
       CONFIG.numeSite.split(' ')[0] + ' <span>' + (CONFIG.numeSite.split(' ')[1] || '') + '</span>';
     document.querySelector('title').textContent =
-      CONFIG.numeSite + ' — ' + CONFIG.tagline;
+      CONFIG.numeSite + ' — ' + CONFIG.tagline + ' | Prăjituri, Torturi & Macarons';
     document.getElementById('hero-title').innerHTML =
       CONFIG.heroTitlu.replace(/\n/g, '<br />').replace(/(o poveste dulce|sweet|special)/gi, '<em>$1</em>');
     document.getElementById('hero-subtitle').textContent = CONFIG.heroSubtitlu;
@@ -1538,7 +1589,7 @@
     const socialLinks = document.getElementById('social-links');
     socialData.forEach(s => {
       socialLinks.innerHTML += `
-        <a href="${s.url}" target="_blank" rel="noopener" class="social-link ${s.cls}">
+        <a href="${s.url}" target="_blank" rel="noopener noreferrer" class="social-link ${s.cls}">
           <div class="social-icon">${s.icon}</div>
           <div class="social-info">
             <span class="social-name">${s.name}</span>
@@ -1743,6 +1794,85 @@
     }, { threshold: 0.15 });
 
     document.querySelectorAll('[data-animate]').forEach(el => observer.observe(el));
+
+    /* ── Canonical URL & og:url ─────────────────────────────────── */
+    const pageUrl = window.location.origin + window.location.pathname;
+    const canonicalEl = document.createElement('link');
+    canonicalEl.rel = 'canonical';
+    canonicalEl.href = pageUrl;
+    document.head.appendChild(canonicalEl);
+    const ogUrlEl = document.getElementById('og-url-meta');
+    if (ogUrlEl) ogUrlEl.content = pageUrl;
+
+    /* ── JSON-LD Structured Data ────────────────────────────────── */
+    const structuredData = {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Bakery",
+          "@id": pageUrl + "#business",
+          "name": CONFIG.numeSite,
+          "description": "Patiserie artizanală cu prăjituri făcute cu dragoste din cele mai fine ingrediente. Torturi personalizate, macarons parizieni, eclere, cheesecake și tiramisu.",
+          "url": pageUrl,
+          "telephone": CONFIG.whatsapp,
+          "email": CONFIG.email,
+          "sameAs": [CONFIG.instagramUrl, CONFIG.facebookUrl],
+          "image": "https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=1200&q=85",
+          "priceRange": "90–220 lei/kg",
+          "servesCuisine": ["Patiserie Artizanală", "Deserturi Fine"],
+          "foundingDate": CONFIG.anFondare,
+          "hasOfferCatalog": {
+            "@type": "OfferCatalog",
+            "name": "Specialitățile " + CONFIG.numeSite,
+            "itemListElement": PRAJITURI.map((p, i) => ({
+              "@type": "ListItem",
+              "position": i + 1,
+              "item": {
+                "@type": "Product",
+                "name": p.nume,
+                "description": p.descriere,
+                "image": p.imagine,
+                "category": p.categorie,
+                "aggregateRating": {
+                  "@type": "AggregateRating",
+                  "ratingValue": "5",
+                  "bestRating": "5",
+                  "ratingCount": "1"
+                },
+                "offers": {
+                  "@type": "Offer",
+                  "price": p.pret.replace(/[^\d]/g, ''),
+                  "priceCurrency": "RON",
+                  "availability": "https://schema.org/InStock",
+                  "priceSpecification": {
+                    "@type": "UnitPriceSpecification",
+                    "price": p.pret.replace(/[^\d]/g, ''),
+                    "priceCurrency": "RON",
+                    "referenceQuantity": {
+                      "@type": "QuantitativeValue",
+                      "value": "1",
+                      "unitCode": "KGM"
+                    }
+                  }
+                }
+              }
+            }))
+          }
+        },
+        {
+          "@type": "WebSite",
+          "@id": pageUrl + "#website",
+          "name": CONFIG.numeSite,
+          "description": CONFIG.heroSubtitlu,
+          "url": pageUrl,
+          "inLanguage": "ro-RO"
+        }
+      ]
+    };
+    const ldScript = document.createElement('script');
+    ldScript.type = 'application/ld+json';
+    ldScript.textContent = JSON.stringify(structuredData);
+    document.head.appendChild(ldScript);
   </script>
 </body>
 </html>
