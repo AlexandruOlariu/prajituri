@@ -929,6 +929,64 @@
     }
 
     /* =============================================
+       MODAL GALLERY CONTROLS
+    ============================================= */
+    #modalImg {
+      transition: opacity 0.2s ease;
+    }
+
+    .modal-gallery-prev,
+    .modal-gallery-next {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 5;
+      background: rgba(255,255,255,0.18);
+      border: 1px solid rgba(255,255,255,0.35);
+      color: var(--alb);
+      width: 34px; height: 34px;
+      border-radius: 50%;
+      font-size: 0.95rem;
+      cursor: pointer;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      transition: background 0.2s;
+    }
+
+    .modal-gallery-prev { left: 10px; }
+    .modal-gallery-next { right: 10px; }
+    .modal-gallery-prev:hover,
+    .modal-gallery-next:hover { background: rgba(233,30,140,0.5); }
+
+    .modal-gallery-dots {
+      position: absolute;
+      bottom: 52px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 6px;
+      z-index: 5;
+    }
+
+    .modal-gallery-dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.4);
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      transition: background 0.25s, transform 0.25s;
+    }
+
+    .modal-gallery-dot.active {
+      background: var(--alb);
+      transform: scale(1.35);
+    }
+
+    /* =============================================
        QUOTE / ABOUT STRIP
     ============================================= */
     .quote-strip {
@@ -1430,6 +1488,9 @@
         <img src="" alt="" id="modalImg" />
         <span class="modal-img-badge" id="modalBadge"></span>
         <button class="modal-close" id="modalClose" aria-label="Închide">✕</button>
+        <button class="modal-gallery-prev" id="modalGalleryPrev" aria-label="Imaginea anterioară">&#8592;</button>
+        <button class="modal-gallery-next" id="modalGalleryNext" aria-label="Imaginea următoare">&#8594;</button>
+        <div class="modal-gallery-dots" id="modalGalleryDots"></div>
       </div>
       <div class="modal-content-side">
         <span class="modal-tag" id="modalTag"></span>
@@ -1470,7 +1531,7 @@
       {
         nume: "Tort cu Fragi și Frișcă",
         tag: "Bestseller",
-        imagine: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=700&q=85",
+        imagini: ["https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=700&q=85"],
         descriere: "Un tort aerian și elegant, cu blat pufos de vanilie, strat generos de frișcă naturală și fragi proaspeți aranjați cu grijă. Perfect pentru ocazii speciale.",
         stele: "★★★★★",
         pret: "~130 lei/kg",
@@ -1486,7 +1547,7 @@
       {
         nume: "Éclair cu Ciocolată Belgiană",
         tag: "Nou",
-        imagine: "https://images.unsplash.com/photo-1603532648955-039310d9ed75?w=700&q=85",
+        imagini: ["https://images.unsplash.com/photo-1603532648955-039310d9ed75?w=700&q=85"],
         descriere: "Eclere clasice franțuzești umplute cu cremă de patisier și acoperite cu glazură fină din ciocolată belgiană neagră 70%. Crusta perfectă, crema mătăsoasă.",
         stele: "★★★★★",
         pret: "~90 lei/kg",
@@ -1502,7 +1563,7 @@
       {
         nume: "Cheesecake Fructe de Pădure",
         tag: "Fără coacere",
-        imagine: "https://images.unsplash.com/photo-1533134242443-d4fd215305ad?w=700&q=85",
+        imagini: ["https://images.unsplash.com/photo-1533134242443-d4fd215305ad?w=700&q=85"],
         descriere: "Cheesecake cremos pe bază de biscuiți, cu umplutură bogată de mascarpone și brânză Philadelphia, acoperit cu un sos vibrant de fructe de pădure.",
         stele: "★★★★★",
         pret: "~110 lei/kg",
@@ -1518,7 +1579,7 @@
       {
         nume: "Tiramisu Classic",
         tag: "Tradițional",
-        imagine: "https://images.unsplash.com/photo-1542124948-dc391252a940?w=700&q=85",
+        imagini: ["https://images.unsplash.com/photo-1542124948-dc391252a940?w=700&q=85"],
         descriere: "Rețeta originală italiană cu piscoturi Savoiardi înmuiate în espresso, cremă bogată de mascarpone și gălbenușuri, pudrate generos cu cacao Valrhona.",
         stele: "★★★★★",
         pret: "~95 lei/kg",
@@ -1534,7 +1595,7 @@
       {
         nume: "Macarons Parizieni",
         tag: "Artizanal",
-        imagine: "https://images.unsplash.com/photo-1558326567-98ae2405596b?w=700&q=85",
+        imagini: ["https://images.unsplash.com/photo-1558326567-98ae2405596b?w=700&q=85"],
         descriere: "Macarons delicați cu cochilie crocantă și interior moale, umplute cu ganache fin. Disponibili în arome de zmeură, vanilie, ciocolată și pistachio.",
         stele: "★★★★★",
         pret: "~220 lei/kg",
@@ -1550,7 +1611,7 @@
       {
         nume: "Tort Red Velvet",
         tag: "Special",
-        imagine: "https://images.unsplash.com/photo-1586788680434-30d324b2d46f?w=700&q=85",
+        imagini: ["https://images.unsplash.com/photo-1586788680434-30d324b2d46f?w=700&q=85"],
         descriere: "Tort sofisticat cu blat catifelat de culoare roșu-rubin și cremă bogată de cream cheese. Un desert dramatic și delicios, perfect pentru aniversări.",
         stele: "★★★★★",
         pret: "~140 lei/kg",
@@ -1566,7 +1627,7 @@
       {
         nume: "Choux cu Inserție",
         tag: "Premium",
-        imagine: "https://images.unsplash.com/photo-1557308536-ee471ef2c390?w=700&q=85",
+        imagini: ["https://images.unsplash.com/photo-1557308536-ee471ef2c390?w=700&q=85"],
         descriere: "Choux-uri ușoare și crocante, cu inserție surpriză în interior. Disponibile cu cremă fină de fistic, coulis de zmeură, căpșuni proaspeți sau fructe de pădure. Fiecare bucățică ascunde un miez aromat.",
         stele: "★★★★★",
         pret: "~105 lei/kg",
@@ -1695,7 +1756,7 @@
       sliderTrack.innerHTML += `
         <div class="cake-card" data-index="${i}">
           <div class="cake-card-img-wrap">
-            <img class="cake-card-img" src="${p.imagine}" alt="${p.nume}" loading="lazy" />
+            <img class="cake-card-img" src="${p.imagini[0]}" alt="${p.nume}" loading="lazy" />
             <span class="cake-tag">${p.tag}</span>
           </div>
           <div class="cake-card-body">
@@ -1750,10 +1811,32 @@
     const modalOrder= document.getElementById('modalOrderBtn');
     const modalPrice= document.getElementById('modalPrice');
 
+    /* ── Modal gallery state ─────────────────────────────────── */
+    let galleryImages = [];
+    let galleryIndex  = 0;
+    const galleryPrev = document.getElementById('modalGalleryPrev');
+    const galleryNext = document.getElementById('modalGalleryNext');
+    const galleryDots = document.getElementById('modalGalleryDots');
+
+    function setGallerySlide(i) {
+      galleryIndex = (i + galleryImages.length) % galleryImages.length;
+      modalImg.style.opacity = '0';
+      setTimeout(() => {
+        modalImg.src = galleryImages[galleryIndex];
+        modalImg.style.opacity = '1';
+      }, 150);
+      galleryDots.querySelectorAll('.modal-gallery-dot')
+        .forEach((d, idx) => d.classList.toggle('active', idx === galleryIndex));
+    }
+
     function openModal(index) {
       const p = PRAJITURI[index];
-      modalImg.src     = p.imagine;
-      modalImg.alt     = p.nume;
+      galleryImages = p.imagini;
+      galleryIndex  = 0;
+
+      modalImg.src   = galleryImages[0];
+      modalImg.alt   = p.nume;
+      modalImg.style.opacity = '1';
       modalBadge.textContent = p.categorie;
       modalTag.textContent   = p.tag;
       modalTitle.textContent = p.nume;
@@ -1767,6 +1850,16 @@
         `<li><span class="step-num">${i+1}</span><span>${s}</span></li>`).join('');
 
       modalOrder.href = `#contact`;
+
+      /* Gallery controls */
+      const multi = galleryImages.length > 1;
+      galleryPrev.style.display = multi ? 'flex' : 'none';
+      galleryNext.style.display = multi ? 'flex' : 'none';
+      galleryDots.innerHTML = multi
+        ? galleryImages.map((_, i) =>
+            `<button class="modal-gallery-dot${i === 0 ? ' active' : ''}" data-gi="${i}" aria-label="Imaginea ${i+1}"></button>`
+          ).join('')
+        : '';
 
       overlay.classList.add('open');
       document.body.style.overflow = 'hidden';
@@ -1792,6 +1885,23 @@
 
     // ESC key
     document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+    // Gallery navigation
+    galleryPrev.addEventListener('click', () => setGallerySlide(galleryIndex - 1));
+    galleryNext.addEventListener('click', () => setGallerySlide(galleryIndex + 1));
+    galleryDots.addEventListener('click', e => {
+      const dot = e.target.closest('.modal-gallery-dot');
+      if (dot) setGallerySlide(parseInt(dot.dataset.gi));
+    });
+
+    // Touch swipe pe imaginea din modal
+    let modalTouchX = 0;
+    modalImg.addEventListener('touchstart', e => { modalTouchX = e.touches[0].clientX; }, { passive: true });
+    modalImg.addEventListener('touchend', e => {
+      if (galleryImages.length < 2) return;
+      const diff = modalTouchX - e.changedTouches[0].clientX;
+      if (Math.abs(diff) > 40) setGallerySlide(galleryIndex + (diff > 0 ? 1 : -1));
+    }, { passive: true });
 
     /* ── Contact form — FormSubmit.co AJAX ─────────────────────── */
     document.getElementById('contactForm').addEventListener('submit', e => {
@@ -1879,7 +1989,7 @@
                 "@type": "Product",
                 "name": p.nume,
                 "description": p.descriere,
-                "image": p.imagine,
+                "image": p.imagini[0],
                 "category": p.categorie,
                 "aggregateRating": {
                   "@type": "AggregateRating",
