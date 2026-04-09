@@ -1391,17 +1391,17 @@
         <form id="contactForm">
           <div class="form-group">
             <label>Numele tău</label>
-            <input type="text" placeholder="ex. Maria Ionescu" required />
+            <input type="text" name="Nume" placeholder="ex. Maria Ionescu" required />
           </div>
           <div class="form-group">
             <label>Email sau telefon</label>
-            <input type="text" placeholder="ex. maria@gmail.com sau 07xx xxx xxx" required />
+            <input type="text" name="Email_Telefon" placeholder="ex. maria@gmail.com sau 07xx xxx xxx" required />
           </div>
           <div class="form-group">
             <label>Mesajul tău</label>
-            <textarea placeholder="Descrie ce îți dorești — prăjitură, tort personalizat, comandă..."></textarea>
+            <textarea name="Mesaj" placeholder="Descrie ce îți dorești — prăjitură, tort personalizat, comandă..."></textarea>
           </div>
-          <button type="submit" class="form-submit">Trimite mesajul ✦</button>
+          <button type="submit" class="form-submit" id="formSubmitBtn">Trimite mesajul ✦</button>
           <div class="form-success" id="formSuccess">
             ✓ Mesajul a fost trimis! Te contactez în curând. 🎂
           </div>
@@ -1791,12 +1791,42 @@
     // ESC key
     document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 
-    /* ── Contact form (simulat) ─────────────────────────────────── */
+    /* ── Contact form — FormSubmit.co AJAX ─────────────────────── */
     document.getElementById('contactForm').addEventListener('submit', e => {
       e.preventDefault();
-      document.getElementById('formSuccess').style.display = 'block';
-      e.target.querySelectorAll('input, textarea, button[type=submit]')
-        .forEach(el => el.style.opacity = '0.4');
+      const form  = e.target;
+      const btn   = document.getElementById('formSubmitBtn');
+      const originalText = btn.textContent;
+
+      btn.textContent = 'Se trimite...';
+      btn.disabled = true;
+
+      fetch('https://formsubmit.co/ajax/' + CONFIG.email, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({
+          Nume:          form.querySelector('[name="Nume"]').value,
+          Email_Telefon: form.querySelector('[name="Email_Telefon"]').value,
+          Mesaj:         form.querySelector('[name="Mesaj"]').value,
+          _subject:      'Comandă nouă — ' + CONFIG.numeSite + ' 🎂',
+          _captcha:      'false'
+        })
+      })
+      .then(r => r.json())
+      .then(r => {
+        if (r.success === 'true' || r.success === true) {
+          document.getElementById('formSuccess').style.display = 'block';
+          form.querySelectorAll('input, textarea, button[type=submit]')
+            .forEach(el => el.style.opacity = '0.4');
+        } else {
+          btn.textContent = 'Eroare — încearcă din nou';
+          btn.disabled = false;
+        }
+      })
+      .catch(() => {
+        btn.textContent = 'Eroare — încearcă din nou';
+        btn.disabled = false;
+      });
     });
 
     /* ── Animate on scroll ──────────────────────────────────────── */
