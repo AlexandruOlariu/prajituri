@@ -24,7 +24,6 @@
   <meta property="og:image:alt" content="Tort elegant cu fragi și frișcă naturală — Dulce Vis Patiserie Artizanală" />
   <meta property="og:locale" content="ro_RO" />
   <meta property="og:site_name" content="Dulce Vis" />
-  <meta property="og:url" content="" id="og-url-meta" />
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image" />
@@ -1987,8 +1986,6 @@
     canonicalEl.rel = 'canonical';
     canonicalEl.href = pageUrl;
     document.head.appendChild(canonicalEl);
-    const ogUrlEl = document.getElementById('og-url-meta');
-    if (ogUrlEl) ogUrlEl.content = pageUrl;
 
     /* ── JSON-LD Structured Data ────────────────────────────────── */
     const structuredData = {
