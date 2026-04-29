@@ -85,6 +85,26 @@ const PRAJITURI = [
     ]
   },
   {
+    nume: "Tort de Ciocolată cu Vișine",
+    tag: "Bestseller",
+    imagini: [
+      "images/tort_cioco_1.jpeg",
+      "images/tort_cioco_2.jpeg",
+      "images/tort_cioco_3.jpeg",
+    ],
+    descriere: "Tort elegant cu blat pufos de cacao, straturi generoase de cremă de ciocolată și vișine, acoperit cu ganache negru lucios. Decorat cu praline artizanale și perle de zahăr — impresionează la orice ocazie.",
+    stele: "★★★★★",
+    pret: "~150 lei/kg",
+    categorie: "Torturi",
+    ingrediente: ["Blat de cacao", "Cacao neagră", "Ouă bio", "Zahăr", "Unt 82%", "Smântână 35%", "Ciocolată neagră 70%", "Vișine din compot", "Frișcă naturală 35%", "Praline ciocolată", "Perle de zahăr"],
+    preparare: [
+      "Blatul de cacao se prepară din ouă bătute cu zahăr, se încorporează cacao și făina, se coace la 180°C și se taie în 4–5 straturi egale.",
+      "Crema de ciocolată se obține din smântână fiartă cu ciocolată neagră, se răcește și se bate până devine aerată și fermă.",
+      "Se montează tortul alternând straturi de blat, cremă de ciocolată și vișine bine scurse.",
+      "Exteriorul se acoperă cu ganache lucios, se decorează cu rozete de cremă, praline asortate și perle de zahăr."
+    ]
+  },
+  {
     nume: "Madlene",
     tag: "Clasic",
     imagini: [
