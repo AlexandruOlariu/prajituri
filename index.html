@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ro">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -9,15 +10,18 @@
   <title>Dulce Vis — Patiserie Artizanală | Prăjituri, Torturi &amp; Macarons</title>
 
   <!-- SEO Primar -->
-  <meta name="description" content="Dulce Vis – patiserie artizanală cu prăjituri făcute manual din ingrediente fine. Torturi personalizate, macarons parizieni, eclere, cheesecake și tiramisu. Comandă acum!" />
-  <meta name="keywords" content="prăjituri artizanale, torturi personalizate, patiserie artizanală, macarons parizieni, eclere ciocolată belgiană, cheesecake fructe de pădure, tiramisu, red velvet, comandă prăjituri, Dulce Vis, Bianca Murariu" />
+  <meta name="description"
+    content="Dulce Vis – patiserie artizanală cu prăjituri făcute manual din ingrediente fine. Torturi personalizate, macarons parizieni, eclere, cheesecake și tiramisu. Comandă acum!" />
+  <meta name="keywords"
+    content="prăjituri artizanale, torturi personalizate, patiserie artizanală, macarons parizieni, eclere ciocolată belgiană, cheesecake fructe de pădure, tiramisu, red velvet, comandă prăjituri, Dulce Vis, Bianca Murariu" />
   <meta name="author" content="Bianca Murariu" />
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
 
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Dulce Vis — Patiserie Artizanală | Prăjituri cu Dragoste" />
-  <meta property="og:description" content="Prăjituri artizanale făcute cu dragoste din ingrediente fine. Torturi personalizate, macarons parizieni, eclere și cheesecake. Comandă acum!" />
+  <meta property="og:description"
+    content="Prăjituri artizanale făcute cu dragoste din ingrediente fine. Torturi personalizate, macarons parizieni, eclere și cheesecake. Comandă acum!" />
   <meta property="og:image" content="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=1200&q=85" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="800" />
@@ -28,36 +32,47 @@
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Dulce Vis — Patiserie Artizanală" />
-  <meta name="twitter:description" content="Prăjituri artizanale făcute cu dragoste din ingrediente fine. Torturi personalizate, macarons, eclere, cheesecake." />
+  <meta name="twitter:description"
+    content="Prăjituri artizanale făcute cu dragoste din ingrediente fine. Torturi personalizate, macarons, eclere, cheesecake." />
   <meta name="twitter:image" content="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=1200&q=85" />
 
   <!-- Performance -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="dns-prefetch" href="https://images.unsplash.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Lato:wght@300;400;700&display=swap"
+    rel="stylesheet" />
   <style>
     /* =============================================
        CONFIGURARE CULORI — modifică ușor aici
     ============================================= */
     :root {
-      --roz:       #e91e8c;
+      --roz: #e91e8c;
       --roz-deschis: #fce4f3;
-      --roz-card:  #fdf0f8;
-      --auriu:     #c9a84c;
+      --roz-card: #fdf0f8;
+      --auriu: #c9a84c;
       --auriu-deschis: #f7e9c0;
       --text-inchis: #2d1a26;
-      --text-gri:  #7a5c6e;
-      --alb:       #ffffff;
-      --fundal:    #fff8fd;
+      --text-gri: #7a5c6e;
+      --alb: #ffffff;
+      --fundal: #fff8fd;
     }
 
     /* =============================================
        RESET & BASE
     ============================================= */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-    html { scroll-behavior: smooth; }
+    html {
+      scroll-behavior: smooth;
+    }
 
     body {
       font-family: 'Lato', sans-serif;
@@ -66,11 +81,15 @@
       overflow-x: hidden;
     }
 
-    h1, h2, h3, h4 {
+    h1,
+    h2,
+    h3,
+    h4 {
       font-family: 'Playfair Display', serif;
     }
 
-    button, a {
+    button,
+    a {
       -webkit-tap-highlight-color: transparent;
       touch-action: manipulation;
     }
@@ -89,22 +108,27 @@
       transition: top 0.2s;
       text-decoration: none;
     }
-    .skip-link:focus { top: 0; }
+
+    .skip-link:focus {
+      top: 0;
+    }
 
     /* =============================================
        NAVBAR
     ============================================= */
     nav {
       position: fixed;
-      top: 0; left: 0; right: 0;
+      top: 0;
+      left: 0;
+      right: 0;
       z-index: 1000;
       display: flex;
       align-items: center;
       justify-content: space-between;
       padding: 18px 48px;
-      background: rgba(255,255,255,0.92);
+      background: rgba(255, 255, 255, 0.92);
       backdrop-filter: blur(12px);
-      box-shadow: 0 2px 20px rgba(233,30,140,0.08);
+      box-shadow: 0 2px 20px rgba(233, 30, 140, 0.08);
       transition: padding 0.3s;
     }
 
@@ -141,15 +165,22 @@
     .nav-links a::after {
       content: '';
       position: absolute;
-      bottom: -4px; left: 0; right: 0;
+      bottom: -4px;
+      left: 0;
+      right: 0;
       height: 2px;
       background: var(--roz);
       transform: scaleX(0);
       transition: transform 0.3s;
     }
 
-    .nav-links a:hover { color: var(--roz); }
-    .nav-links a:hover::after { transform: scaleX(1); }
+    .nav-links a:hover {
+      color: var(--roz);
+    }
+
+    .nav-links a:hover::after {
+      transform: scaleX(1);
+    }
 
     .nav-cta {
       background: linear-gradient(135deg, var(--roz), #c0157a);
@@ -160,11 +191,13 @@
     }
 
     .nav-cta:hover {
-      box-shadow: 0 4px 20px rgba(233,30,140,0.4);
+      box-shadow: 0 4px 20px rgba(233, 30, 140, 0.4);
       transform: translateY(-1px);
     }
 
-    .nav-cta::after { display: none !important; }
+    .nav-cta::after {
+      display: none !important;
+    }
 
     /* =============================================
        HAMBURGER BUTTON
@@ -191,9 +224,18 @@
       transition: transform 0.3s, opacity 0.3s;
     }
 
-    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-    .hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
-    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    .hamburger.open span:nth-child(1) {
+      transform: translateY(7px) rotate(45deg);
+    }
+
+    .hamburger.open span:nth-child(2) {
+      opacity: 0;
+      transform: scaleX(0);
+    }
+
+    .hamburger.open span:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg);
+    }
 
     /* =============================================
        MOBILE MENU OVERLAY
@@ -231,7 +273,9 @@
       text-align: center;
     }
 
-    .mobile-menu a:hover { color: var(--roz); }
+    .mobile-menu a:hover {
+      color: var(--roz);
+    }
 
     .mobile-menu-divider {
       width: 40px;
@@ -251,7 +295,7 @@
       letter-spacing: 1px;
       text-transform: uppercase;
       margin-top: 20px;
-      box-shadow: 0 8px 30px rgba(233,30,140,0.3);
+      box-shadow: 0 8px 30px rgba(233, 30, 140, 0.3);
     }
 
     /* =============================================
@@ -312,7 +356,7 @@
       position: absolute;
       inset: 0;
       display: flex;
-      transition: transform 0.9s cubic-bezier(0.77,0,0.18,1);
+      transition: transform 0.9s cubic-bezier(0.77, 0, 0.18, 1);
     }
 
     .carousel-slide {
@@ -332,12 +376,10 @@
       content: '';
       position: absolute;
       inset: 0;
-      background: linear-gradient(
-        135deg,
-        rgba(45,26,38,0.65) 0%,
-        rgba(233,30,140,0.2) 50%,
-        rgba(45,26,38,0.4) 100%
-      );
+      background: linear-gradient(135deg,
+          rgba(45, 26, 38, 0.65) 0%,
+          rgba(233, 30, 140, 0.2) 50%,
+          rgba(45, 26, 38, 0.4) 100%);
     }
 
     /* Hero text */
@@ -351,7 +393,7 @@
 
     .hero-badge {
       display: inline-block;
-      background: rgba(201,168,76,0.25);
+      background: rgba(201, 168, 76, 0.25);
       border: 1px solid var(--auriu);
       color: var(--auriu-deschis);
       font-size: 0.75rem;
@@ -366,7 +408,7 @@
       font-size: clamp(3rem, 7vw, 6rem);
       line-height: 1.1;
       margin-bottom: 20px;
-      text-shadow: 0 2px 30px rgba(0,0,0,0.3);
+      text-shadow: 0 2px 30px rgba(0, 0, 0, 0.3);
     }
 
     .hero-title em {
@@ -394,13 +436,13 @@
       font-weight: 700;
       letter-spacing: 1px;
       text-transform: uppercase;
-      box-shadow: 0 8px 30px rgba(233,30,140,0.45);
+      box-shadow: 0 8px 30px rgba(233, 30, 140, 0.45);
       transition: transform 0.2s, box-shadow 0.3s;
     }
 
     .hero-btn:hover {
       transform: translateY(-3px);
-      box-shadow: 0 14px 40px rgba(233,30,140,0.55);
+      box-shadow: 0 14px 40px rgba(233, 30, 140, 0.55);
     }
 
     /* Carousel dots */
@@ -415,9 +457,10 @@
     }
 
     .dot {
-      width: 10px; height: 10px;
+      width: 10px;
+      height: 10px;
       border-radius: 50%;
-      background: rgba(255,255,255,0.4);
+      background: rgba(255, 255, 255, 0.4);
       cursor: pointer;
       transition: background 0.3s, transform 0.3s;
       border: none;
@@ -434,10 +477,11 @@
       top: 50%;
       transform: translateY(-50%);
       z-index: 10;
-      background: rgba(255,255,255,0.15);
-      border: 2px solid rgba(255,255,255,0.4);
+      background: rgba(255, 255, 255, 0.15);
+      border: 2px solid rgba(255, 255, 255, 0.4);
       color: var(--alb);
-      width: 52px; height: 52px;
+      width: 52px;
+      height: 52px;
       border-radius: 50%;
       font-size: 1.4rem;
       cursor: pointer;
@@ -448,9 +492,18 @@
       backdrop-filter: blur(6px);
     }
 
-    .carousel-arrow:hover { background: rgba(233,30,140,0.5); border-color: var(--roz); }
-    .carousel-arrow.prev { left: 24px; }
-    .carousel-arrow.next { right: 24px; }
+    .carousel-arrow:hover {
+      background: rgba(233, 30, 140, 0.5);
+      border-color: var(--roz);
+    }
+
+    .carousel-arrow.prev {
+      left: 24px;
+    }
+
+    .carousel-arrow.next {
+      right: 24px;
+    }
 
     /* Scroll indicator */
     .scroll-indicator {
@@ -462,7 +515,7 @@
       flex-direction: column;
       align-items: center;
       gap: 8px;
-      color: rgba(255,255,255,0.7);
+      color: rgba(255, 255, 255, 0.7);
       font-size: 0.7rem;
       letter-spacing: 2px;
       text-transform: uppercase;
@@ -471,13 +524,22 @@
     .scroll-line {
       width: 1px;
       height: 50px;
-      background: linear-gradient(to bottom, rgba(255,255,255,0.7), transparent);
+      background: linear-gradient(to bottom, rgba(255, 255, 255, 0.7), transparent);
       animation: scrollPulse 2s ease-in-out infinite;
     }
 
     @keyframes scrollPulse {
-      0%, 100% { opacity: 1; transform: scaleY(1); }
-      50% { opacity: 0.4; transform: scaleY(0.7); }
+
+      0%,
+      100% {
+        opacity: 1;
+        transform: scaleY(1);
+      }
+
+      50% {
+        opacity: 0.4;
+        transform: scaleY(0.7);
+      }
     }
 
     /* =============================================
@@ -525,7 +587,9 @@
       background: var(--fundal);
     }
 
-    .prajituri-section .section-header { padding: 0 48px; }
+    .prajituri-section .section-header {
+      padding: 0 48px;
+    }
 
     .slider-wrapper {
       position: relative;
@@ -544,8 +608,13 @@
       cursor: grab;
     }
 
-    .slider-track::-webkit-scrollbar { display: none; }
-    .slider-track.grabbing { cursor: grabbing; }
+    .slider-track::-webkit-scrollbar {
+      display: none;
+    }
+
+    .slider-track.grabbing {
+      cursor: grabbing;
+    }
 
     /* Cake Card */
     .cake-card {
@@ -553,15 +622,15 @@
       background: var(--alb);
       border-radius: 24px;
       overflow: hidden;
-      box-shadow: 0 4px 20px rgba(233,30,140,0.08);
+      box-shadow: 0 4px 20px rgba(233, 30, 140, 0.08);
       cursor: pointer;
-      transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.35s;
+      transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.35s;
       position: relative;
     }
 
     .cake-card:hover {
       transform: translateY(-10px);
-      box-shadow: 0 20px 50px rgba(233,30,140,0.2);
+      box-shadow: 0 20px 50px rgba(233, 30, 140, 0.2);
     }
 
     .cake-card-img {
@@ -572,7 +641,9 @@
       transition: transform 0.5s;
     }
 
-    .cake-card:hover .cake-card-img { transform: scale(1.06); }
+    .cake-card:hover .cake-card-img {
+      transform: scale(1.06);
+    }
 
     .cake-card-img-wrap {
       overflow: hidden;
@@ -581,7 +652,8 @@
 
     .cake-tag {
       position: absolute;
-      top: 14px; right: 14px;
+      top: 14px;
+      right: 14px;
       background: linear-gradient(135deg, var(--roz), #c0157a);
       color: var(--alb);
       font-size: 0.65rem;
@@ -654,7 +726,8 @@
     }
 
     .slider-btn {
-      width: 46px; height: 46px;
+      width: 46px;
+      height: 46px;
       border-radius: 50%;
       border: 2px solid var(--roz);
       background: var(--alb);
@@ -677,7 +750,8 @@
     .slider-wrapper::after {
       content: '';
       position: absolute;
-      top: 0; bottom: 0;
+      top: 0;
+      bottom: 0;
       width: 60px;
       z-index: 2;
       pointer-events: none;
@@ -699,7 +773,7 @@
     .modal-overlay {
       position: fixed;
       inset: 0;
-      background: rgba(45,26,38,0.7);
+      background: rgba(45, 26, 38, 0.7);
       z-index: 2000;
       display: flex;
       align-items: center;
@@ -725,13 +799,15 @@
       overflow-y: auto;
       display: grid;
       grid-template-columns: 1fr 1fr;
-      box-shadow: 0 30px 80px rgba(0,0,0,0.3);
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.3);
       transform: scale(0.9) translateY(30px);
-      transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1);
+      transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
       scrollbar-width: none;
     }
 
-    .modal::-webkit-scrollbar { display: none; }
+    .modal::-webkit-scrollbar {
+      display: none;
+    }
 
     .modal-overlay.open .modal {
       transform: scale(1) translateY(0);
@@ -753,17 +829,18 @@
       content: '';
       position: absolute;
       inset: 0;
-      background: linear-gradient(to top, rgba(45,26,38,0.5) 0%, transparent 60%);
+      background: linear-gradient(to top, rgba(45, 26, 38, 0.5) 0%, transparent 60%);
       border-radius: 32px 0 0 32px;
     }
 
     .modal-img-badge {
       position: absolute;
-      bottom: 20px; left: 20px;
+      bottom: 20px;
+      left: 20px;
       z-index: 2;
-      background: rgba(255,255,255,0.2);
+      background: rgba(255, 255, 255, 0.2);
       backdrop-filter: blur(10px);
-      border: 1px solid rgba(255,255,255,0.4);
+      border: 1px solid rgba(255, 255, 255, 0.4);
       color: var(--alb);
       padding: 8px 16px;
       border-radius: 50px;
@@ -782,11 +859,13 @@
 
     .modal-close {
       position: absolute;
-      top: 20px; right: 20px;
+      top: 20px;
+      right: 20px;
       z-index: 10;
-      width: 40px; height: 40px;
+      width: 40px;
+      height: 40px;
       border-radius: 50%;
-      background: rgba(255,255,255,0.9);
+      background: rgba(255, 255, 255, 0.9);
       border: none;
       font-size: 1.2rem;
       cursor: pointer;
@@ -794,11 +873,14 @@
       align-items: center;
       justify-content: center;
       color: var(--text-inchis);
-      box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
       transition: background 0.2s;
     }
 
-    .modal-close:hover { background: var(--roz); color: var(--alb); }
+    .modal-close:hover {
+      background: var(--roz);
+      color: var(--alb);
+    }
 
     .modal-tag {
       display: inline-block;
@@ -905,7 +987,7 @@
     }
 
     .modal-btn-primary:hover {
-      box-shadow: 0 8px 25px rgba(233,30,140,0.4);
+      box-shadow: 0 8px 25px rgba(233, 30, 140, 0.4);
       transform: translateY(-2px);
     }
 
@@ -940,10 +1022,11 @@
       top: 50%;
       transform: translateY(-50%);
       z-index: 5;
-      background: rgba(255,255,255,0.18);
-      border: 1px solid rgba(255,255,255,0.35);
+      background: rgba(255, 255, 255, 0.18);
+      border: 1px solid rgba(255, 255, 255, 0.35);
       color: var(--alb);
-      width: 34px; height: 34px;
+      width: 34px;
+      height: 34px;
       border-radius: 50%;
       font-size: 0.95rem;
       cursor: pointer;
@@ -955,10 +1038,18 @@
       transition: background 0.2s;
     }
 
-    .modal-gallery-prev { left: 10px; }
-    .modal-gallery-next { right: 10px; }
+    .modal-gallery-prev {
+      left: 10px;
+    }
+
+    .modal-gallery-next {
+      right: 10px;
+    }
+
     .modal-gallery-prev:hover,
-    .modal-gallery-next:hover { background: rgba(233,30,140,0.5); }
+    .modal-gallery-next:hover {
+      background: rgba(233, 30, 140, 0.5);
+    }
 
     .modal-gallery-dots {
       position: absolute;
@@ -971,9 +1062,10 @@
     }
 
     .modal-gallery-dot {
-      width: 7px; height: 7px;
+      width: 7px;
+      height: 7px;
       border-radius: 50%;
-      background: rgba(255,255,255,0.4);
+      background: rgba(255, 255, 255, 0.4);
       border: none;
       cursor: pointer;
       padding: 0;
@@ -1000,8 +1092,9 @@
       content: '❝';
       position: absolute;
       font-size: 20rem;
-      color: rgba(255,255,255,0.04);
-      top: -40px; left: -20px;
+      color: rgba(255, 255, 255, 0.04);
+      top: -40px;
+      left: -20px;
       font-family: Georgia, serif;
       line-height: 1;
     }
@@ -1018,7 +1111,7 @@
 
     .quote-author {
       font-size: 0.85rem;
-      color: rgba(255,255,255,0.7);
+      color: rgba(255, 255, 255, 0.7);
       letter-spacing: 2px;
       text-transform: uppercase;
     }
@@ -1046,7 +1139,10 @@
       color: var(--text-inchis);
     }
 
-    .contact-left h2 em { font-style: italic; color: var(--roz); }
+    .contact-left h2 em {
+      font-style: italic;
+      color: var(--roz);
+    }
 
     .contact-left p {
       font-size: 1rem;
@@ -1069,17 +1165,18 @@
       padding: 16px 22px;
       border-radius: 18px;
       background: var(--alb);
-      box-shadow: 0 3px 15px rgba(233,30,140,0.07);
+      box-shadow: 0 3px 15px rgba(233, 30, 140, 0.07);
       transition: transform 0.25s, box-shadow 0.25s;
     }
 
     .social-link:hover {
       transform: translateX(6px);
-      box-shadow: 0 8px 30px rgba(233,30,140,0.18);
+      box-shadow: 0 8px 30px rgba(233, 30, 140, 0.18);
     }
 
     .social-icon {
-      width: 48px; height: 48px;
+      width: 48px;
+      height: 48px;
       border-radius: 14px;
       display: flex;
       align-items: center;
@@ -1088,12 +1185,26 @@
       flex: 0 0 auto;
     }
 
-    .social-instagram .social-icon { background: linear-gradient(135deg, #f58529, #dd2a7b, #8134af); }
-    .social-whatsapp .social-icon  { background: #25D366; }
-    .social-facebook .social-icon  { background: #1877F2; }
-    .social-email .social-icon     { background: linear-gradient(135deg, var(--roz), #c0157a); }
+    .social-instagram .social-icon {
+      background: linear-gradient(135deg, #f58529, #dd2a7b, #8134af);
+    }
 
-    .social-info { display: flex; flex-direction: column; }
+    .social-whatsapp .social-icon {
+      background: #25D366;
+    }
+
+    .social-facebook .social-icon {
+      background: #1877F2;
+    }
+
+    .social-email .social-icon {
+      background: linear-gradient(135deg, var(--roz), #c0157a);
+    }
+
+    .social-info {
+      display: flex;
+      flex-direction: column;
+    }
 
     .social-name {
       font-size: 0.7rem;
@@ -1115,7 +1226,7 @@
       background: var(--alb);
       border-radius: 28px;
       padding: 40px;
-      box-shadow: 0 8px 40px rgba(233,30,140,0.08);
+      box-shadow: 0 8px 40px rgba(233, 30, 140, 0.08);
     }
 
     .contact-form h3 {
@@ -1156,10 +1267,12 @@
     .form-group input:focus,
     .form-group textarea:focus {
       border-color: var(--roz);
-      box-shadow: 0 0 0 4px rgba(233,30,140,0.1);
+      box-shadow: 0 0 0 4px rgba(233, 30, 140, 0.1);
     }
 
-    .form-group textarea { height: 110px; }
+    .form-group textarea {
+      height: 110px;
+    }
 
     .form-submit {
       width: 100%;
@@ -1176,7 +1289,7 @@
     }
 
     .form-submit:hover {
-      box-shadow: 0 8px 25px rgba(233,30,140,0.4);
+      box-shadow: 0 8px 25px rgba(233, 30, 140, 0.4);
       transform: translateY(-2px);
     }
 
@@ -1194,13 +1307,15 @@
     ============================================= */
     footer {
       background: var(--text-inchis);
-      color: rgba(255,255,255,0.5);
+      color: rgba(255, 255, 255, 0.5);
       text-align: center;
       padding: 32px 24px;
       font-size: 0.85rem;
     }
 
-    footer span { color: var(--roz); }
+    footer span {
+      color: var(--roz);
+    }
 
     /* =============================================
        ANIMATIONS
@@ -1220,31 +1335,70 @@
        RESPONSIVE
     ============================================= */
     @media (max-width: 768px) {
+
       /* Nav */
-      nav { padding: 16px 20px; }
-      .nav-links { display: none; }
-      .hamburger { display: flex; }
+      nav {
+        padding: 16px 20px;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .hamburger {
+        display: flex;
+      }
 
       /* Hero */
-      .hero { height: 100svh; min-height: 100vh; }
-      .hero-content { padding: 0 20px; }
-      .hero-btn { padding: 14px 36px; }
+      .hero {
+        height: 100svh;
+        min-height: 100vh;
+      }
+
+      .hero-content {
+        padding: 0 20px;
+      }
+
+      .hero-btn {
+        padding: 14px 36px;
+      }
 
       /* Carousel */
-      .carousel-arrow { display: none; }
+      .carousel-arrow {
+        display: none;
+      }
 
       /* Prajituri section */
-      .prajituri-section { padding: 70px 0 60px; }
-      .prajituri-section .section-header { padding: 0 24px; margin-bottom: 40px; }
+      .prajituri-section {
+        padding: 70px 0 60px;
+      }
+
+      .prajituri-section .section-header {
+        padding: 0 24px;
+        margin-bottom: 40px;
+      }
 
       /* Slider */
-      .slider-track { padding: 10px 20px; gap: 16px; }
-      .cake-card { flex: 0 0 260px; }
+      .slider-track {
+        padding: 10px 20px;
+        gap: 16px;
+      }
+
+      .cake-card {
+        flex: 0 0 260px;
+      }
+
       .slider-wrapper::before,
-      .slider-wrapper::after { display: none; }
+      .slider-wrapper::after {
+        display: none;
+      }
 
       /* Modal — bottom sheet */
-      .modal-overlay { align-items: flex-end; padding: 0; }
+      .modal-overlay {
+        align-items: flex-end;
+        padding: 0;
+      }
+
       .modal {
         grid-template-columns: 1fr;
         max-width: 100%;
@@ -1254,53 +1408,143 @@
         transform: translateY(100%);
         transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
       }
-      .modal-overlay.open .modal { transform: translateY(0); }
-      .modal-img-side { min-height: 0; height: 200px; }
-      .modal-img-side img { border-radius: 28px 28px 0 0; height: 200px; }
-      .modal-img-side::after { border-radius: 28px 28px 0 0; }
-      .modal-close { top: 12px; right: 12px; }
-      .modal-content-side { padding: 24px 24px 40px; gap: 16px; }
-      .modal-title { font-size: 1.6rem; }
-      .modal-price { font-size: 1.3rem; }
+
+      .modal-overlay.open .modal {
+        transform: translateY(0);
+      }
+
+      .modal-img-side {
+        min-height: 0;
+        height: 200px;
+      }
+
+      .modal-img-side img {
+        border-radius: 28px 28px 0 0;
+        height: 200px;
+      }
+
+      .modal-img-side::after {
+        border-radius: 28px 28px 0 0;
+      }
+
+      .modal-close {
+        top: 12px;
+        right: 12px;
+      }
+
+      .modal-content-side {
+        padding: 24px 24px 40px;
+        gap: 16px;
+      }
+
+      .modal-title {
+        font-size: 1.6rem;
+      }
+
+      .modal-price {
+        font-size: 1.3rem;
+      }
 
       /* Quote strip */
-      .quote-strip { padding: 60px 24px; }
+      .quote-strip {
+        padding: 60px 24px;
+      }
 
       /* Contact */
-      .contact-section { padding: 70px 24px 80px; }
-      .contact-grid { grid-template-columns: 1fr; gap: 40px; }
-      .contact-form { padding: 28px 24px; }
+      .contact-section {
+        padding: 70px 24px 80px;
+      }
+
+      .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+
+      .contact-form {
+        padding: 28px 24px;
+      }
 
       /* Prevent iOS zoom on input focus */
       .form-group input,
-      .form-group textarea { font-size: 16px; }
+      .form-group textarea {
+        font-size: 16px;
+      }
 
-      .scroll-indicator { display: none; }
+      .scroll-indicator {
+        display: none;
+      }
     }
 
     @media (max-width: 480px) {
-      .hero-title { font-size: clamp(2.2rem, 9vw, 3rem); }
-      .hero-btn { width: 100%; max-width: 300px; text-align: center; }
-      .hero-badge { font-size: 0.65rem; letter-spacing: 2px; }
+      .hero-title {
+        font-size: clamp(2.2rem, 9vw, 3rem);
+      }
 
-      .section-header { margin-bottom: 36px; }
-      .section-title { font-size: clamp(1.7rem, 7vw, 2.2rem); }
+      .hero-btn {
+        width: 100%;
+        max-width: 300px;
+        text-align: center;
+      }
 
-      .cake-card { flex: 0 0 calc(85vw); }
-      .slider-track { padding: 10px 16px; }
+      .hero-badge {
+        font-size: 0.65rem;
+        letter-spacing: 2px;
+      }
 
-      .modal-img-side { height: 180px; }
-      .modal-img-side img { height: 180px; }
-      .modal-title { font-size: 1.3rem; }
-      .modal-content-side { padding: 20px 20px 36px; gap: 14px; }
-      .modal-price { font-size: 1.2rem; }
-      .modal-btn-primary, .modal-btn-secondary { font-size: 0.85rem; padding: 12px 16px; }
+      .section-header {
+        margin-bottom: 36px;
+      }
 
-      .contact-form { padding: 24px 20px; }
-      .social-link { padding: 14px 18px; }
+      .section-title {
+        font-size: clamp(1.7rem, 7vw, 2.2rem);
+      }
+
+      .cake-card {
+        flex: 0 0 calc(85vw);
+      }
+
+      .slider-track {
+        padding: 10px 16px;
+      }
+
+      .modal-img-side {
+        height: 180px;
+      }
+
+      .modal-img-side img {
+        height: 180px;
+      }
+
+      .modal-title {
+        font-size: 1.3rem;
+      }
+
+      .modal-content-side {
+        padding: 20px 20px 36px;
+        gap: 14px;
+      }
+
+      .modal-price {
+        font-size: 1.2rem;
+      }
+
+      .modal-btn-primary,
+      .modal-btn-secondary {
+        font-size: 0.85rem;
+        padding: 12px 16px;
+      }
+
+      .contact-form {
+        padding: 24px 20px;
+      }
+
+      .social-link {
+        padding: 14px 18px;
+      }
     }
   </style>
 </head>
+
 <body>
 
   <a href="#continut-principal" class="skip-link">Sari la conținut</a>
@@ -1311,22 +1555,22 @@
   <script>
     const CONFIG = {
       // ── Identitate ──────────────────────────────
-      numeSite:    "Dulce Vis",         // Numele afacerii tale
-      tagline:     "Patiserie Artizanală",
-      heroTitlu:   "Fiecare felie e\no poveste dulce",
-      heroSubtitlu:"Prăjituri făcute cu dragoste, din cele mai fine ingrediente.",
+      numeSite: "Dulce Vis",         // Numele afacerii tale
+      tagline: "Patiserie Artizanală",
+      heroTitlu: "Fiecare felie e\no poveste dulce",
+      heroSubtitlu: "Prăjituri făcute cu dragoste, din cele mai fine ingrediente.",
 
       // ── Contact ─────────────────────────────────
-      instagram:   "@murariub",          // username Instagram
-      instagramUrl:"https://www.instagram.com/murariub/",
-      whatsapp:    "+40 758 341 842",   // numărul tău de WhatsApp
+      instagram: "@murariub",          // username Instagram
+      instagramUrl: "https://www.instagram.com/murariub/",
+      whatsapp: "+40 758 341 842",   // numărul tău de WhatsApp
       whatsappUrl: "https://wa.me/40758341842",
-      facebook:    "Bianca Murariu",    // numele paginii Facebook
+      facebook: "Bianca Murariu",    // numele paginii Facebook
       facebookUrl: "https://www.facebook.com/bianca.murariu.7",
-      email:       "murariubiancamaria@yahoo.ro",
+      email: "murariubiancamaria@yahoo.ro",
 
       // ── Footer ──────────────────────────────────
-      anFondare:   "2024",
+      anFondare: "2024",
     };
   </script>
 
@@ -1357,117 +1601,121 @@
 
   <main id="continut-principal" tabindex="-1">
 
-  <!-- =============================================
+    <!-- =============================================
        HERO CAROUSEL
   ============================================= -->
-  <section class="hero" id="hero" aria-label="Pagina principală">
-    <div class="carousel-track" id="carouselTrack">
-      <div class="carousel-slide">
-        <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=1400&q=85" alt="Tort elegant cu fragi și frișcă naturală — Dulce Vis Patiserie Artizanală" loading="eager" fetchpriority="high" />
-      </div>
-      <div class="carousel-slide">
-        <img src="https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=1400&q=85" alt="Produse de patiserie artizanală asortate — Dulce Vis" loading="lazy" />
-      </div>
-      <div class="carousel-slide">
-        <img src="https://images.unsplash.com/photo-1558326567-98ae2405596b?w=1400&q=85" alt="Macarons parizieni colorați asortați — Dulce Vis" loading="lazy" />
-      </div>
-      <div class="carousel-slide">
-        <img src="https://images.unsplash.com/photo-1542124948-dc391252a940?w=1400&q=85" alt="Tiramisu clasic italian cu mascarpone — Dulce Vis" loading="lazy" />
-      </div>
-      <div class="carousel-slide">
-        <img src="https://images.unsplash.com/photo-1606890737304-57a1ca8a5b62?w=1400&q=85" alt="Desert fin de patiserie artizanală — Dulce Vis" loading="lazy" />
-      </div>
-    </div>
-
-    <div class="hero-content">
-      <div class="hero-badge">✦ Prăjituri Artizanale ✦</div>
-      <h1 class="hero-title" id="hero-title">Fiecare felie e<br /><em>o poveste dulce</em></h1>
-      <p class="hero-subtitle" id="hero-subtitle">Prăjituri făcute cu dragoste, din cele mai fine ingrediente.</p>
-      <a href="#prajituri" class="hero-btn">Descoperă prăjiturile</a>
-    </div>
-
-    <button class="carousel-arrow prev" id="carouselPrev" aria-label="Anterior">&#8592;</button>
-    <button class="carousel-arrow next" id="carouselNext" aria-label="Următor">&#8594;</button>
-
-    <div class="carousel-dots" id="carouselDots"></div>
-
-    <div class="scroll-indicator">
-      <div class="scroll-line"></div>
-      <span>Scroll</span>
-    </div>
-  </section>
-
-  <!-- =============================================
-       PRAJITURI SLIDER
-  ============================================= -->
-  <section class="prajituri-section" id="prajituri" aria-label="Specialitățile noastre">
-    <div class="section-header" data-animate>
-      <span class="section-label">✦ Specialitățile noastre</span>
-      <h2 class="section-title">Prăjiturile <em>noastre</em></h2>
-      <div class="section-divider"></div>
-    </div>
-
-    <div class="slider-wrapper">
-      <div class="slider-track" id="sliderTrack">
-        <!-- Cardurile se generează din JS -->
-      </div>
-    </div>
-
-    <div class="slider-nav">
-      <button class="slider-btn" id="sliderLeft" aria-label="Stânga">&#8592;</button>
-      <button class="slider-btn" id="sliderRight" aria-label="Dreapta">&#8594;</button>
-    </div>
-  </section>
-
-  <!-- =============================================
-       QUOTE STRIP
-  ============================================= -->
-  <section class="quote-strip" aria-label="Filosofia noastră">
-    <p class="quote-text">"Dulciurile bune nu au nevoie de ocazie specială — ele <em>creează</em> ocazia."</p>
-    <p class="quote-author">— Dulce Vis, cu drag ❤</p>
-  </section>
-
-  <!-- =============================================
-       CONTACT SECTION
-  ============================================= -->
-  <section class="contact-section" id="contact" aria-label="Contact">
-    <div class="contact-grid">
-      <div class="contact-left" data-animate>
-        <span class="section-label">✦ Hai să vorbim</span>
-        <h2>Scrie-mi, <em>te aștept!</em></h2>
-        <p>
-          Fie că vrei să comanzi o prăjitură personalizată sau ai o întrebare,
-          sunt mereu disponibilă să te ajut. Alege metoda care ți se potrivește!
-        </p>
-
-        <div class="social-links" id="social-links">
-          <!-- Se generează din JS -->
+    <section class="hero" id="hero" aria-label="Pagina principală">
+      <div class="carousel-track" id="carouselTrack">
+        <div class="carousel-slide">
+          <img src="images/platou-asortament-3.jpeg" alt="Platou asortament prăjituri artizanale — Dulce Vis Patiserie"
+            loading="eager" fetchpriority="high" />
+        </div>
+        <div class="carousel-slide">
+          <img src="images/choux-cu-insertie-3.jpeg" alt="Choux cu inserție și floare de lavandă — Dulce Vis"
+            loading="lazy" />
+        </div>
+        <div class="carousel-slide">
+          <img src="images/platou-asortament-2.jpeg" alt="Platou cu choux, eclere și tarte cu fructe — Dulce Vis"
+            loading="lazy" />
+        </div>
+        <div class="carousel-slide">
+          <img src="images/eclere-1.jpeg" alt="Eclere artizanale cu glazură — Dulce Vis" loading="lazy" />
+        </div>
+        <div class="carousel-slide">
+          <img src="images/platou-asortament-1.jpeg" alt="Tăvi cu prăjituri asortate — Dulce Vis" loading="lazy" />
         </div>
       </div>
 
-      <div class="contact-form" data-animate>
-        <h3>Trimite un mesaj 💌</h3>
-        <form id="contactForm">
-          <div class="form-group">
-            <label>Numele tău</label>
-            <input type="text" name="Nume" placeholder="ex. Maria Ionescu" required />
-          </div>
-          <div class="form-group">
-            <label>Email sau telefon</label>
-            <input type="text" name="Email_Telefon" placeholder="ex. maria@gmail.com sau 07xx xxx xxx" required />
-          </div>
-          <div class="form-group">
-            <label>Mesajul tău</label>
-            <textarea name="Mesaj" placeholder="Descrie ce îți dorești — prăjitură, tort personalizat, comandă..."></textarea>
-          </div>
-          <button type="submit" class="form-submit" id="formSubmitBtn">Trimite mesajul ✦</button>
-          <div class="form-success" id="formSuccess">
-            ✓ Mesajul a fost trimis! Te contactez în curând. 🎂
-          </div>
-        </form>
+      <div class="hero-content">
+        <div class="hero-badge">✦ Prăjituri Artizanale ✦</div>
+        <h1 class="hero-title" id="hero-title">Fiecare felie e<br /><em>o poveste dulce</em></h1>
+        <p class="hero-subtitle" id="hero-subtitle">Prăjituri făcute cu dragoste, din cele mai fine ingrediente.</p>
+        <a href="#prajituri" class="hero-btn">Descoperă prăjiturile</a>
       </div>
-    </div>
-  </section>
+
+      <button class="carousel-arrow prev" id="carouselPrev" aria-label="Anterior">&#8592;</button>
+      <button class="carousel-arrow next" id="carouselNext" aria-label="Următor">&#8594;</button>
+
+      <div class="carousel-dots" id="carouselDots"></div>
+
+      <div class="scroll-indicator">
+        <div class="scroll-line"></div>
+        <span>Scroll</span>
+      </div>
+    </section>
+
+    <!-- =============================================
+       PRAJITURI SLIDER
+  ============================================= -->
+    <section class="prajituri-section" id="prajituri" aria-label="Specialitățile noastre">
+      <div class="section-header" data-animate>
+        <span class="section-label">✦ Specialitățile noastre</span>
+        <h2 class="section-title">Prăjiturile <em>noastre</em></h2>
+        <div class="section-divider"></div>
+      </div>
+
+      <div class="slider-wrapper">
+        <div class="slider-track" id="sliderTrack">
+          <!-- Cardurile se generează din JS -->
+        </div>
+      </div>
+
+      <div class="slider-nav">
+        <button class="slider-btn" id="sliderLeft" aria-label="Stânga">&#8592;</button>
+        <button class="slider-btn" id="sliderRight" aria-label="Dreapta">&#8594;</button>
+      </div>
+    </section>
+
+    <!-- =============================================
+       QUOTE STRIP
+  ============================================= -->
+    <section class="quote-strip" aria-label="Filosofia noastră">
+      <p class="quote-text">"Dulciurile bune nu au nevoie de ocazie specială — ele <em>creează</em> ocazia."</p>
+      <p class="quote-author">— Dulce Vis, cu drag ❤</p>
+    </section>
+
+    <!-- =============================================
+       CONTACT SECTION
+  ============================================= -->
+    <section class="contact-section" id="contact" aria-label="Contact">
+      <div class="contact-grid">
+        <div class="contact-left" data-animate>
+          <span class="section-label">✦ Hai să vorbim</span>
+          <h2>Scrie-mi, <em>te aștept!</em></h2>
+          <p>
+            Fie că vrei să comanzi o prăjitură personalizată sau ai o întrebare,
+            sunt mereu disponibilă să te ajut. Alege metoda care ți se potrivește!
+          </p>
+
+          <div class="social-links" id="social-links">
+            <!-- Se generează din JS -->
+          </div>
+        </div>
+
+        <div class="contact-form" data-animate>
+          <h3>Trimite un mesaj 💌</h3>
+          <form id="contactForm">
+            <div class="form-group">
+              <label>Numele tău</label>
+              <input type="text" name="Nume" placeholder="ex. Maria Ionescu" required />
+            </div>
+            <div class="form-group">
+              <label>Email sau telefon</label>
+              <input type="text" name="Email_Telefon" placeholder="ex. maria@gmail.com sau 07xx xxx xxx" required />
+            </div>
+            <div class="form-group">
+              <label>Mesajul tău</label>
+              <textarea name="Mesaj"
+                placeholder="Descrie ce îți dorești — prăjitură, tort personalizat, comandă..."></textarea>
+            </div>
+            <button type="submit" class="form-submit" id="formSubmitBtn">Trimite mesajul ✦</button>
+            <div class="form-success" id="formSuccess">
+              ✓ Mesajul a fost trimis! Te contactez în curând. 🎂
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
 
   </main><!-- /#continut-principal -->
 
@@ -1528,6 +1776,66 @@
     /* 💡 Adaugă sau modifică prăjituri direct în acest array!       */
     const PRAJITURI = [
       {
+        nume: "Choux cu Inserție",
+        tag: "Premium",
+        imagini: [
+          "images/choux-cu-insertie-1.jpeg",
+          "images/choux-cu-insertie-2.jpeg",
+          "images/choux-cu-insertie-sectiune.jpeg",
+          "images/choux-cu-insertie-3.jpeg",
+          "images/choux-cu-insertie-4.jpeg"
+        ],
+        descriere: "Choux-uri ușoare și crocante, cu inserție surpriză în interior. Disponibile cu cremă fină de fistic, coulis de zmeură, căpșuni proaspeți sau fructe de pădure. Fiecare bucățică ascunde un miez aromat.",
+        stele: "★★★★★",
+        pret: "~105 lei/kg",
+        categorie: "Choux",
+        ingrediente: ["Pâte à choux", "Unt 82%", "Ouă bio", "Faină", "Pastă de fistic 100%", "Mascarpone", "Frișcă naturală 35%", "Zmeură / Căpșuni / Fructe de pădure", "Zahăr pudră", "Vanilie bourbon", "Gelatină"],
+        preparare: [
+          "Se prepară aluatul choux din apă, unt, faină și ouă, se formează rondele cu poșul și se coc la 200°C până devin aurii și uscate.",
+          "Inserția se prepară din fructe proaspete cu zahăr și gelatină, se toarnă în forme mici de silicon și se congelează până la consistență solidă.",
+          "Crema de fistic se obține din pastă de fistic, mascarpone și frișcă bătută, aromatizată cu vanilie bourbon.",
+          "Choux-urile răcite se umplu: se introduce inserția congelată în centru, se completează cu cremă de fistic și se pudrează cu zahăr sau fistic măcinat."
+        ]
+      },
+      {
+        nume: "Tarte cu Fructe Proaspete",
+        tag: "De sezon",
+        imagini: [
+          "images/tarte-fructe-1.jpeg"
+        ],
+        descriere: "Tarte mini cu coajă crocantă, cremă de vanilie mătăsoasă și fructe proaspete de sezon — căpșuni, afine și kiwi. Ușoare, colorate și irezistibile.",
+        stele: "★★★★★",
+        pret: "~85 lei/kg",
+        categorie: "Tarte",
+        ingrediente: ["Aluat tarte", "Unt 82%", "Zahăr pudră", "Ouă bio", "Lapte", "Amidon", "Vanilie bourbon", "Mascarpone", "Căpșuni proaspete", "Afine", "Kiwi"],
+        preparare: [
+          "Aluatul fraged se prepară din unt, făină, zahăr pudră și ou, se frământă rapid și se lasă la rece 30 min.",
+          "Se presează în forme mici de tartă și se coace orb la 175°C până devine auriu și crocant.",
+          "Crema de vanilie se fierbe din lapte, gălbenușuri, zahăr și amidon, se răcește și se incorporează mascarponele.",
+          "Se umple fiecare coajă cu cremă și se decorează cu fructe proaspete aranjate cu grijă."
+        ]
+      },
+      {
+        nume: "Prăjitură cu Cacao și Frișcă",
+        tag: "Clasic",
+        imagini: [
+          "images/prajitura-cacao-frisca-1.jpeg",
+          "https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=700&q=85",
+          "https://images.unsplash.com/photo-1571115177098-24ec42ed204d?w=700&q=85"
+        ],
+        descriere: "Prăjitură stratificată cu foi de cacao pufoase și cremă generoasă de frișcă naturală. Un clasic românesc reconfortant, tăiat în porții mari și servit cu drag.",
+        stele: "★★★★★",
+        pret: "~80 lei/kg",
+        categorie: "Prăjituri",
+        ingrediente: ["Foi de cacao", "Cacao neagră", "Frișcă naturală 35%", "Zahăr", "Zahăr pudră", "Ouă bio", "Unt 82%", "Lapte", "Vanilie", "Esență de rom"],
+        preparare: [
+          "Foile de cacao se prepară din ouă bătute cu zahăr, se adaugă cacao și făină, se coc subțiri la 180°C.",
+          "Frișca naturală rece se bate cu zahăr pudră și vanilie până obținem o cremă fermă și mătăsoasă.",
+          "Se montează prăjitura alternând foi de cacao cu straturi generoase de frișcă bătută.",
+          "Se presează ușor, se pudrează cu cacao și se lasă la rece minimum 4 ore pentru a se tăia perfect."
+        ]
+      },
+      {
         nume: "Tort cu Fragi și Frișcă",
         tag: "Bestseller",
         imagini: [
@@ -1551,9 +1859,7 @@
         nume: "Éclair cu Ciocolată Belgiană",
         tag: "Nou",
         imagini: [
-          "https://images.unsplash.com/photo-1603532648955-039310d9ed75?w=700&q=85",
-          "https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=700&q=85",
-          "https://images.unsplash.com/photo-1547592180-85f173990554?w=700&q=85"
+          "images/eclere-1.jpeg",
         ],
         descriere: "Eclere clasice franțuzești umplute cu cremă de patisier și acoperite cu glazură fină din ciocolată belgiană neagră 70%. Crusta perfectă, crema mătăsoasă.",
         stele: "★★★★★",
@@ -1565,6 +1871,25 @@
           "Crema de patisier se fierbe din lapte, gălbenușuri, zahăr și amidon, se aromatizează cu vanilie.",
           "Éclerele răcite se umplu cu cremă folosind un poș cu duză fină.",
           "Glazura de ciocolată se toarnă caldă și se lasă să se întărească la temperatura camerei."
+        ]
+      },
+      {
+        nume: "Tiramisu Classic",
+        tag: "Tradițional",
+        imagini: [
+          "https://images.unsplash.com/photo-1542124948-dc391252a940?w=700&q=85",
+          "https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?w=700&q=85",
+        ],
+        descriere: "Rețeta originală italiană cu piscoturi Savoiardi înmuiate în espresso, cremă bogată de mascarpone și gălbenușuri, pudrate generos cu cacao Valrhona.",
+        stele: "★★★★★",
+        pret: "~95 lei/kg",
+        categorie: "Deserturi",
+        ingrediente: ["Piscoturi Savoiardi", "Mascarpone 500g", "Gălbenușuri bio 6 buc", "Zahăr 150g", "Espresso tare 300ml", "Cacao Valrhona", "Rom brun (opțional)"],
+        preparare: [
+          "Gălbenușurile se bat cu zahărul la bain-marie până obținem o cremă palidă și voluminoasă.",
+          "Se incorporează mascarponele rece cu mișcări delicate de jos în sus.",
+          "Piscoturile se înmoaie rapid în espresso cu rom și se aranjează în strat.",
+          "Se alternează straturi de cremă și piscoturi, se pudrează cu cacao și se lasă la rece 12 ore."
         ]
       },
       {
@@ -1588,32 +1913,10 @@
         ]
       },
       {
-        nume: "Tiramisu Classic",
-        tag: "Tradițional",
-        imagini: [
-          "https://images.unsplash.com/photo-1542124948-dc391252a940?w=700&q=85",
-          "https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?w=700&q=85",
-          "https://images.unsplash.com/photo-1491955478555-94a060f2e4f2?w=700&q=85"
-        ],
-        descriere: "Rețeta originală italiană cu piscoturi Savoiardi înmuiate în espresso, cremă bogată de mascarpone și gălbenușuri, pudrate generos cu cacao Valrhona.",
-        stele: "★★★★★",
-        pret: "~95 lei/kg",
-        categorie: "Deserturi",
-        ingrediente: ["Piscoturi Savoiardi", "Mascarpone 500g", "Gălbenușuri bio 6 buc", "Zahăr 150g", "Espresso tare 300ml", "Cacao Valrhona", "Rom brun (opțional)"],
-        preparare: [
-          "Gălbenușurile se bat cu zahărul la bain-marie până obținem o cremă palidă și voluminoasă.",
-          "Se incorporează mascarponele rece cu mișcări delicate de jos în sus.",
-          "Piscoturile se înmoaie rapid în espresso cu rom și se aranjează în strat.",
-          "Se alternează straturi de cremă și piscoturi, se pudrează cu cacao și se lasă la rece 12 ore."
-        ]
-      },
-      {
         nume: "Macarons Parizieni",
         tag: "Artizanal",
         imagini: [
           "https://images.unsplash.com/photo-1558326567-98ae2405596b?w=700&q=85",
-          "https://images.unsplash.com/photo-1473093295043-cdd812d0e601?w=700&q=85",
-          "https://images.unsplash.com/photo-1582716401301-b2407dc7563d?w=700&q=85"
         ],
         descriere: "Macarons delicați cu cochilie crocantă și interior moale, umplute cu ganache fin. Disponibili în arome de zmeură, vanilie, ciocolată și pistachio.",
         stele: "★★★★★",
@@ -1632,8 +1935,6 @@
         tag: "Special",
         imagini: [
           "https://images.unsplash.com/photo-1586788680434-30d324b2d46f?w=700&q=85",
-          "https://images.unsplash.com/photo-1559620192-032c4bc4674e?w=700&q=85",
-          "https://images.unsplash.com/photo-1621303837174-89787a7d4729?w=700&q=85"
         ],
         descriere: "Tort sofisticat cu blat catifelat de culoare roșu-rubin și cremă bogată de cream cheese. Un desert dramatic și delicios, perfect pentru aniversări.",
         stele: "★★★★★",
@@ -1648,25 +1949,25 @@
         ]
       },
       {
-        nume: "Choux cu Inserție",
-        tag: "Premium",
+        nume: "Platou Asortat",
+        tag: "Comandă",
         imagini: [
-          "https://images.unsplash.com/photo-1557308536-ee471ef2c390?w=700&q=85",
-          "https://images.unsplash.com/photo-1613490900233-141c5560d75d?w=700&q=85",
-          "https://images.unsplash.com/photo-1488459716781-31db52582fe9?w=700&q=85"
+          "images/platou-asortament-1.jpeg",
+          "images/platou-asortament-2.jpeg",
+          "images/platou-asortament-3.jpeg"
         ],
-        descriere: "Choux-uri ușoare și crocante, cu inserție surpriză în interior. Disponibile cu cremă fină de fistic, coulis de zmeură, căpșuni proaspeți sau fructe de pădure. Fiecare bucățică ascunde un miez aromat.",
+        descriere: "Platou personalizat cu selecție de choux, eclere, tarte și prăjituri asortate — ideal pentru evenimente, petreceri sau cadou. Compoziția se stabilește împreună cu voi.",
         stele: "★★★★★",
-        pret: "~105 lei/kg",
-        categorie: "Choux",
-        ingrediente: ["Pâte à choux", "Unt 82%", "Ouă bio", "Faină", "Pastă de fistic 100%", "Mascarpone", "Frișcă naturală 35%", "Zmeură / Căpșuni / Fructe de pădure", "Zahăr pudră", "Vanilie bourbon", "Gelatină"],
+        pret: "La comandă",
+        categorie: "Platouri",
+        ingrediente: ["Choux cu inserție", "Eclere cu ciocolată belgiană", "Tarte cu fructe proaspete", "Prăjitură cu cacao și frișcă", "Macarons", "Decor floral comestibil"],
         preparare: [
-          "Se prepară aluatul choux din apă, unt, faină și ouă, se formează rondele cu poșul și se coc la 200°C până devin aurii și uscate.",
-          "Inserția se prepară din fructe proaspete cu zahăr și gelatină, se toarnă în forme mici de silicon și se congelează până la consistență solidă.",
-          "Crema de fistic se obține din pastă de fistic, mascarpone și frișcă bătută, aromatizată cu vanilie bourbon.",
-          "Choux-urile răcite se umplu: se introduce inserția congelată în centru, se completează cu cremă de fistic și se pudrează cu zahăr sau fistic măcinat."
+          "Fiecare element al platou-ului se prepară proaspăt în ziua livrării sau cu o zi înainte.",
+          "Compoziția se alege în funcție de preferințele și numărul de persoane — minim 20 bucăți.",
+          "Platoul se asamblează cu grijă, intercalând culori și texturi pentru un aspect festiv.",
+          "Livrarea se face în cutii speciale pentru transport, însoțite de instrucțiuni de păstrare."
         ]
-      }
+      },
     ];
 
     /* ── Aplică CONFIG ──────────────────────────────────────────── */
@@ -1682,14 +1983,22 @@
 
     // Social links
     const socialData = [
-      { cls:'social-instagram', icon:'📸', name:'Instagram',
-        handle: CONFIG.instagram, url: CONFIG.instagramUrl },
-      { cls:'social-whatsapp', icon:'💬', name:'WhatsApp',
-        handle: CONFIG.whatsapp,  url: CONFIG.whatsappUrl },
-      { cls:'social-facebook', icon:'📘', name:'Facebook',
-        handle: CONFIG.facebook,  url: CONFIG.facebookUrl },
-      { cls:'social-email', icon:'✉️', name:'Email',
-        handle: CONFIG.email,     url: 'mailto:' + CONFIG.email },
+      {
+        cls: 'social-instagram', icon: '📸', name: 'Instagram',
+        handle: CONFIG.instagram, url: CONFIG.instagramUrl
+      },
+      {
+        cls: 'social-whatsapp', icon: '💬', name: 'WhatsApp',
+        handle: CONFIG.whatsapp, url: CONFIG.whatsappUrl
+      },
+      {
+        cls: 'social-facebook', icon: '📘', name: 'Facebook',
+        handle: CONFIG.facebook, url: CONFIG.facebookUrl
+      },
+      {
+        cls: 'social-email', icon: '✉️', name: 'Email',
+        handle: CONFIG.email, url: 'mailto:' + CONFIG.email
+      },
     ];
 
     const socialLinks = document.getElementById('social-links');
@@ -1710,10 +2019,10 @@
     });
 
     /* ── Hero Carousel ──────────────────────────────────────────── */
-    const track  = document.getElementById('carouselTrack');
+    const track = document.getElementById('carouselTrack');
     const slides = track.querySelectorAll('.carousel-slide');
     const dotsEl = document.getElementById('carouselDots');
-    let current  = 0;
+    let current = 0;
     let autoTimer;
 
     slides.forEach((_, i) => {
@@ -1756,7 +2065,7 @@
 
     /* ── Hamburger / Mobile Menu ────────────────────────────────── */
     const hamburgerBtn = document.getElementById('hamburger');
-    const mobileMenu   = document.getElementById('mobileMenu');
+    const mobileMenu = document.getElementById('mobileMenu');
 
     hamburgerBtn.addEventListener('click', () => {
       const isOpen = mobileMenu.classList.toggle('open');
@@ -1813,8 +2122,8 @@
       scrollLeft = sliderTrack.scrollLeft;
     });
     sliderTrack.addEventListener('mouseleave', () => { isDown = false; sliderTrack.classList.remove('grabbing'); });
-    sliderTrack.addEventListener('mouseup',    () => { isDown = false; sliderTrack.classList.remove('grabbing'); });
-    sliderTrack.addEventListener('mousemove',  e => {
+    sliderTrack.addEventListener('mouseup', () => { isDown = false; sliderTrack.classList.remove('grabbing'); });
+    sliderTrack.addEventListener('mousemove', e => {
       if (!isDown) return;
       e.preventDefault();
       const x = e.pageX - sliderTrack.offsetLeft;
@@ -1827,20 +2136,20 @@
       sliderTrack.scrollBy({ left: 340, behavior: 'smooth' }));
 
     /* ── Modal ──────────────────────────────────────────────────── */
-    const overlay   = document.getElementById('modalOverlay');
-    const modalImg  = document.getElementById('modalImg');
-    const modalBadge= document.getElementById('modalBadge');
-    const modalTag  = document.getElementById('modalTag');
-    const modalTitle= document.getElementById('modalTitle');
+    const overlay = document.getElementById('modalOverlay');
+    const modalImg = document.getElementById('modalImg');
+    const modalBadge = document.getElementById('modalBadge');
+    const modalTag = document.getElementById('modalTag');
+    const modalTitle = document.getElementById('modalTitle');
     const modalDesc = document.getElementById('modalDesc');
-    const modalIng  = document.getElementById('modalIngredients');
-    const modalSteps= document.getElementById('modalSteps');
-    const modalOrder= document.getElementById('modalOrderBtn');
-    const modalPrice= document.getElementById('modalPrice');
+    const modalIng = document.getElementById('modalIngredients');
+    const modalSteps = document.getElementById('modalSteps');
+    const modalOrder = document.getElementById('modalOrderBtn');
+    const modalPrice = document.getElementById('modalPrice');
 
     /* ── Modal gallery state ─────────────────────────────────── */
     let galleryImages = [];
-    let galleryIndex  = 0;
+    let galleryIndex = 0;
     const galleryPrev = document.getElementById('modalGalleryPrev');
     const galleryNext = document.getElementById('modalGalleryNext');
     const galleryDots = document.getElementById('modalGalleryDots');
@@ -1859,22 +2168,22 @@
     function openModal(index) {
       const p = PRAJITURI[index];
       galleryImages = p.imagini;
-      galleryIndex  = 0;
+      galleryIndex = 0;
 
-      modalImg.src   = galleryImages[0];
-      modalImg.alt   = p.nume;
+      modalImg.src = galleryImages[0];
+      modalImg.alt = p.nume;
       modalImg.style.opacity = '1';
       modalBadge.textContent = p.categorie;
-      modalTag.textContent   = p.tag;
+      modalTag.textContent = p.tag;
       modalTitle.textContent = p.nume;
-      modalDesc.textContent  = p.descriere;
+      modalDesc.textContent = p.descriere;
       modalPrice.textContent = p.pret;
 
       modalIng.innerHTML = p.ingrediente.map(i =>
         `<li>${i}</li>`).join('');
 
       modalSteps.innerHTML = p.preparare.map((s, i) =>
-        `<li><span class="step-num">${i+1}</span><span>${s}</span></li>`).join('');
+        `<li><span class="step-num">${i + 1}</span><span>${s}</span></li>`).join('');
 
       modalOrder.href = `#contact`;
 
@@ -1884,8 +2193,8 @@
       galleryNext.style.display = multi ? 'flex' : 'none';
       galleryDots.innerHTML = multi
         ? galleryImages.map((_, i) =>
-            `<button class="modal-gallery-dot${i === 0 ? ' active' : ''}" data-gi="${i}" aria-label="Imaginea ${i+1}"></button>`
-          ).join('')
+          `<button class="modal-gallery-dot${i === 0 ? ' active' : ''}" data-gi="${i}" aria-label="Imaginea ${i + 1}"></button>`
+        ).join('')
         : '';
 
       overlay.classList.add('open');
@@ -1933,8 +2242,8 @@
     /* ── Contact form — FormSubmit.co AJAX ─────────────────────── */
     document.getElementById('contactForm').addEventListener('submit', e => {
       e.preventDefault();
-      const form  = e.target;
-      const btn   = document.getElementById('formSubmitBtn');
+      const form = e.target;
+      const btn = document.getElementById('formSubmitBtn');
       const originalText = btn.textContent;
 
       btn.textContent = 'Se trimite...';
@@ -1944,28 +2253,28 @@
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
         body: JSON.stringify({
-          Nume:          form.querySelector('[name="Nume"]').value,
+          Nume: form.querySelector('[name="Nume"]').value,
           Email_Telefon: form.querySelector('[name="Email_Telefon"]').value,
-          Mesaj:         form.querySelector('[name="Mesaj"]').value,
-          _subject:      'Comandă nouă — ' + CONFIG.numeSite + ' 🎂',
-          _captcha:      'false'
+          Mesaj: form.querySelector('[name="Mesaj"]').value,
+          _subject: 'Comandă nouă — ' + CONFIG.numeSite + ' 🎂',
+          _captcha: 'false'
         })
       })
-      .then(r => r.json())
-      .then(r => {
-        if (r.success === 'true' || r.success === true) {
-          document.getElementById('formSuccess').style.display = 'block';
-          form.querySelectorAll('input, textarea, button[type=submit]')
-            .forEach(el => el.style.opacity = '0.4');
-        } else {
+        .then(r => r.json())
+        .then(r => {
+          if (r.success === 'true' || r.success === true) {
+            document.getElementById('formSuccess').style.display = 'block';
+            form.querySelectorAll('input, textarea, button[type=submit]')
+              .forEach(el => el.style.opacity = '0.4');
+          } else {
+            btn.textContent = 'Eroare — încearcă din nou';
+            btn.disabled = false;
+          }
+        })
+        .catch(() => {
           btn.textContent = 'Eroare — încearcă din nou';
           btn.disabled = false;
-        }
-      })
-      .catch(() => {
-        btn.textContent = 'Eroare — încearcă din nou';
-        btn.disabled = false;
-      });
+        });
     });
 
     /* ── Animate on scroll ──────────────────────────────────────── */
@@ -2058,4 +2367,5 @@
     document.head.appendChild(ldScript);
   </script>
 </body>
+
 </html>
