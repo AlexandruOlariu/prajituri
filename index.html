@@ -11,9 +11,9 @@
 
   <!-- SEO Primar -->
   <meta name="description"
-    content="Dulce Vis – patiserie artizanală cu prăjituri făcute manual din ingrediente fine. Torturi personalizate, macarons parizieni, eclere, cheesecake și tiramisu. Comandă acum!" />
+    content="Dulce Vis – patiserie artizanală cu prăjituri făcute manual din ingrediente fine. Torturi personalizate, macarons parizieni, eclere, cheesecake și tiramisu. Livrare în Iași și Hârlău. Comandă acum!" />
   <meta name="keywords"
-    content="prăjituri artizanale, torturi personalizate, patiserie artizanală, macarons parizieni, eclere ciocolată belgiană, cheesecake fructe de pădure, tiramisu, red velvet, comandă prăjituri, Dulce Vis, Bianca Murariu" />
+    content="prăjituri artizanale, torturi personalizate, patiserie artizanală, macarons parizieni, eclere ciocolată belgiană, cheesecake fructe de pădure, tiramisu, red velvet, comandă prăjituri, Dulce Vis, Bianca Murariu, prăjituri Iași, torturi Iași, patiserie Iași, prăjituri Hârlău, torturi Hârlău, patiserie Hârlău, livrare prăjituri Iași, livrare prăjituri Hârlău" />
   <meta name="author" content="Bianca Murariu" />
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
 
@@ -21,7 +21,7 @@
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Dulce Vis — Patiserie Artizanală | Prăjituri cu Dragoste" />
   <meta property="og:description"
-    content="Prăjituri artizanale făcute cu dragoste din ingrediente fine. Torturi personalizate, macarons parizieni, eclere și cheesecake. Comandă acum!" />
+    content="Prăjituri artizanale făcute cu dragoste din ingrediente fine. Torturi personalizate, macarons parizieni, eclere și cheesecake. Livrare în Iași și Hârlău. Comandă acum!" />
   <meta property="og:image" content="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=1200&q=85" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="800" />
@@ -33,7 +33,7 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Dulce Vis — Patiserie Artizanală" />
   <meta name="twitter:description"
-    content="Prăjituri artizanale făcute cu dragoste din ingrediente fine. Torturi personalizate, macarons, eclere, cheesecake." />
+    content="Prăjituri artizanale făcute cu dragoste din ingrediente fine. Torturi personalizate, macarons, eclere, cheesecake. Livrare în Iași și Hârlău." />
   <meta name="twitter:image" content="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=1200&q=85" />
 
   <!-- Performance -->
@@ -1117,6 +1117,75 @@
     }
 
     /* =============================================
+       ZONE DE ACTIVITATE
+    ============================================= */
+    .zone-section {
+      padding: 90px 48px;
+      background: var(--roz-card);
+    }
+
+    .zone-cards {
+      display: flex;
+      justify-content: center;
+      gap: 28px;
+      flex-wrap: wrap;
+      margin-top: 48px;
+    }
+
+    .zone-card {
+      background: var(--alb);
+      border-radius: 24px;
+      padding: 36px 44px;
+      text-align: center;
+      box-shadow: 0 6px 30px rgba(233, 30, 140, 0.1);
+      min-width: 240px;
+      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s;
+    }
+
+    .zone-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 18px 50px rgba(233, 30, 140, 0.2);
+    }
+
+    .zone-icon {
+      font-size: 2.2rem;
+      margin-bottom: 14px;
+      display: block;
+    }
+
+    .zone-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--text-inchis);
+      margin-bottom: 6px;
+    }
+
+    .zone-desc {
+      font-size: 0.85rem;
+      color: var(--text-gri);
+      letter-spacing: 0.5px;
+    }
+
+    @media (max-width: 768px) {
+      .zone-section {
+        padding: 70px 24px;
+      }
+
+      .zone-cards {
+        gap: 18px;
+        margin-top: 36px;
+      }
+
+      .zone-card {
+        padding: 28px 32px;
+        min-width: 0;
+        width: 100%;
+        max-width: 320px;
+      }
+    }
+
+    /* =============================================
        CONTACT SECTION
     ============================================= */
     .contact-section {
@@ -1560,6 +1629,7 @@
     <a href="#" class="nav-logo" id="logo-text">Dulce <span>Vis</span></a>
     <ul class="nav-links">
       <li><a href="#prajituri">Prăjituri</a></li>
+      <li><a href="#zone">Zone</a></li>
       <li><a href="#contact">Contact</a></li>
       <li><a href="#contact" class="nav-cta">Comandă acum</a></li>
     </ul>
@@ -1573,6 +1643,8 @@
   <!-- Mobile Menu -->
   <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
     <a href="#prajituri">Prăjituri</a>
+    <div class="mobile-menu-divider"></div>
+    <a href="#zone">Zone</a>
     <div class="mobile-menu-divider"></div>
     <a href="#contact">Contact</a>
     <a href="#contact" class="mobile-cta">Comandă acum</a>
@@ -1651,6 +1723,30 @@
     <section class="quote-strip" aria-label="Filosofia noastră">
       <p class="quote-text">"Dulciurile bune nu au nevoie de ocazie specială — ele <em>creează</em> ocazia."</p>
       <p class="quote-author">— Dulce Vis, cu drag ❤</p>
+    </section>
+
+    <!-- =============================================
+       ZONE DE ACTIVITATE
+  ============================================= -->
+    <section class="zone-section" id="zone" aria-label="Zone de activitate">
+      <div class="section-header" data-animate>
+        <span class="section-label">✦ Unde livrez</span>
+        <h2 class="section-title">Zonele mele de <em>activitate</em></h2>
+        <div class="section-divider"></div>
+      </div>
+
+      <div class="zone-cards">
+        <div class="zone-card" data-animate>
+          <span class="zone-icon">📍</span>
+          <p class="zone-name">Iași</p>
+          <p class="zone-desc">Municipiul Iași și localitățile din jur</p>
+        </div>
+        <div class="zone-card" data-animate>
+          <span class="zone-icon">📍</span>
+          <p class="zone-name">Hârlău</p>
+          <p class="zone-desc">Orașul Hârlău și împrejurimile</p>
+        </div>
+      </div>
     </section>
 
     <!-- =============================================
