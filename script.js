@@ -117,6 +117,32 @@ const PRAJITURI = [
     ],
   },
   {
+    nume: "Candy Bar de Eveniment",
+    tag: "La comandă",
+    imagini: [
+      "images/candy-bar-vedere-generala-2.jpg",
+      "images/candy-bar-eveniment-1.jpg",
+      "images/candy-bar-eveniment-2.jpg",
+      "images/candy-bar-napoleon-vanilie-1.jpg",
+      "images/candy-bar-napoleon-cacao-1.jpg",
+      "images/candy-bar-eclere-1.jpg",
+      "images/candy-bar-choux-craquelin-2.jpg",
+      "images/candy-bar-verrine-ciocolata-1.jpg",
+      "images/candy-bar-choux-albi-2.jpg",
+    ],
+    descriere: "Masă de dulciuri completă pentru evenimente și petreceri — choux craquelin, eclere decorate, prăjituri Napoleon, verrine de ciocolată și choux albi glazurați, toate coordonate cromatic după tema evenimentului.",
+    stele: "★★★★★",
+    pret: "La comandă",
+    categorie: "Evenimente",
+    ingrediente: ["Choux craquelin", "Eclere decorate", "Prăjitură Napoleon vanilie", "Prăjitură Napoleon cacao", "Verrine ciocolată cu frișcă", "Choux albi glazurați", "Decor auriu și floral"],
+    preparare: [
+      "Fiecare element se prepară proaspăt și se coordonează ca temă cromatică cu evenimentul.",
+      "Masa include minim 5 tipuri de dulciuri, aranjate pe suporturi aurii și tăvi decorative.",
+      "Cantitățile se stabilesc în funcție de numărul de invitați — de la 30 până la sute de porții.",
+      "Livrarea și aranjarea la fața locului este inclusă pentru comenzile de candy bar complet."
+    ]
+  },
+  {
     nume: "Tort de Ciocolată cu Vișine",
     tag: "Bestseller",
     imagini: [
