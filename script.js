@@ -392,7 +392,7 @@ PRAJITURI.forEach((p, i) => {
   sliderTrack.innerHTML += `
     <div class="cake-card" data-index="${i}">
       <div class="cake-card-img-wrap">
-        <img class="cake-card-img" src="${p.imagini[0]}" alt="${p.nume}" loading="lazy" />
+        <img class="cake-card-img" src="${p.imagini[0]}" alt="${p.nume}" width="600" height="800" loading="lazy" />
         <span class="cake-tag">${p.tag}</span>
       </div>
       <div class="cake-card-body">
@@ -631,12 +631,9 @@ document
   .querySelectorAll("[data-animate]")
   .forEach((el) => observer.observe(el));
 
-/* ── Canonical URL & og:url ─────────────────────────────────────── */
+/* ── Page URL (folosit în JSON-LD) ─────────────────────────────── */
+/* Canonical-ul este definit static în <head> pentru SEO mai robust  */
 const pageUrl = window.location.origin + window.location.pathname;
-const canonicalEl = document.createElement("link");
-canonicalEl.rel = "canonical";
-canonicalEl.href = pageUrl;
-document.head.appendChild(canonicalEl);
 
 /* ── JSON-LD Structured Data ────────────────────────────────────── */
 const structuredData = {
@@ -651,7 +648,31 @@ const structuredData = {
       url: pageUrl,
       telephone: CONFIG.whatsapp,
       email: CONFIG.email,
-      sameAs: [CONFIG.instagramUrl, CONFIG.facebookUrl],
+      address: {
+        "@type": "PostalAddress",
+        addressLocality: "Iași",
+        addressRegion: "Iași",
+        addressCountry: "RO",
+      },
+      areaServed: [
+        {
+          "@type": "City",
+          name: "Iași",
+          containedInPlace: {
+            "@type": "AdministrativeArea",
+            name: "Județul Iași",
+          },
+        },
+        {
+          "@type": "City",
+          name: "Hârlău",
+          containedInPlace: {
+            "@type": "AdministrativeArea",
+            name: "Județul Iași",
+          },
+        },
+      ],
+      sameAs: [CONFIG.instagramUrl, CONFIG.facebookUrl, CONFIG.whatsappUrl],
       image:
         "https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=1200&q=85",
       priceRange: "90–220 lei/kg",
