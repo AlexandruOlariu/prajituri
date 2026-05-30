@@ -236,6 +236,11 @@ const PRAJITURI = [
   },
 ];
 
+const prefersReducedMotion =
+  window.matchMedia &&
+  window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+const isTouch = window.matchMedia && window.matchMedia("(pointer: coarse)").matches;
+
 /* ── Aplică CONFIG ──────────────────────────────────────────────── */
 document.getElementById("logo-text").innerHTML =
   CONFIG.numeSite.split(" ")[0] +
@@ -251,7 +256,7 @@ document.getElementById("hero-subtitle").textContent = CONFIG.heroSubtitlu;
 document.getElementById("footer-year").textContent = new Date().getFullYear();
 document.getElementById("footer-name").textContent = CONFIG.numeSite;
 
-// Social links
+/* ── Social links ───────────────────────────────────────────────── */
 const socialData = [
   {
     cls: "social-instagram",
@@ -293,73 +298,18 @@ socialData.forEach((s) => {
         <span class="social-handle">${s.handle}</span>
       </div>
       <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
-        stroke="#e91e8c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+        stroke="#ff5bb0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
         style="margin-left:auto">
         <path d="M5 12h14M12 5l7 7-7 7"/>
       </svg>
     </a>`;
 });
 
-/* ── Hero Carousel ──────────────────────────────────────────────── */
-const track = document.getElementById("carouselTrack");
-const slides = track.querySelectorAll(".carousel-slide");
-const dotsEl = document.getElementById("carouselDots");
-let current = 0;
-let autoTimer;
-
-slides.forEach((_, i) => {
-  const dot = document.createElement("button");
-  dot.className = "dot" + (i === 0 ? " active" : "");
-  dot.addEventListener("click", () => goTo(i));
-  dotsEl.appendChild(dot);
-});
-
-function goTo(n) {
-  current = (n + slides.length) % slides.length;
-  track.style.transform = `translateX(-${current * 100}%)`;
-  dotsEl
-    .querySelectorAll(".dot")
-    .forEach((d, i) => d.classList.toggle("active", i === current));
-}
-
-function startAuto() {
-  autoTimer = setInterval(() => goTo(current + 1), 5000);
-}
-
-function resetAuto() {
-  clearInterval(autoTimer);
-  startAuto();
-}
-
-document.getElementById("carouselPrev").addEventListener("click", () => {
-  goTo(current - 1);
-  resetAuto();
-});
-document.getElementById("carouselNext").addEventListener("click", () => {
-  goTo(current + 1);
-  resetAuto();
-});
-
-startAuto();
-
-/* ── Touch swipe — hero carousel ───────────────────────────────── */
-let heroTouchStartX = 0;
-track.addEventListener(
-  "touchstart",
-  (e) => {
-    heroTouchStartX = e.touches[0].clientX;
-  },
-  { passive: true },
-);
-track.addEventListener(
-  "touchend",
-  (e) => {
-    const diff = heroTouchStartX - e.changedTouches[0].clientX;
-    if (Math.abs(diff) > 50) {
-      goTo(diff > 0 ? current + 1 : current - 1);
-      resetAuto();
-    }
-  },
+/* ── Navbar scroll state ────────────────────────────────────────── */
+const mainNav = document.getElementById("mainNav");
+window.addEventListener(
+  "scroll",
+  () => mainNav.classList.toggle("scrolled", window.scrollY > 40),
   { passive: true },
 );
 
@@ -385,12 +335,12 @@ mobileMenu.querySelectorAll("a").forEach((link) => {
   });
 });
 
-/* ── Cake Cards Slider ──────────────────────────────────────────── */
-const sliderTrack = document.getElementById("sliderTrack");
+/* ── Cake Cards (grilă cu tilt 3D) ──────────────────────────────── */
+const cakeGrid = document.getElementById("cakeGrid");
 
 PRAJITURI.forEach((p, i) => {
-  sliderTrack.innerHTML += `
-    <div class="cake-card" data-index="${i}">
+  cakeGrid.innerHTML += `
+    <article class="cake-card" data-index="${i}" data-tilt>
       <div class="cake-card-img-wrap">
         <img class="cake-card-img" src="${p.imagini[0]}" alt="${p.nume}" width="600" height="800" loading="lazy" />
         <span class="cake-tag">${p.tag}</span>
@@ -410,44 +360,136 @@ PRAJITURI.forEach((p, i) => {
           <span class="cake-card-stars">${p.stele}</span>
         </div>
       </div>
-    </div>`;
+    </article>`;
 });
 
-// Drag to scroll
-let isDown = false,
-  startX,
-  scrollLeft;
-sliderTrack.addEventListener("mousedown", (e) => {
-  isDown = true;
-  sliderTrack.classList.add("grabbing");
-  startX = e.pageX - sliderTrack.offsetLeft;
-  scrollLeft = sliderTrack.scrollLeft;
-});
-sliderTrack.addEventListener("mouseleave", () => {
-  isDown = false;
-  sliderTrack.classList.remove("grabbing");
-});
-sliderTrack.addEventListener("mouseup", () => {
-  isDown = false;
-  sliderTrack.classList.remove("grabbing");
-});
-sliderTrack.addEventListener("mousemove", (e) => {
-  if (!isDown) return;
-  e.preventDefault();
-  const x = e.pageX - sliderTrack.offsetLeft;
-  sliderTrack.scrollLeft = scrollLeft - (x - startX) * 1.4;
+cakeGrid.addEventListener("click", (e) => {
+  const card = e.target.closest(".cake-card");
+  if (card) openModal(parseInt(card.dataset.index));
 });
 
-document
-  .getElementById("sliderLeft")
-  .addEventListener("click", () =>
-    sliderTrack.scrollBy({ left: -340, behavior: "smooth" }),
+/* ── Tilt 3D care urmărește cursorul ────────────────────────────── */
+function initTilt() {
+  if (prefersReducedMotion || isTouch) return;
+  const MAX = 9; // grade
+  document.querySelectorAll("[data-tilt]").forEach((el) => {
+    el.addEventListener("pointermove", (e) => {
+      const r = el.getBoundingClientRect();
+      const px = (e.clientX - r.left) / r.width - 0.5;
+      const py = (e.clientY - r.top) / r.height - 0.5;
+      el.style.setProperty("--ry", `${px * MAX * 2}deg`);
+      el.style.setProperty("--rx", `${-py * MAX * 2}deg`);
+    });
+    el.addEventListener("pointerleave", () => {
+      el.style.setProperty("--ry", "0deg");
+      el.style.setProperty("--rx", "0deg");
+    });
+  });
+}
+initTilt();
+
+/* ── Parallax hero (mouse / scroll) ─────────────────────────────── */
+function initHeroParallax() {
+  if (prefersReducedMotion) return;
+  const scene = document.getElementById("heroScene");
+  if (!scene) return;
+  const layers = scene.querySelectorAll("[data-depth]");
+  // Păstrează transformarea de bază (rotație + adâncime) definită în CSS
+  layers.forEach((l) => {
+    l.dataset.base = getComputedStyle(l).transform.replace("none", "");
+  });
+  let tx = 0, ty = 0, cx = 0, cy = 0;
+
+  window.addEventListener(
+    "pointermove",
+    (e) => {
+      tx = (e.clientX / window.innerWidth - 0.5) * 2;
+      ty = (e.clientY / window.innerHeight - 0.5) * 2;
+    },
+    { passive: true },
   );
-document
-  .getElementById("sliderRight")
-  .addEventListener("click", () =>
-    sliderTrack.scrollBy({ left: 340, behavior: "smooth" }),
-  );
+
+  (function loop() {
+    cx += (tx - cx) * 0.06;
+    cy += (ty - cy) * 0.06;
+    layers.forEach((l) => {
+      const d = parseFloat(l.dataset.depth) || 0.05;
+      l.style.transform =
+        `translate3d(${cx * d * 240}px, ${cy * d * 240}px, 0) ${l.dataset.base}`;
+    });
+    scene.style.transform = `rotateX(${-cy * 3}deg) rotateY(${cx * 3}deg)`;
+    requestAnimationFrame(loop);
+  })();
+}
+initHeroParallax();
+
+/* ── Canvas fundal — particule „bokeh" 3D ───────────────────────── */
+function initBackground() {
+  const canvas = document.getElementById("bgCanvas");
+  if (!canvas) return;
+  const ctx = canvas.getContext("2d");
+  let w, h, dpr, particles;
+  const COLORS = ["rgba(255,91,176,", "rgba(230,194,92,", "rgba(255,255,255,"];
+
+  function resize() {
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    w = canvas.width = window.innerWidth * dpr;
+    h = canvas.height = window.innerHeight * dpr;
+    canvas.style.width = window.innerWidth + "px";
+    canvas.style.height = window.innerHeight + "px";
+    const count = Math.min(60, Math.round((window.innerWidth * window.innerHeight) / 26000));
+    particles = Array.from({ length: count }, () => spawn());
+  }
+  function spawn() {
+    const z = Math.random(); // adâncime: 0 = departe, 1 = aproape
+    return {
+      x: Math.random() * w,
+      y: Math.random() * h,
+      z,
+      r: (4 + z * 22) * dpr,
+      vy: (0.1 + z * 0.5) * dpr,
+      vx: (Math.random() - 0.5) * 0.3 * dpr,
+      a: 0.04 + z * 0.14,
+      c: COLORS[(Math.random() * COLORS.length) | 0],
+    };
+  }
+  function frame() {
+    ctx.clearRect(0, 0, w, h);
+    for (const p of particles) {
+      p.y -= p.vy;
+      p.x += p.vx;
+      if (p.y + p.r < 0) {
+        p.y = h + p.r;
+        p.x = Math.random() * w;
+      }
+      const g = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r);
+      g.addColorStop(0, p.c + p.a + ")");
+      g.addColorStop(1, p.c + "0)");
+      ctx.fillStyle = g;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    requestAnimationFrame(frame);
+  }
+  resize();
+  window.addEventListener("resize", resize);
+  if (!prefersReducedMotion) frame();
+  else {
+    // un singur cadru static
+    ctx.clearRect(0, 0, w, h);
+    for (const p of particles) {
+      const g = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r);
+      g.addColorStop(0, p.c + p.a + ")");
+      g.addColorStop(1, p.c + "0)");
+      ctx.fillStyle = g;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fill();
+    }
+  }
+}
+initBackground();
 
 /* ── Modal ──────────────────────────────────────────────────────── */
 const overlay = document.getElementById("modalOverlay");
@@ -527,22 +569,13 @@ function closeModal() {
   document.body.style.overflow = "";
 }
 
-// Click pe card
-sliderTrack.addEventListener("click", (e) => {
-  const card = e.target.closest(".cake-card");
-  if (card) openModal(parseInt(card.dataset.index));
-});
-
 document.getElementById("modalClose").addEventListener("click", closeModal);
 document.getElementById("modalCloseBtn").addEventListener("click", closeModal);
 overlay.addEventListener("click", (e) => {
   if (e.target === overlay) closeModal();
 });
-
-// Butonul "Comandă acum" din modal închide modalul și scroll la contact
 document.getElementById("modalOrderBtn").addEventListener("click", closeModal);
 
-// ESC key
 document.addEventListener("keydown", (e) => {
   if (e.key === "Escape") closeModal();
 });
@@ -575,12 +608,144 @@ modalImg.addEventListener(
   { passive: true },
 );
 
+/* ── HTML-in-Canvas — card „viu" randat în canvas ───────────────── */
+/* https://developer.chrome.com/blog/html-in-canvas-origin-trial      */
+(function initHtmlInCanvas() {
+  const stage = document.getElementById("showcaseStage");
+  const statusEl = document.getElementById("showcaseStatus");
+  const statusText = document.getElementById("showcaseStatusText");
+  if (!stage) return;
+
+  // Alege un produs „vedetă" (preferabil bestseller-ul)
+  const featured =
+    PRAJITURI.find((p) => /bestseller/i.test(p.tag)) || PRAJITURI[0];
+
+  // Construiește cardul real (interactiv + accesibil)
+  const card = document.createElement("div");
+  card.className = "hic-card css3d";
+  card.id = "hicCard";
+  card.innerHTML = `
+    <img src="${featured.imagini[0]}" alt="${featured.nume}" width="640" height="400" loading="lazy" />
+    <div class="hic-card-body">
+      <h3>${featured.nume}</h3>
+      <span class="hic-price">${featured.pret}</span>
+      <button type="button" id="hicOrderBtn">Comandă acum ✦</button>
+    </div>`;
+  stage.appendChild(card);
+
+  card.querySelector("#hicOrderBtn").addEventListener("click", () => {
+    document.getElementById("contact").scrollIntoView({ behavior: "smooth" });
+  });
+
+  // Feature detection pentru API-ul HTML-in-Canvas (2D)
+  const supported =
+    typeof CanvasRenderingContext2D !== "undefined" &&
+    typeof CanvasRenderingContext2D.prototype.drawElementImage === "function";
+
+  if (!supported || prefersReducedMotion) return; // rămâne fallback-ul CSS 3D
+
+  try {
+    // Creează canvasul și mută cardul ca DIRECT child (cerință API)
+    const canvas = document.createElement("canvas");
+    canvas.id = "hicCanvas";
+    canvas.setAttribute("layoutsubtree", "");
+    canvas.layoutSubtree = true; // unele build-uri folosesc proprietatea
+    stage.appendChild(canvas);
+
+    // Cardul devine copil al canvasului: invizibil direct, dar desenat de noi.
+    card.classList.remove("css3d");
+    card.style.transformOrigin = "top left";
+    canvas.appendChild(card);
+
+    const ctx = canvas.getContext("2d");
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+    function sizeCanvas() {
+      const cw = card.offsetWidth || 320;
+      const ch = card.offsetHeight || 420;
+      const pad = 90; // spațiu pentru înclinare
+      canvas.width = (cw + pad) * dpr;
+      canvas.height = (ch + pad) * dpr;
+      canvas.style.width = cw + pad + "px";
+      canvas.style.height = ch + pad + "px";
+    }
+    sizeCanvas();
+
+    // Parallax după cursor
+    let targetRX = 0, targetRY = 0, rx = 0, ry = 0;
+    canvas.addEventListener("pointermove", (e) => {
+      const r = canvas.getBoundingClientRect();
+      targetRY = ((e.clientX - r.left) / r.width - 0.5) * 0.5;
+      targetRX = ((e.clientY - r.top) / r.height - 0.5) * -0.4;
+    });
+    canvas.addEventListener("pointerleave", () => {
+      targetRX = 0;
+      targetRY = 0;
+    });
+
+    let t = 0;
+    function render() {
+      t += 0.016;
+      rx += (targetRX - rx) * 0.08;
+      ry += (targetRY - ry) * 0.08;
+
+      const cw = card.offsetWidth;
+      const ch = card.offsetHeight;
+      const cx = canvas.width / dpr / 2;
+      const cy = canvas.height / dpr / 2;
+
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      // Pseudo-3D: rotație lentă + înclinare după mouse, simulată afin
+      const sway = Math.sin(t * 0.6) * 0.12 + ry;
+      const tilt = Math.cos(t * 0.5) * 0.05 + rx;
+      ctx.translate(cx, cy);
+      ctx.transform(
+        Math.cos(sway),      // scaleX pe orizontală (efect de „întoarcere")
+        tilt * 0.4,          // shear vertical
+        -sway * 0.18,        // shear orizontal
+        1 - Math.abs(tilt) * 0.15,
+        0,
+        0,
+      );
+      ctx.translate(-cw / 2, -ch / 2);
+
+      // Desenează HTML-ul real în canvas; matricea returnată aliniază hit-testing-ul
+      const m = ctx.drawElementImage(card, 0, 0);
+      if (m) card.style.transform = m.toString();
+
+      requestAnimationFrame(render);
+    }
+
+    // paint event: re-desenează când conținutul cardului se schimbă (hover, focus)
+    canvas.addEventListener("paint", () => {
+      if (typeof canvas.requestPaint === "function") return; // bucla rAF acoperă deja
+    });
+
+    window.addEventListener("resize", sizeCanvas);
+    requestAnimationFrame(render);
+
+    statusEl.classList.add("live");
+    statusText.textContent = "Live — randat cu HTML-in-Canvas API";
+  } catch (err) {
+    // Orice eroare → revenim curat la fallback-ul CSS 3D
+    console.warn("HTML-in-Canvas indisponibil:", err);
+    const existingCanvas = document.getElementById("hicCanvas");
+    if (existingCanvas) {
+      stage.appendChild(card);
+      existingCanvas.remove();
+    }
+    card.classList.add("css3d");
+    card.style.transform = "";
+  }
+})();
+
 /* ── Contact form — FormSubmit.co AJAX ─────────────────────────── */
 document.getElementById("contactForm").addEventListener("submit", (e) => {
   e.preventDefault();
   const form = e.target;
   const btn = document.getElementById("formSubmitBtn");
-  const originalText = btn.textContent;
 
   btn.textContent = "Se trimite...";
   btn.disabled = true;
@@ -632,7 +797,6 @@ document
   .forEach((el) => observer.observe(el));
 
 /* ── Page URL (folosit în JSON-LD) ─────────────────────────────── */
-/* Canonical-ul este definit static în <head> pentru SEO mai robust  */
 const pageUrl = window.location.origin + window.location.pathname;
 
 /* ── JSON-LD Structured Data ────────────────────────────────────── */

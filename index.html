@@ -1,10 +1,10 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ro" xml:lang="ro">
 
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#e91e8c" />
+  <meta name="theme-color" content="#160910" />
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
   <link rel="apple-touch-icon" href="favicon.svg" />
   <title>Dulce Vis — Patiserie Artizanală Iași &amp; Hârlău | Prăjituri și Torturi</title>
@@ -45,22 +45,29 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="dns-prefetch" href="https://images.unsplash.com" />
   <link
-    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Lato:wght@300;400;700&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Lato:wght@300;400;700&display=swap"
     rel="stylesheet" />
   <style>
     /* =============================================
-       CONFIGURARE CULORI — modifică ușor aici
+       CONFIGURARE CULORI — temă „3D Patiserie"
     ============================================= */
     :root {
-      --roz: #e91e8c;
-      --roz-deschis: #fce4f3;
-      --roz-card: #fdf0f8;
-      --auriu: #c9a84c;
+      --roz: #ff5bb0;
+      --roz-tare: #e91e8c;
+      --roz-adanc: #8b1057;
+      --auriu: #e6c25c;
       --auriu-deschis: #f7e9c0;
-      --text-inchis: #2d1a26;
-      --text-gri: #7a5c6e;
-      --alb: #ffffff;
-      --fundal: #fff8fd;
+      --cream: #fff4fb;
+      --text: #f7e9f2;
+      --text-gri: #c89cb8;
+      --bg: #150810;
+      --bg-2: #2a0f22;
+      --bg-3: #3d1430;
+      --glass: rgba(255, 255, 255, 0.055);
+      --glass-strong: rgba(255, 255, 255, 0.09);
+      --glass-border: rgba(255, 255, 255, 0.12);
+      --shadow-deep: 0 30px 70px -20px rgba(0, 0, 0, 0.7);
+      --glow-roz: 0 0 40px rgba(255, 91, 176, 0.35);
     }
 
     /* =============================================
@@ -80,9 +87,33 @@
 
     body {
       font-family: 'Lato', sans-serif;
-      background: var(--fundal);
-      color: var(--text-inchis);
+      background: var(--bg);
+      color: var(--text);
       overflow-x: hidden;
+      position: relative;
+      min-height: 100vh;
+    }
+
+    /* Fundal degradat profund + canvas particule */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      background:
+        radial-gradient(ellipse 80% 60% at 15% -10%, rgba(233, 30, 140, 0.35), transparent 60%),
+        radial-gradient(ellipse 70% 60% at 90% 10%, rgba(230, 194, 92, 0.18), transparent 55%),
+        radial-gradient(ellipse 90% 80% at 50% 110%, rgba(139, 16, 87, 0.5), transparent 60%),
+        linear-gradient(160deg, var(--bg) 0%, var(--bg-2) 55%, var(--bg) 100%);
+    }
+
+    #bgCanvas {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
     }
 
     h1,
@@ -90,6 +121,7 @@
     h3,
     h4 {
       font-family: 'Playfair Display', serif;
+      font-weight: 700;
     }
 
     button,
@@ -98,12 +130,17 @@
       touch-action: manipulation;
     }
 
+    ::selection {
+      background: var(--roz);
+      color: #fff;
+    }
+
     .skip-link {
       position: absolute;
       top: -100px;
       left: 24px;
-      background: var(--roz);
-      color: var(--alb);
+      background: var(--roz-tare);
+      color: #fff;
       padding: 8px 20px;
       border-radius: 0 0 10px 10px;
       font-weight: 700;
@@ -118,7 +155,7 @@
     }
 
     /* =============================================
-       NAVBAR
+       NAVBAR — glass flotant
     ============================================= */
     nav {
       position: fixed;
@@ -129,20 +166,27 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 18px 48px;
-      background: rgba(255, 255, 255, 0.92);
-      backdrop-filter: blur(12px);
-      box-shadow: 0 2px 20px rgba(233, 30, 140, 0.08);
-      transition: padding 0.3s;
+      padding: 16px 48px;
+      background: rgba(21, 8, 16, 0.55);
+      backdrop-filter: blur(16px) saturate(140%);
+      -webkit-backdrop-filter: blur(16px) saturate(140%);
+      border-bottom: 1px solid var(--glass-border);
+      transition: padding 0.3s, background 0.3s;
+    }
+
+    nav.scrolled {
+      padding: 10px 48px;
+      background: rgba(21, 8, 16, 0.8);
     }
 
     .nav-logo {
       font-family: 'Playfair Display', serif;
       font-size: 1.6rem;
       font-weight: 700;
-      color: var(--roz);
+      color: var(--cream);
       letter-spacing: 1px;
       text-decoration: none;
+      text-shadow: 0 2px 18px rgba(255, 91, 176, 0.4);
     }
 
     .nav-logo span {
@@ -153,12 +197,13 @@
       display: flex;
       gap: 36px;
       list-style: none;
+      align-items: center;
     }
 
     .nav-links a {
       text-decoration: none;
-      color: var(--text-inchis);
-      font-size: 0.95rem;
+      color: var(--text);
+      font-size: 0.9rem;
       font-weight: 700;
       letter-spacing: 0.5px;
       text-transform: uppercase;
@@ -173,9 +218,10 @@
       left: 0;
       right: 0;
       height: 2px;
-      background: var(--roz);
+      background: linear-gradient(to right, var(--roz), var(--auriu));
       transform: scaleX(0);
       transition: transform 0.3s;
+      border-radius: 2px;
     }
 
     .nav-links a:hover {
@@ -187,25 +233,24 @@
     }
 
     .nav-cta {
-      background: linear-gradient(135deg, var(--roz), #c0157a);
-      color: var(--alb) !important;
+      background: linear-gradient(135deg, var(--roz), var(--roz-adanc));
+      color: #fff !important;
       padding: 10px 24px;
       border-radius: 50px;
+      box-shadow: 0 6px 22px rgba(233, 30, 140, 0.4);
       transition: box-shadow 0.3s, transform 0.2s !important;
     }
 
     .nav-cta:hover {
-      box-shadow: 0 4px 20px rgba(233, 30, 140, 0.4);
-      transform: translateY(-1px);
+      box-shadow: 0 10px 30px rgba(233, 30, 140, 0.6);
+      transform: translateY(-2px);
     }
 
     .nav-cta::after {
       display: none !important;
     }
 
-    /* =============================================
-       HAMBURGER BUTTON
-    ============================================= */
+    /* HAMBURGER */
     .hamburger {
       display: none;
       flex-direction: column;
@@ -221,7 +266,7 @@
 
     .hamburger span {
       display: block;
-      width: 22px;
+      width: 24px;
       height: 2px;
       background: var(--roz);
       border-radius: 2px;
@@ -241,16 +286,14 @@
       transform: translateY(-7px) rotate(-45deg);
     }
 
-    /* =============================================
-       MOBILE MENU OVERLAY
-    ============================================= */
+    /* MOBILE MENU */
     .mobile-menu {
       position: fixed;
       inset: 0;
       z-index: 998;
-      background: rgba(255, 248, 253, 0.97);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
+      background: rgba(21, 8, 16, 0.92);
+      backdrop-filter: blur(22px);
+      -webkit-backdrop-filter: blur(22px);
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -270,7 +313,7 @@
       font-family: 'Playfair Display', serif;
       font-size: 2rem;
       font-weight: 600;
-      color: var(--text-inchis);
+      color: var(--cream);
       text-decoration: none;
       padding: 14px 32px;
       transition: color 0.2s;
@@ -284,13 +327,13 @@
     .mobile-menu-divider {
       width: 40px;
       height: 1px;
-      background: var(--roz-deschis);
+      background: var(--glass-border);
       margin: 8px 0;
     }
 
     .mobile-cta {
-      background: linear-gradient(135deg, var(--roz), #c0157a) !important;
-      color: var(--alb) !important;
+      background: linear-gradient(135deg, var(--roz), var(--roz-adanc)) !important;
+      color: #fff !important;
       padding: 14px 40px !important;
       border-radius: 50px !important;
       font-family: 'Lato', sans-serif !important;
@@ -299,236 +342,235 @@
       letter-spacing: 1px;
       text-transform: uppercase;
       margin-top: 20px;
-      box-shadow: 0 8px 30px rgba(233, 30, 140, 0.3);
+      box-shadow: 0 8px 30px rgba(233, 30, 140, 0.4);
     }
 
     /* =============================================
-       PRICE DISPLAY
-    ============================================= */
-    .cake-card-price {
-      display: block;
-      color: var(--roz);
-      font-weight: 700;
-      font-size: 1rem;
-      margin-bottom: 12px;
-      font-family: 'Playfair Display', serif;
-    }
-
-    .cake-card-price-label {
-      font-family: 'Lato', sans-serif;
-      font-size: 0.7rem;
-      font-weight: 400;
-      color: var(--text-gri);
-      margin-right: 4px;
-    }
-
-    .modal-price-wrap {
-      display: flex;
-      align-items: baseline;
-      gap: 10px;
-      border-top: 1px solid var(--roz-deschis);
-      border-bottom: 1px solid var(--roz-deschis);
-      padding: 12px 0;
-    }
-
-    .modal-price {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.6rem;
-      font-weight: 700;
-      color: var(--roz);
-    }
-
-    .modal-price-note {
-      font-size: 0.75rem;
-      color: var(--text-gri);
-      font-style: italic;
-    }
-
-    /* =============================================
-       HERO CAROUSEL
+       HERO — scenă 3D cu parallax
     ============================================= */
     .hero {
       position: relative;
-      height: 100vh;
-      overflow: hidden;
+      min-height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
+      padding: 120px 24px 80px;
+      overflow: hidden;
+      perspective: 1400px;
     }
 
-    .carousel-track {
+    .hero-scene {
       position: absolute;
       inset: 0;
-      display: flex;
-      transition: transform 0.9s cubic-bezier(0.77, 0, 0.18, 1);
+      transform-style: preserve-3d;
+      pointer-events: none;
+      will-change: transform;
     }
 
-    .carousel-slide {
-      min-width: 100%;
-      height: 100%;
-      position: relative;
+    .hero-photo {
+      position: absolute;
+      border-radius: 22px;
+      overflow: hidden;
+      box-shadow: var(--shadow-deep), 0 0 0 1px var(--glass-border);
+      will-change: transform;
     }
 
-    .carousel-slide img {
+    .hero-photo img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      object-position: center;
+      display: block;
     }
 
-    .carousel-slide::after {
+    .hero-photo::after {
       content: '';
       position: absolute;
       inset: 0;
-      background: linear-gradient(135deg,
-          rgba(45, 26, 38, 0.65) 0%,
-          rgba(233, 30, 140, 0.2) 50%,
-          rgba(45, 26, 38, 0.4) 100%);
+      background: linear-gradient(160deg, rgba(255, 91, 176, 0.12), rgba(21, 8, 16, 0.35));
     }
 
-    /* Hero text */
+    .photo-a {
+      width: 230px;
+      height: 300px;
+      top: 16%;
+      left: 8%;
+      transform: translateZ(-120px) rotate(-7deg);
+    }
+
+    .photo-b {
+      width: 190px;
+      height: 250px;
+      bottom: 14%;
+      left: 16%;
+      transform: translateZ(40px) rotate(5deg);
+    }
+
+    .photo-c {
+      width: 250px;
+      height: 320px;
+      top: 18%;
+      right: 9%;
+      transform: translateZ(-60px) rotate(6deg);
+    }
+
+    .photo-d {
+      width: 175px;
+      height: 230px;
+      bottom: 12%;
+      right: 15%;
+      transform: translateZ(60px) rotate(-5deg);
+    }
+
+    .hero-orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(8px);
+      opacity: 0.55;
+    }
+
+    .orb-1 {
+      width: 90px;
+      height: 90px;
+      top: 30%;
+      left: 38%;
+      background: radial-gradient(circle at 30% 30%, var(--auriu-deschis), var(--auriu));
+      transform: translateZ(120px);
+    }
+
+    .orb-2 {
+      width: 60px;
+      height: 60px;
+      bottom: 28%;
+      right: 36%;
+      background: radial-gradient(circle at 30% 30%, var(--roz), var(--roz-adanc));
+      transform: translateZ(90px);
+    }
+
+    @media (max-width: 900px) {
+
+      .hero-photo,
+      .hero-orb {
+        display: none;
+      }
+    }
+
     .hero-content {
       position: relative;
       z-index: 10;
       text-align: center;
-      color: var(--alb);
-      padding: 0 24px;
+      max-width: 760px;
     }
 
     .hero-badge {
       display: inline-block;
-      background: rgba(201, 168, 76, 0.25);
-      border: 1px solid var(--auriu);
+      background: var(--glass);
+      border: 1px solid var(--glass-border);
       color: var(--auriu-deschis);
-      font-size: 0.75rem;
+      font-size: 0.72rem;
       letter-spacing: 3px;
       text-transform: uppercase;
-      padding: 6px 20px;
+      padding: 8px 22px;
       border-radius: 50px;
-      margin-bottom: 24px;
+      margin-bottom: 28px;
+      backdrop-filter: blur(8px);
     }
 
     .hero-title {
-      font-size: clamp(3rem, 7vw, 6rem);
-      line-height: 1.1;
-      margin-bottom: 20px;
-      text-shadow: 0 2px 30px rgba(0, 0, 0, 0.3);
+      font-size: clamp(2.8rem, 7vw, 5.6rem);
+      line-height: 1.08;
+      margin-bottom: 22px;
+      color: var(--cream);
+      text-shadow: 0 8px 40px rgba(0, 0, 0, 0.5);
     }
 
     .hero-title em {
       font-style: italic;
-      color: var(--auriu-deschis);
+      background: linear-gradient(120deg, var(--roz), var(--auriu));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
 
     .hero-subtitle {
       font-size: clamp(1rem, 2vw, 1.25rem);
       font-weight: 300;
-      letter-spacing: 1px;
-      max-width: 500px;
-      margin: 0 auto 40px;
-      opacity: 0.9;
+      letter-spacing: 0.5px;
+      max-width: 520px;
+      margin: 0 auto 38px;
+      color: var(--text-gri);
     }
 
-    .hero-btn {
+    .hero-actions {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
       display: inline-block;
-      background: linear-gradient(135deg, var(--roz), #c0157a);
-      color: var(--alb);
+      background: linear-gradient(135deg, var(--roz), var(--roz-adanc));
+      color: #fff;
       text-decoration: none;
-      padding: 16px 48px;
+      padding: 16px 44px;
       border-radius: 50px;
-      font-size: 1rem;
+      font-size: 0.95rem;
       font-weight: 700;
       letter-spacing: 1px;
       text-transform: uppercase;
-      box-shadow: 0 8px 30px rgba(233, 30, 140, 0.45);
-      transition: transform 0.2s, box-shadow 0.3s;
-    }
-
-    .hero-btn:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 14px 40px rgba(233, 30, 140, 0.55);
-    }
-
-    /* Carousel dots */
-    .carousel-dots {
-      position: absolute;
-      bottom: 36px;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 10;
-      display: flex;
-      gap: 10px;
-    }
-
-    .dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.4);
-      cursor: pointer;
-      transition: background 0.3s, transform 0.3s;
+      box-shadow: 0 12px 36px rgba(233, 30, 140, 0.5);
+      transition: transform 0.25s, box-shadow 0.3s;
       border: none;
-    }
-
-    .dot.active {
-      background: var(--alb);
-      transform: scale(1.3);
-    }
-
-    /* Carousel arrows */
-    .carousel-arrow {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      z-index: 10;
-      background: rgba(255, 255, 255, 0.15);
-      border: 2px solid rgba(255, 255, 255, 0.4);
-      color: var(--alb);
-      width: 52px;
-      height: 52px;
-      border-radius: 50%;
-      font-size: 1.4rem;
       cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: background 0.3s;
-      backdrop-filter: blur(6px);
     }
 
-    .carousel-arrow:hover {
-      background: rgba(233, 30, 140, 0.5);
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 18px 48px rgba(233, 30, 140, 0.65);
+    }
+
+    .btn-ghost {
+      display: inline-block;
+      background: var(--glass);
+      color: var(--cream);
+      text-decoration: none;
+      padding: 16px 38px;
+      border-radius: 50px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      border: 1px solid var(--glass-border);
+      backdrop-filter: blur(8px);
+      transition: transform 0.25s, background 0.3s, border-color 0.3s;
+    }
+
+    .btn-ghost:hover {
+      transform: translateY(-3px);
+      background: var(--glass-strong);
       border-color: var(--roz);
     }
 
-    .carousel-arrow.prev {
-      left: 24px;
-    }
-
-    .carousel-arrow.next {
-      right: 24px;
-    }
-
-    /* Scroll indicator */
     .scroll-indicator {
       position: absolute;
-      bottom: 80px;
-      right: 40px;
+      bottom: 34px;
+      left: 50%;
+      transform: translateX(-50%);
       z-index: 10;
       display: flex;
       flex-direction: column;
       align-items: center;
       gap: 8px;
-      color: rgba(255, 255, 255, 0.7);
-      font-size: 0.7rem;
+      color: var(--text-gri);
+      font-size: 0.68rem;
       letter-spacing: 2px;
       text-transform: uppercase;
     }
 
     .scroll-line {
       width: 1px;
-      height: 50px;
-      background: linear-gradient(to bottom, rgba(255, 255, 255, 0.7), transparent);
+      height: 46px;
+      background: linear-gradient(to bottom, var(--roz), transparent);
       animation: scrollPulse 2s ease-in-out infinite;
     }
 
@@ -566,13 +608,16 @@
 
     .section-title {
       font-size: clamp(2rem, 4vw, 3rem);
-      color: var(--text-inchis);
+      color: var(--cream);
       line-height: 1.2;
     }
 
     .section-title em {
       font-style: italic;
-      color: var(--roz);
+      background: linear-gradient(120deg, var(--roz), var(--auriu));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
 
     .section-divider {
@@ -584,110 +629,122 @@
     }
 
     /* =============================================
-       PRAJITURI SLIDER SECTION
+       PRAJITURI — grilă de carduri 3D (tilt)
     ============================================= */
     .prajituri-section {
-      padding: 100px 0 80px;
-      background: var(--fundal);
+      padding: 110px 48px 90px;
+      max-width: 1280px;
+      margin: 0 auto;
     }
 
-    .prajituri-section .section-header {
-      padding: 0 48px;
+    .cake-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+      gap: 34px;
+      perspective: 1200px;
     }
 
-    .slider-wrapper {
-      position: relative;
-      overflow: hidden;
-      padding: 20px 0 40px;
-    }
-
-    .slider-track {
-      display: flex;
-      gap: 28px;
-      padding: 10px 60px;
-      overflow-x: auto;
-      scroll-behavior: smooth;
-      scrollbar-width: none;
-      -ms-overflow-style: none;
-      cursor: grab;
-    }
-
-    .slider-track::-webkit-scrollbar {
-      display: none;
-    }
-
-    .slider-track.grabbing {
-      cursor: grabbing;
-    }
-
-    /* Cake Card */
     .cake-card {
-      flex: 0 0 300px;
-      background: var(--alb);
+      --rx: 0deg;
+      --ry: 0deg;
+      position: relative;
+      background: var(--glass);
+      border: 1px solid var(--glass-border);
       border-radius: 24px;
       overflow: hidden;
-      box-shadow: 0 4px 20px rgba(233, 30, 140, 0.08);
       cursor: pointer;
-      transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.35s;
-      position: relative;
+      transform-style: preserve-3d;
+      transform: perspective(900px) rotateX(var(--rx)) rotateY(var(--ry));
+      transition: transform 0.18s ease-out, box-shadow 0.35s, border-color 0.35s;
+      box-shadow: var(--shadow-deep);
+      backdrop-filter: blur(6px);
+      will-change: transform;
     }
 
     .cake-card:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 20px 50px rgba(233, 30, 140, 0.2);
+      box-shadow: 0 40px 80px -25px rgba(233, 30, 140, 0.55);
+      border-color: rgba(255, 91, 176, 0.4);
+    }
+
+    .cake-card-img-wrap {
+      position: relative;
+      overflow: hidden;
+      transform: translateZ(0);
     }
 
     .cake-card-img {
       width: 100%;
-      height: 220px;
+      height: 230px;
       object-fit: cover;
       display: block;
       transition: transform 0.5s;
     }
 
     .cake-card:hover .cake-card-img {
-      transform: scale(1.06);
+      transform: scale(1.07);
     }
 
-    .cake-card-img-wrap {
-      overflow: hidden;
-      position: relative;
+    .cake-card-img-wrap::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(21, 8, 16, 0.7), transparent 55%);
     }
 
     .cake-tag {
       position: absolute;
       top: 14px;
       right: 14px;
-      background: linear-gradient(135deg, var(--roz), #c0157a);
-      color: var(--alb);
-      font-size: 0.65rem;
+      z-index: 2;
+      background: linear-gradient(135deg, var(--roz), var(--roz-adanc));
+      color: #fff;
+      font-size: 0.62rem;
       font-weight: 700;
       letter-spacing: 1.5px;
       text-transform: uppercase;
-      padding: 5px 12px;
+      padding: 5px 13px;
       border-radius: 50px;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
     }
 
     .cake-card-body {
-      padding: 22px 24px 24px;
+      padding: 22px 24px 26px;
+      transform: translateZ(40px);
     }
 
     .cake-card-name {
-      font-size: 1.2rem;
+      font-size: 1.25rem;
       font-weight: 600;
       margin-bottom: 8px;
-      color: var(--text-inchis);
+      color: var(--cream);
     }
 
     .cake-card-desc {
       font-size: 0.88rem;
       color: var(--text-gri);
       line-height: 1.6;
-      margin-bottom: 18px;
+      margin-bottom: 16px;
       display: -webkit-box;
       -webkit-line-clamp: 2;
       -webkit-box-orient: vertical;
       overflow: hidden;
+    }
+
+    .cake-card-price {
+      display: block;
+      color: var(--roz);
+      font-weight: 700;
+      font-size: 1.05rem;
+      margin-bottom: 14px;
+      font-family: 'Playfair Display', serif;
+    }
+
+    .cake-card-price-label {
+      font-family: 'Lato', sans-serif;
+      font-size: 0.68rem;
+      font-weight: 400;
+      color: var(--text-gri);
+      margin-right: 4px;
     }
 
     .cake-card-footer {
@@ -697,7 +754,7 @@
     }
 
     .cake-card-link {
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       font-weight: 700;
       letter-spacing: 1px;
       text-transform: uppercase;
@@ -721,54 +778,484 @@
       letter-spacing: 2px;
     }
 
-    /* Slider nav buttons */
-    .slider-nav {
-      display: flex;
-      justify-content: center;
-      gap: 12px;
-      margin-top: 12px;
+    /* =============================================
+       SHOWCASE — HTML-in-Canvas (3D live)
+    ============================================= */
+    .showcase-section {
+      padding: 90px 48px 100px;
+      max-width: 1180px;
+      margin: 0 auto;
     }
 
-    .slider-btn {
-      width: 46px;
-      height: 46px;
+    .showcase-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 56px;
+      align-items: center;
+    }
+
+    .showcase-copy .section-label {
+      text-align: left;
+    }
+
+    .showcase-copy h2 {
+      font-size: clamp(1.9rem, 3.5vw, 2.8rem);
+      color: var(--cream);
+      line-height: 1.2;
+      margin-bottom: 18px;
+    }
+
+    .showcase-copy h2 em {
+      font-style: italic;
+      background: linear-gradient(120deg, var(--roz), var(--auriu));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .showcase-copy p {
+      color: var(--text-gri);
+      line-height: 1.8;
+      font-size: 0.98rem;
+      margin-bottom: 22px;
+    }
+
+    .showcase-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      padding: 9px 18px;
+      border-radius: 50px;
+      border: 1px solid var(--glass-border);
+      background: var(--glass);
+    }
+
+    .status-dot {
+      width: 9px;
+      height: 9px;
       border-radius: 50%;
-      border: 2px solid var(--roz);
-      background: var(--alb);
-      color: var(--roz);
-      font-size: 1.1rem;
-      cursor: pointer;
+      background: var(--text-gri);
+      box-shadow: 0 0 0 0 rgba(255, 91, 176, 0.6);
+    }
+
+    .showcase-status.live .status-dot {
+      background: #25d366;
+      animation: pulseDot 1.6s infinite;
+    }
+
+    .showcase-status.live {
+      color: #8af0b0;
+      border-color: rgba(37, 211, 102, 0.4);
+    }
+
+    @keyframes pulseDot {
+      0% {
+        box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.5);
+      }
+
+      70% {
+        box-shadow: 0 0 0 8px rgba(37, 211, 102, 0);
+      }
+
+      100% {
+        box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
+      }
+    }
+
+    .showcase-stage {
+      position: relative;
+      min-height: 460px;
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: background 0.3s, color 0.3s;
+      perspective: 1100px;
     }
 
-    .slider-btn:hover {
-      background: var(--roz);
-      color: var(--alb);
+    /* Cardul „viu" — fallback CSS-3D, dar și sursa desenată în canvas */
+    .hic-card {
+      width: 320px;
+      background: linear-gradient(160deg, rgba(61, 20, 48, 0.92), rgba(21, 8, 16, 0.92));
+      border: 1px solid var(--glass-border);
+      border-radius: 26px;
+      overflow: hidden;
+      box-shadow: var(--shadow-deep), var(--glow-roz);
+      transform-style: preserve-3d;
     }
 
-    /* Gradient fade on edges */
-    .slider-wrapper::before,
-    .slider-wrapper::after {
-      content: '';
+    .hic-card.css3d {
+      animation: floatCard 7s ease-in-out infinite;
+    }
+
+    @keyframes floatCard {
+
+      0%,
+      100% {
+        transform: rotateY(-14deg) rotateX(6deg) translateY(0);
+      }
+
+      50% {
+        transform: rotateY(14deg) rotateX(-4deg) translateY(-14px);
+      }
+    }
+
+    .hic-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .hic-card-body {
+      padding: 22px 24px 26px;
+    }
+
+    .hic-card-body h3 {
+      color: var(--cream);
+      font-size: 1.4rem;
+      margin-bottom: 6px;
+    }
+
+    .hic-card-body .hic-price {
+      color: var(--auriu);
+      font-weight: 700;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      margin-bottom: 16px;
+      display: block;
+    }
+
+    .hic-card-body button {
+      width: 100%;
+      background: linear-gradient(135deg, var(--roz), var(--roz-adanc));
+      color: #fff;
+      border: none;
+      padding: 13px;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+    }
+
+    /* Canvasul HTML-in-Canvas (activat doar când API e suportat) */
+    #hicCanvas {
+      max-width: 100%;
+      display: block;
+    }
+
+    /* =============================================
+       QUOTE STRIP
+    ============================================= */
+    .quote-strip {
+      padding: 90px 48px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(135deg, rgba(233, 30, 140, 0.18), rgba(139, 16, 87, 0.12));
+      border-top: 1px solid var(--glass-border);
+      border-bottom: 1px solid var(--glass-border);
+    }
+
+    .quote-strip::before {
+      content: '\275D';
       position: absolute;
-      top: 0;
-      bottom: 0;
-      width: 60px;
-      z-index: 2;
-      pointer-events: none;
+      font-size: 20rem;
+      color: rgba(255, 255, 255, 0.04);
+      top: -40px;
+      left: -10px;
+      font-family: Georgia, serif;
+      line-height: 1;
     }
 
-    .slider-wrapper::before {
-      left: 0;
-      background: linear-gradient(to right, var(--fundal), transparent);
+    .quote-text {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: clamp(1.4rem, 3vw, 2.2rem);
+      color: var(--cream);
+      max-width: 720px;
+      margin: 0 auto 20px;
+      line-height: 1.6;
+      position: relative;
     }
 
-    .slider-wrapper::after {
-      right: 0;
-      background: linear-gradient(to left, var(--fundal), transparent);
+    .quote-text em {
+      color: var(--auriu);
+    }
+
+    .quote-author {
+      font-size: 0.85rem;
+      color: var(--text-gri);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    /* =============================================
+       ZONE DE ACTIVITATE
+    ============================================= */
+    .zone-section {
+      padding: 100px 48px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .zone-cards {
+      display: flex;
+      justify-content: center;
+      gap: 28px;
+      flex-wrap: wrap;
+      margin-top: 48px;
+    }
+
+    .zone-card {
+      background: var(--glass);
+      border: 1px solid var(--glass-border);
+      border-radius: 24px;
+      padding: 38px 46px;
+      text-align: center;
+      box-shadow: var(--shadow-deep);
+      min-width: 240px;
+      backdrop-filter: blur(8px);
+      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s, border-color 0.3s;
+    }
+
+    .zone-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 30px 60px -20px rgba(233, 30, 140, 0.5);
+      border-color: rgba(255, 91, 176, 0.4);
+    }
+
+    .zone-icon {
+      font-size: 2.2rem;
+      margin-bottom: 14px;
+      display: block;
+    }
+
+    .zone-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--cream);
+      margin-bottom: 6px;
+    }
+
+    .zone-desc {
+      font-size: 0.85rem;
+      color: var(--text-gri);
+      letter-spacing: 0.5px;
+    }
+
+    /* =============================================
+       CONTACT SECTION
+    ============================================= */
+    .contact-section {
+      padding: 100px 48px;
+      max-width: 1160px;
+      margin: 0 auto;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 56px;
+      align-items: start;
+    }
+
+    .contact-left h2 {
+      font-size: clamp(2rem, 3.5vw, 2.8rem);
+      margin-bottom: 16px;
+      color: var(--cream);
+    }
+
+    .contact-left h2 em {
+      font-style: italic;
+      background: linear-gradient(120deg, var(--roz), var(--auriu));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .contact-left>p {
+      font-size: 1rem;
+      color: var(--text-gri);
+      line-height: 1.8;
+      margin-bottom: 36px;
+    }
+
+    .social-links {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .social-link {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      text-decoration: none;
+      padding: 16px 22px;
+      border-radius: 18px;
+      background: var(--glass);
+      border: 1px solid var(--glass-border);
+      transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
+    }
+
+    .social-link:hover {
+      transform: translateX(6px);
+      box-shadow: 0 12px 30px -10px rgba(233, 30, 140, 0.5);
+      border-color: rgba(255, 91, 176, 0.4);
+    }
+
+    .social-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      flex: 0 0 auto;
+    }
+
+    .social-instagram .social-icon {
+      background: linear-gradient(135deg, #f58529, #dd2a7b, #8134af);
+    }
+
+    .social-whatsapp .social-icon {
+      background: #25d366;
+    }
+
+    .social-facebook .social-icon {
+      background: #1877f2;
+    }
+
+    .social-email .social-icon {
+      background: linear-gradient(135deg, var(--roz), var(--roz-adanc));
+    }
+
+    .social-info {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .social-name {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--text-gri);
+      margin-bottom: 2px;
+    }
+
+    .social-handle {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--cream);
+    }
+
+    .contact-form {
+      background: var(--glass);
+      border: 1px solid var(--glass-border);
+      border-radius: 28px;
+      padding: 40px;
+      box-shadow: var(--shadow-deep);
+      backdrop-filter: blur(10px);
+    }
+
+    .contact-form h3 {
+      font-size: 1.5rem;
+      margin-bottom: 28px;
+      color: var(--cream);
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      font-size: 0.74rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--text-gri);
+    }
+
+    .form-group input,
+    .form-group textarea {
+      padding: 14px 18px;
+      border: 1px solid var(--glass-border);
+      border-radius: 14px;
+      font-family: 'Lato', sans-serif;
+      font-size: 0.95rem;
+      color: var(--cream);
+      background: rgba(0, 0, 0, 0.25);
+      transition: border-color 0.2s, box-shadow 0.2s;
+      outline: none;
+      resize: none;
+    }
+
+    .form-group input::placeholder,
+    .form-group textarea::placeholder {
+      color: rgba(200, 156, 184, 0.6);
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      border-color: var(--roz);
+      box-shadow: 0 0 0 4px rgba(233, 30, 140, 0.18);
+    }
+
+    .form-group textarea {
+      height: 110px;
+    }
+
+    .form-submit {
+      width: 100%;
+      padding: 16px;
+      background: linear-gradient(135deg, var(--roz), var(--roz-adanc));
+      color: #fff;
+      border: none;
+      border-radius: 50px;
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      cursor: pointer;
+      transition: box-shadow 0.3s, transform 0.2s;
+    }
+
+    .form-submit:hover {
+      box-shadow: 0 10px 30px rgba(233, 30, 140, 0.5);
+      transform: translateY(-2px);
+    }
+
+    .form-success {
+      display: none;
+      text-align: center;
+      padding: 20px;
+      color: #8af0b0;
+      font-weight: 700;
+      font-size: 1rem;
+    }
+
+    /* =============================================
+       FOOTER
+    ============================================= */
+    footer {
+      background: rgba(0, 0, 0, 0.4);
+      border-top: 1px solid var(--glass-border);
+      color: var(--text-gri);
+      text-align: center;
+      padding: 32px 24px;
+      font-size: 0.85rem;
+    }
+
+    footer span {
+      color: var(--roz);
     }
 
     /* =============================================
@@ -777,7 +1264,7 @@
     .modal-overlay {
       position: fixed;
       inset: 0;
-      background: rgba(45, 26, 38, 0.7);
+      background: rgba(10, 4, 8, 0.72);
       z-index: 2000;
       display: flex;
       align-items: center;
@@ -785,8 +1272,9 @@
       padding: 24px;
       opacity: 0;
       pointer-events: none;
-      backdrop-filter: blur(6px);
+      backdrop-filter: blur(8px);
       transition: opacity 0.4s;
+      perspective: 1600px;
     }
 
     .modal-overlay.open {
@@ -795,7 +1283,8 @@
     }
 
     .modal {
-      background: var(--alb);
+      background: linear-gradient(160deg, rgba(42, 15, 34, 0.96), rgba(21, 8, 16, 0.98));
+      border: 1px solid var(--glass-border);
       border-radius: 32px;
       max-width: 900px;
       width: 100%;
@@ -803,9 +1292,9 @@
       overflow-y: auto;
       display: grid;
       grid-template-columns: 1fr 1fr;
-      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.3);
-      transform: scale(0.9) translateY(30px);
-      transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+      box-shadow: 0 40px 100px rgba(0, 0, 0, 0.6);
+      transform: rotateX(8deg) scale(0.92) translateY(30px);
+      transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
       scrollbar-width: none;
     }
 
@@ -814,7 +1303,7 @@
     }
 
     .modal-overlay.open .modal {
-      transform: scale(1) translateY(0);
+      transform: rotateX(0) scale(1) translateY(0);
     }
 
     .modal-img-side {
@@ -833,7 +1322,7 @@
       content: '';
       position: absolute;
       inset: 0;
-      background: linear-gradient(to top, rgba(45, 26, 38, 0.5) 0%, transparent 60%);
+      background: linear-gradient(to top, rgba(21, 8, 16, 0.6) 0%, transparent 60%);
       border-radius: 32px 0 0 32px;
     }
 
@@ -842,10 +1331,10 @@
       bottom: 20px;
       left: 20px;
       z-index: 2;
-      background: rgba(255, 255, 255, 0.2);
+      background: rgba(0, 0, 0, 0.35);
       backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.4);
-      color: var(--alb);
+      border: 1px solid var(--glass-border);
+      color: var(--cream);
       padding: 8px 16px;
       border-radius: 50px;
       font-size: 0.78rem;
@@ -869,26 +1358,25 @@
       width: 40px;
       height: 40px;
       border-radius: 50%;
-      background: rgba(255, 255, 255, 0.9);
-      border: none;
+      background: rgba(0, 0, 0, 0.45);
+      border: 1px solid var(--glass-border);
       font-size: 1.2rem;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      color: var(--text-inchis);
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+      color: var(--cream);
       transition: background 0.2s;
     }
 
     .modal-close:hover {
       background: var(--roz);
-      color: var(--alb);
+      color: #fff;
     }
 
     .modal-tag {
       display: inline-block;
-      background: var(--roz-deschis);
+      background: rgba(255, 91, 176, 0.18);
       color: var(--roz);
       font-size: 0.7rem;
       font-weight: 700;
@@ -902,7 +1390,29 @@
     .modal-title {
       font-size: 2rem;
       line-height: 1.2;
-      color: var(--text-inchis);
+      color: var(--cream);
+    }
+
+    .modal-price-wrap {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      border-top: 1px solid var(--glass-border);
+      border-bottom: 1px solid var(--glass-border);
+      padding: 12px 0;
+    }
+
+    .modal-price {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--roz);
+    }
+
+    .modal-price-note {
+      font-size: 0.75rem;
+      color: var(--text-gri);
+      font-style: italic;
     }
 
     .modal-desc {
@@ -928,12 +1438,13 @@
     }
 
     .ingredients-list li {
-      background: var(--auriu-deschis);
-      color: #7a5c00;
+      background: rgba(230, 194, 92, 0.14);
+      color: var(--auriu-deschis);
       font-size: 0.82rem;
       padding: 5px 14px;
       border-radius: 50px;
       font-weight: 600;
+      border: 1px solid rgba(230, 194, 92, 0.2);
     }
 
     .prep-steps {
@@ -954,8 +1465,8 @@
     .step-num {
       flex: 0 0 28px;
       height: 28px;
-      background: linear-gradient(135deg, var(--roz), #c0157a);
-      color: var(--alb);
+      background: linear-gradient(135deg, var(--roz), var(--roz-adanc));
+      color: #fff;
       border-radius: 50%;
       display: flex;
       align-items: center;
@@ -973,8 +1484,8 @@
 
     .modal-btn-primary {
       flex: 1;
-      background: linear-gradient(135deg, var(--roz), #c0157a);
-      color: var(--alb);
+      background: linear-gradient(135deg, var(--roz), var(--roz-adanc));
+      color: #fff;
       border: none;
       padding: 14px 24px;
       border-radius: 50px;
@@ -991,7 +1502,7 @@
     }
 
     .modal-btn-primary:hover {
-      box-shadow: 0 8px 25px rgba(233, 30, 140, 0.4);
+      box-shadow: 0 8px 25px rgba(233, 30, 140, 0.5);
       transform: translateY(-2px);
     }
 
@@ -999,23 +1510,21 @@
       flex: 1;
       background: transparent;
       color: var(--roz);
-      border: 2px solid var(--roz);
+      border: 1px solid var(--roz);
       padding: 14px 24px;
       border-radius: 50px;
       font-size: 0.9rem;
       font-weight: 700;
       cursor: pointer;
       text-align: center;
-      transition: background 0.3s, color 0.3s;
+      transition: background 0.3s;
     }
 
     .modal-btn-secondary:hover {
-      background: var(--roz-deschis);
+      background: rgba(255, 91, 176, 0.12);
     }
 
-    /* =============================================
-       MODAL GALLERY CONTROLS
-    ============================================= */
+    /* MODAL GALLERY CONTROLS */
     #modalImg {
       transition: opacity 0.2s ease;
     }
@@ -1026,9 +1535,9 @@
       top: 50%;
       transform: translateY(-50%);
       z-index: 5;
-      background: rgba(255, 255, 255, 0.18);
-      border: 1px solid rgba(255, 255, 255, 0.35);
-      color: var(--alb);
+      background: rgba(0, 0, 0, 0.35);
+      border: 1px solid var(--glass-border);
+      color: #fff;
       width: 34px;
       height: 34px;
       border-radius: 50%;
@@ -1038,7 +1547,6 @@
       align-items: center;
       justify-content: center;
       backdrop-filter: blur(4px);
-      -webkit-backdrop-filter: blur(4px);
       transition: background 0.2s;
     }
 
@@ -1052,7 +1560,7 @@
 
     .modal-gallery-prev:hover,
     .modal-gallery-next:hover {
-      background: rgba(233, 30, 140, 0.5);
+      background: rgba(233, 30, 140, 0.6);
     }
 
     .modal-gallery-dots {
@@ -1077,317 +1585,8 @@
     }
 
     .modal-gallery-dot.active {
-      background: var(--alb);
+      background: #fff;
       transform: scale(1.35);
-    }
-
-    /* =============================================
-       QUOTE / ABOUT STRIP
-    ============================================= */
-    .quote-strip {
-      background: linear-gradient(135deg, var(--roz) 0%, #c0157a 50%, #8b1057 100%);
-      padding: 80px 48px;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .quote-strip::before {
-      content: '❝';
-      position: absolute;
-      font-size: 20rem;
-      color: rgba(255, 255, 255, 0.04);
-      top: -40px;
-      left: -20px;
-      font-family: Georgia, serif;
-      line-height: 1;
-    }
-
-    .quote-text {
-      font-family: 'Playfair Display', serif;
-      font-style: italic;
-      font-size: clamp(1.4rem, 3vw, 2.2rem);
-      color: var(--alb);
-      max-width: 700px;
-      margin: 0 auto 20px;
-      line-height: 1.6;
-    }
-
-    .quote-author {
-      font-size: 0.85rem;
-      color: rgba(255, 255, 255, 0.7);
-      letter-spacing: 2px;
-      text-transform: uppercase;
-    }
-
-    /* =============================================
-       ZONE DE ACTIVITATE
-    ============================================= */
-    .zone-section {
-      padding: 90px 48px;
-      background: var(--roz-card);
-    }
-
-    .zone-cards {
-      display: flex;
-      justify-content: center;
-      gap: 28px;
-      flex-wrap: wrap;
-      margin-top: 48px;
-    }
-
-    .zone-card {
-      background: var(--alb);
-      border-radius: 24px;
-      padding: 36px 44px;
-      text-align: center;
-      box-shadow: 0 6px 30px rgba(233, 30, 140, 0.1);
-      min-width: 240px;
-      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s;
-    }
-
-    .zone-card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 18px 50px rgba(233, 30, 140, 0.2);
-    }
-
-    .zone-icon {
-      font-size: 2.2rem;
-      margin-bottom: 14px;
-      display: block;
-    }
-
-    .zone-name {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: var(--text-inchis);
-      margin-bottom: 6px;
-    }
-
-    .zone-desc {
-      font-size: 0.85rem;
-      color: var(--text-gri);
-      letter-spacing: 0.5px;
-    }
-
-    @media (max-width: 768px) {
-      .zone-section {
-        padding: 70px 24px;
-      }
-
-      .zone-cards {
-        gap: 18px;
-        margin-top: 36px;
-      }
-
-      .zone-card {
-        padding: 28px 32px;
-        min-width: 0;
-        width: 100%;
-        max-width: 320px;
-      }
-    }
-
-    /* =============================================
-       CONTACT SECTION
-    ============================================= */
-    .contact-section {
-      padding: 100px 48px;
-      background: var(--fundal);
-    }
-
-    .contact-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 60px;
-      max-width: 1100px;
-      margin: 0 auto;
-      align-items: start;
-    }
-
-    .contact-left h2 {
-      font-size: clamp(2rem, 3.5vw, 2.8rem);
-      margin-bottom: 16px;
-      color: var(--text-inchis);
-    }
-
-    .contact-left h2 em {
-      font-style: italic;
-      color: var(--roz);
-    }
-
-    .contact-left p {
-      font-size: 1rem;
-      color: var(--text-gri);
-      line-height: 1.8;
-      margin-bottom: 40px;
-    }
-
-    .social-links {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
-
-    .social-link {
-      display: flex;
-      align-items: center;
-      gap: 18px;
-      text-decoration: none;
-      padding: 16px 22px;
-      border-radius: 18px;
-      background: var(--alb);
-      box-shadow: 0 3px 15px rgba(233, 30, 140, 0.07);
-      transition: transform 0.25s, box-shadow 0.25s;
-    }
-
-    .social-link:hover {
-      transform: translateX(6px);
-      box-shadow: 0 8px 30px rgba(233, 30, 140, 0.18);
-    }
-
-    .social-icon {
-      width: 48px;
-      height: 48px;
-      border-radius: 14px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.4rem;
-      flex: 0 0 auto;
-    }
-
-    .social-instagram .social-icon {
-      background: linear-gradient(135deg, #f58529, #dd2a7b, #8134af);
-    }
-
-    .social-whatsapp .social-icon {
-      background: #25D366;
-    }
-
-    .social-facebook .social-icon {
-      background: #1877F2;
-    }
-
-    .social-email .social-icon {
-      background: linear-gradient(135deg, var(--roz), #c0157a);
-    }
-
-    .social-info {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .social-name {
-      font-size: 0.7rem;
-      font-weight: 700;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: var(--text-gri);
-      margin-bottom: 2px;
-    }
-
-    .social-handle {
-      font-size: 0.95rem;
-      font-weight: 700;
-      color: var(--text-inchis);
-    }
-
-    /* Contact form */
-    .contact-form {
-      background: var(--alb);
-      border-radius: 28px;
-      padding: 40px;
-      box-shadow: 0 8px 40px rgba(233, 30, 140, 0.08);
-    }
-
-    .contact-form h3 {
-      font-size: 1.5rem;
-      margin-bottom: 28px;
-      color: var(--text-inchis);
-    }
-
-    .form-group {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      margin-bottom: 20px;
-    }
-
-    .form-group label {
-      font-size: 0.78rem;
-      font-weight: 700;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      color: var(--text-gri);
-    }
-
-    .form-group input,
-    .form-group textarea {
-      padding: 14px 18px;
-      border: 2px solid #f0e0ec;
-      border-radius: 14px;
-      font-family: 'Lato', sans-serif;
-      font-size: 0.95rem;
-      color: var(--text-inchis);
-      background: var(--fundal);
-      transition: border-color 0.2s, box-shadow 0.2s;
-      outline: none;
-      resize: none;
-    }
-
-    .form-group input:focus,
-    .form-group textarea:focus {
-      border-color: var(--roz);
-      box-shadow: 0 0 0 4px rgba(233, 30, 140, 0.1);
-    }
-
-    .form-group textarea {
-      height: 110px;
-    }
-
-    .form-submit {
-      width: 100%;
-      padding: 16px;
-      background: linear-gradient(135deg, var(--roz), #c0157a);
-      color: var(--alb);
-      border: none;
-      border-radius: 50px;
-      font-size: 1rem;
-      font-weight: 700;
-      letter-spacing: 1px;
-      cursor: pointer;
-      transition: box-shadow 0.3s, transform 0.2s;
-    }
-
-    .form-submit:hover {
-      box-shadow: 0 8px 25px rgba(233, 30, 140, 0.4);
-      transform: translateY(-2px);
-    }
-
-    .form-success {
-      display: none;
-      text-align: center;
-      padding: 20px;
-      color: #25D366;
-      font-weight: 700;
-      font-size: 1rem;
-    }
-
-    /* =============================================
-       FOOTER
-    ============================================= */
-    footer {
-      background: var(--text-inchis);
-      color: rgba(255, 255, 255, 0.5);
-      text-align: center;
-      padding: 32px 24px;
-      font-size: 0.85rem;
-    }
-
-    footer span {
-      color: var(--roz);
     }
 
     /* =============================================
@@ -1395,8 +1594,8 @@
     ============================================= */
     [data-animate] {
       opacity: 0;
-      transform: translateY(30px);
-      transition: opacity 0.7s, transform 0.7s;
+      transform: translateY(40px);
+      transition: opacity 0.8s, transform 0.8s;
     }
 
     [data-animate].visible {
@@ -1404,14 +1603,47 @@
       transform: translateY(0);
     }
 
+    @media (prefers-reduced-motion: reduce) {
+
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+        scroll-behavior: auto !important;
+      }
+
+      [data-animate] {
+        opacity: 1;
+        transform: none;
+      }
+    }
+
     /* =============================================
        RESPONSIVE
     ============================================= */
-    @media (max-width: 768px) {
+    @media (max-width: 900px) {
 
-      /* Nav */
+      .showcase-grid,
+      .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+
+      .showcase-copy .section-label,
+      .showcase-copy h2 {
+        text-align: center;
+      }
+    }
+
+    @media (max-width: 768px) {
       nav {
-        padding: 16px 20px;
+        padding: 14px 20px;
+      }
+
+      nav.scrolled {
+        padding: 10px 20px;
       }
 
       .nav-links {
@@ -1422,48 +1654,32 @@
         display: flex;
       }
 
-      /* Hero */
-      .hero {
-        height: 100svh;
-        min-height: 100vh;
-      }
-
-      .hero-content {
-        padding: 0 20px;
-      }
-
-      .hero-btn {
-        padding: 14px 36px;
-      }
-
-      /* Carousel */
-      .carousel-arrow {
-        display: none;
-      }
-
-      /* Prajituri section */
       .prajituri-section {
-        padding: 70px 0 60px;
+        padding: 80px 20px 70px;
       }
 
-      .prajituri-section .section-header {
-        padding: 0 24px;
-        margin-bottom: 40px;
+      .cake-grid {
+        gap: 22px;
       }
 
-      /* Slider */
-      .slider-track {
-        padding: 10px 20px;
-        gap: 16px;
+      .showcase-section {
+        padding: 70px 20px 80px;
       }
 
-      .cake-card {
-        flex: 0 0 260px;
+      .zone-section {
+        padding: 70px 24px;
       }
 
-      .slider-wrapper::before,
-      .slider-wrapper::after {
-        display: none;
+      .quote-strip {
+        padding: 60px 24px;
+      }
+
+      .contact-section {
+        padding: 70px 24px 90px;
+      }
+
+      .contact-form {
+        padding: 28px 24px;
       }
 
       /* Modal — bottom sheet */
@@ -1491,13 +1707,10 @@
         height: 200px;
       }
 
-      .modal-img-side img {
-        border-radius: 28px 28px 0 0;
-        height: 200px;
-      }
-
+      .modal-img-side img,
       .modal-img-side::after {
         border-radius: 28px 28px 0 0;
+        height: 200px;
       }
 
       .modal-close {
@@ -1514,105 +1727,27 @@
         font-size: 1.6rem;
       }
 
-      .modal-price {
-        font-size: 1.3rem;
-      }
-
-      /* Quote strip */
-      .quote-strip {
-        padding: 60px 24px;
-      }
-
-      /* Contact */
-      .contact-section {
-        padding: 70px 24px 80px;
-      }
-
-      .contact-grid {
-        grid-template-columns: 1fr;
-        gap: 40px;
-      }
-
-      .contact-form {
-        padding: 28px 24px;
-      }
-
       /* Prevent iOS zoom on input focus */
       .form-group input,
       .form-group textarea {
         font-size: 16px;
       }
-
-      .scroll-indicator {
-        display: none;
-      }
     }
 
     @media (max-width: 480px) {
-      .hero-title {
-        font-size: clamp(2.2rem, 9vw, 3rem);
+      .hero {
+        padding: 110px 18px 70px;
       }
 
-      .hero-btn {
+      .btn-primary,
+      .btn-ghost {
         width: 100%;
-        max-width: 300px;
+        max-width: 320px;
         text-align: center;
       }
 
-      .hero-badge {
-        font-size: 0.65rem;
-        letter-spacing: 2px;
-      }
-
-      .section-header {
-        margin-bottom: 36px;
-      }
-
-      .section-title {
-        font-size: clamp(1.7rem, 7vw, 2.2rem);
-      }
-
-      .cake-card {
-        flex: 0 0 calc(85vw);
-      }
-
-      .slider-track {
-        padding: 10px 16px;
-      }
-
-      .modal-img-side {
-        height: 180px;
-      }
-
-      .modal-img-side img {
-        height: 180px;
-      }
-
-      .modal-title {
-        font-size: 1.3rem;
-      }
-
-      .modal-content-side {
-        padding: 20px 20px 36px;
-        gap: 14px;
-      }
-
-      .modal-price {
-        font-size: 1.2rem;
-      }
-
-      .modal-btn-primary,
-      .modal-btn-secondary {
-        font-size: 0.85rem;
-        padding: 12px 16px;
-      }
-
-      .contact-form {
-        padding: 24px 20px;
-      }
-
-      .social-link {
-        padding: 14px 18px;
+      .cake-grid {
+        grid-template-columns: 1fr;
       }
     }
   </style>
@@ -1622,17 +1757,17 @@
 
   <a href="#continut-principal" class="skip-link">Sari la conținut</a>
 
-  <!-- =============================================
-       ⚙️  CONFIGURARE & LOGICĂ — vezi script.js
-  ============================================= -->
+  <!-- Canvas fundal — particule 3D (script.js) -->
+  <canvas id="bgCanvas" aria-hidden="true"></canvas>
 
   <!-- =============================================
        NAVBAR
   ============================================= -->
-  <nav>
+  <nav id="mainNav">
     <a href="#" class="nav-logo" id="logo-text">Dulce <span>Vis</span></a>
     <ul class="nav-links">
       <li><a href="#prajituri">Prăjituri</a></li>
+      <li><a href="#showcase">Experiență 3D</a></li>
       <li><a href="#zone">Zone</a></li>
       <li><a href="#contact">Contact</a></li>
       <li><a href="#contact" class="nav-cta">Comandă acum</a></li>
@@ -1648,6 +1783,8 @@
   <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
     <a href="#prajituri">Prăjituri</a>
     <div class="mobile-menu-divider"></div>
+    <a href="#showcase">Experiență 3D</a>
+    <div class="mobile-menu-divider"></div>
     <a href="#zone">Zone</a>
     <div class="mobile-menu-divider"></div>
     <a href="#contact">Contact</a>
@@ -1657,53 +1794,45 @@
   <main id="continut-principal" tabindex="-1">
 
     <!-- =============================================
-       HERO CAROUSEL
-  ============================================= -->
+       HERO — scenă 3D parallax
+    ============================================= -->
     <section class="hero" id="hero" aria-label="Pagina principală">
-      <div class="carousel-track" id="carouselTrack">
-        <div class="carousel-slide">
-          <img src="images/platou-asortament-3.jpeg" alt="Platou asortament prăjituri artizanale — Dulce Vis Patiserie"
-            width="1500" height="2000" loading="eager" fetchpriority="high" />
+      <div class="hero-scene" id="heroScene" aria-hidden="true">
+        <div class="hero-photo photo-a" data-depth="0.04">
+          <img src="images/choux-cu-insertie-3.jpeg" alt="" width="460" height="600" loading="eager" fetchpriority="high" />
         </div>
-        <div class="carousel-slide">
-          <img src="images/choux-cu-insertie-3.jpeg" alt="Choux cu inserție și floare de lavandă — Dulce Vis"
-            width="1500" height="2000" loading="lazy" />
+        <div class="hero-photo photo-b" data-depth="0.09">
+          <img src="images/eclere-1.jpeg" alt="" width="380" height="500" loading="lazy" />
         </div>
-        <div class="carousel-slide">
-          <img src="images/platou-asortament-2.jpeg" alt="Platou cu choux, eclere și tarte cu fructe — Dulce Vis"
-            width="1500" height="2000" loading="lazy" />
+        <div class="hero-photo photo-c" data-depth="0.06">
+          <img src="images/tort_cioco_1.jpeg" alt="" width="500" height="640" loading="lazy" />
         </div>
-        <div class="carousel-slide">
-          <img src="images/eclere-1.jpeg" alt="Eclere artizanale cu glazură — Dulce Vis"
-            width="1500" height="2000" loading="lazy" />
+        <div class="hero-photo photo-d" data-depth="0.11">
+          <img src="images/tarte-fructe-1.jpeg" alt="" width="350" height="460" loading="lazy" />
         </div>
-        <div class="carousel-slide">
-          <img src="images/platou-asortament-1.jpeg" alt="Tăvi cu prăjituri asortate — Dulce Vis"
-            width="1500" height="2000" loading="lazy" />
-        </div>
+        <div class="hero-orb orb-1" data-depth="0.14"></div>
+        <div class="hero-orb orb-2" data-depth="0.17"></div>
       </div>
 
       <div class="hero-content">
         <div class="hero-badge">✦ Prăjituri Artizanale ✦</div>
         <h1 class="hero-title" id="hero-title">Fiecare felie e<br /><em>o poveste dulce</em></h1>
         <p class="hero-subtitle" id="hero-subtitle">Prăjituri făcute cu dragoste, din cele mai fine ingrediente.</p>
-        <a href="#prajituri" class="hero-btn">Descoperă prăjiturile</a>
+        <div class="hero-actions">
+          <a href="#prajituri" class="btn-primary">Descoperă prăjiturile</a>
+          <a href="#showcase" class="btn-ghost">Experiența 3D</a>
+        </div>
       </div>
 
-      <button class="carousel-arrow prev" id="carouselPrev" aria-label="Anterior">&#8592;</button>
-      <button class="carousel-arrow next" id="carouselNext" aria-label="Următor">&#8594;</button>
-
-      <div class="carousel-dots" id="carouselDots"></div>
-
-      <div class="scroll-indicator">
+      <div class="scroll-indicator" aria-hidden="true">
         <div class="scroll-line"></div>
         <span>Scroll</span>
       </div>
     </section>
 
     <!-- =============================================
-       PRAJITURI SLIDER
-  ============================================= -->
+       PRAJITURI — grilă carduri 3D
+    ============================================= -->
     <section class="prajituri-section" id="prajituri" aria-label="Specialitățile noastre">
       <div class="section-header" data-animate>
         <span class="section-label">✦ Specialitățile noastre</span>
@@ -1711,21 +1840,43 @@
         <div class="section-divider"></div>
       </div>
 
-      <div class="slider-wrapper">
-        <div class="slider-track" id="sliderTrack">
-          <!-- Cardurile se generează din JS -->
-        </div>
+      <div class="cake-grid" id="cakeGrid">
+        <!-- Cardurile se generează din JS -->
       </div>
+    </section>
 
-      <div class="slider-nav">
-        <button class="slider-btn" id="sliderLeft" aria-label="Stânga">&#8592;</button>
-        <button class="slider-btn" id="sliderRight" aria-label="Dreapta">&#8594;</button>
+    <!-- =============================================
+       SHOWCASE — HTML-in-Canvas
+    ============================================= -->
+    <section class="showcase-section" id="showcase" aria-label="Experiență 3D HTML-in-Canvas">
+      <div class="showcase-grid">
+        <div class="showcase-copy" data-animate>
+          <span class="section-label">✦ Tehnologie de ultimă generație</span>
+          <h2>Un card <em>viu</em>, desenat în 3D</h2>
+          <p>
+            Cardul din dreapta este HTML real — interactiv și accesibil — dar randat în interiorul unui
+            <strong>canvas</strong> cu noul API <em>HTML-in-Canvas</em>, ca să-l putem înclina și roti în spațiu.
+            Mută mouse-ul peste el ca să-l vezi prinzând viață.
+          </p>
+          <p>
+            Pe browserele care nu au încă acest API experimental activat, cardul plutește elegant cu o animație
+            CSS 3D — așa că totul funcționează oriunde.
+          </p>
+          <span class="showcase-status" id="showcaseStatus">
+            <span class="status-dot"></span>
+            <span id="showcaseStatusText">Mod compatibil — animație CSS 3D</span>
+          </span>
+        </div>
+
+        <div class="showcase-stage" id="showcaseStage" data-animate>
+          <!-- #hicCard este injectat din script.js (date din PRAJITURI) -->
+        </div>
       </div>
     </section>
 
     <!-- =============================================
        QUOTE STRIP
-  ============================================= -->
+    ============================================= -->
     <section class="quote-strip" aria-label="Filosofia noastră">
       <p class="quote-text">"Dulciurile bune nu au nevoie de ocazie specială — ele <em>creează</em> ocazia."</p>
       <p class="quote-author">— Dulce Vis, cu drag ❤</p>
@@ -1733,7 +1884,7 @@
 
     <!-- =============================================
        ZONE DE ACTIVITATE
-  ============================================= -->
+    ============================================= -->
     <section class="zone-section" id="zone" aria-label="Zone de activitate">
       <div class="section-header" data-animate>
         <span class="section-label">✦ Unde livrez</span>
@@ -1757,7 +1908,7 @@
 
     <!-- =============================================
        CONTACT SECTION
-  ============================================= -->
+    ============================================= -->
     <section class="contact-section" id="contact" aria-label="Contact">
       <div class="contact-grid">
         <div class="contact-left" data-animate>
