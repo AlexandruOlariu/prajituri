@@ -718,11 +718,6 @@ modalImg.addEventListener(
       requestAnimationFrame(render);
     }
 
-    // paint event: re-desenează când conținutul cardului se schimbă (hover, focus)
-    canvas.addEventListener("paint", () => {
-      if (typeof canvas.requestPaint === "function") return; // bucla rAF acoperă deja
-    });
-
     window.addEventListener("resize", sizeCanvas);
     requestAnimationFrame(render);
 
