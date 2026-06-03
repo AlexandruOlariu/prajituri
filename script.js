@@ -39,13 +39,13 @@ const PRAJITURI = [
     descriere:
       "Choux-uri ușoare și crocante, cu inserție surpriză în interior. Disponibile cu cremă fină de fistic, coulis de zmeură, căpșuni proaspeți sau fructe de pădure. Fiecare bucățică ascunde un miez aromat.",
     stele: "★★★★★",
-    pret: "~105 lei/kg",
+    pret: "~150 lei/kg",
     categorie: "Choux",
     ingrediente: [
       "Pâte à choux",
       "Unt 82%",
       "Ouă bio",
-      "Faină",
+      "Făină",
       "Pastă de fistic 100%",
       "Mascarpone",
       "Frișcă naturală 35%",
@@ -55,7 +55,7 @@ const PRAJITURI = [
       "Gelatină",
     ],
     preparare: [
-      "Se prepară aluatul choux din apă, unt, faină și ouă, se formează rondele cu poșul și se coc la 200°C până devin aurii și uscate.",
+      "Se prepară aluatul choux din apă, unt, făină și ouă, se formează rondele cu poșul și se coc la 200°C până devin aurii și uscate.",
       "Inserția se prepară din fructe proaspete cu zahăr și gelatină, se toarnă în forme mici de silicon și se congelează până la consistență solidă.",
       "Crema de fistic se obține din pastă de fistic, mascarpone și frișcă bătută, aromatizată cu vanilie bourbon.",
       "Choux-urile răcite se umplu: se introduce inserția congelată în centru, se completează cu cremă de fistic și se pudrează cu zahăr sau fistic măcinat.",
@@ -68,7 +68,7 @@ const PRAJITURI = [
     descriere:
       "Tarte mini cu coajă crocantă, cremă de vanilie mătăsoasă și fructe proaspete de sezon — căpșuni, afine și kiwi. Ușoare, colorate și irezistibile.",
     stele: "★★★★★",
-    pret: "~85 lei/kg",
+    pret: "~110 lei/kg",
     categorie: "Tarte",
     ingrediente: [
       "Aluat tarte",
@@ -97,7 +97,7 @@ const PRAJITURI = [
     descriere:
       "Eclere clasice franțuzești umplute cu cremă de patisier și acoperite cu glazură fină din ciocolată belgiană neagră 70%. Crusta perfectă, crema mătăsoasă.",
     stele: "★★★★★",
-    pret: "~90 lei/kg",
+    pret: "~120 lei/kg",
     categorie: "Eclere",
     ingrediente: [
       "Pâte à choux",
@@ -110,7 +110,7 @@ const PRAJITURI = [
       "Vanilie bourbon",
     ],
     preparare: [
-      "Se pregătește pâte à choux din apă, unt, faină și ouă, se coc la 200°C.",
+      "Se pregătește pâte à choux din apă, unt, făină și ouă, se coc la 200°C.",
       "Crema de patisier se fierbe din lapte, gălbenușuri, zahăr și amidon, se aromatizează cu vanilie.",
       "Éclerele răcite se umplu cu cremă folosind un poș cu duză fină.",
       "Glazura de ciocolată se toarnă caldă și se lasă să se întărească la temperatura camerei.",
@@ -132,7 +132,7 @@ const PRAJITURI = [
     ],
     descriere: "Masă de dulciuri completă pentru evenimente și petreceri — choux craquelin, eclere decorate, prăjituri Napoleon, verrine de ciocolată și choux albi glazurați, toate coordonate cromatic după tema evenimentului.",
     stele: "★★★★★",
-    pret: "La comandă",
+    pret: "de la 35 lei/pers",
     categorie: "Evenimente",
     ingrediente: ["Choux craquelin", "Eclere decorate", "Prăjitură Napoleon vanilie", "Prăjitură Napoleon cacao", "Verrine ciocolată cu frișcă", "Choux albi glazurați", "Decor auriu și floral"],
     preparare: [
@@ -153,7 +153,7 @@ const PRAJITURI = [
     descriere:
       "Tort elegant cu blat pufos de cacao, straturi generoase de cremă de ciocolată și vișine, acoperit cu ganache negru lucios. Decorat cu praline artizanale și perle de zahăr — impresionează la orice ocazie.",
     stele: "★★★★★",
-    pret: "~150 lei/kg",
+    pret: "~180 lei/kg",
     categorie: "Torturi",
     ingrediente: [
       "Blat de cacao",
@@ -182,7 +182,7 @@ const PRAJITURI = [
     descriere:
       "Madlene pufoase cu cocoașă perfectă, coapte în forme tradiționale franțuzești. Aromate cu lămâie, vanilie sau portocală — o delicatesă simplă și elegantă, perfectă cu ceaiul.",
     stele: "★★★★★",
-    pret: "~70 lei/kg",
+    pret: "~90 lei/kg",
     categorie: "Prăjituri",
     ingrediente: [
       "Ouă bio",
@@ -217,7 +217,7 @@ const PRAJITURI = [
     descriere:
       "Platou personalizat cu selecție de choux, eclere, tarte și prăjituri asortate — ideal pentru evenimente, petreceri sau cadou. Compoziția se stabilește împreună cu voi.",
     stele: "★★★★★",
-    pret: "La comandă",
+    pret: "de la 140 lei/kg",
     categorie: "Platouri",
     ingrediente: [
       "Choux cu inserție",
@@ -715,7 +715,7 @@ const structuredData = {
         absUrl("images/choux-cu-insertie-3.jpeg"),
         absUrl("images/platou-asortament-3.jpeg"),
       ],
-      priceRange: "70–220 lei/kg",
+      priceRange: "90–180 lei/kg",
       servesCuisine: ["Patiserie Artizanală", "Deserturi Fine"],
       foundingDate: CONFIG.anFondare,
       founder: { "@type": "Person", name: CONFIG.facebook },
@@ -732,15 +732,18 @@ const structuredData = {
             category: p.categorie,
             brand: { "@type": "Brand", name: CONFIG.numeSite },
           };
-          // Adăugăm Offer doar când există un preț numeric (nu „La comandă")
+          // Adăugăm Offer doar când există un preț numeric
           if (priceDigits) {
-            product.offers = {
+            const offer = {
               "@type": "Offer",
               price: priceDigits,
               priceCurrency: "RON",
               availability: "https://schema.org/InStock",
               url: pageUrl + "#prajituri",
-              priceSpecification: {
+            };
+            // Unitate de preț: pe kg (KGM) sau pe persoană
+            if (/kg/i.test(p.pret)) {
+              offer.priceSpecification = {
                 "@type": "UnitPriceSpecification",
                 price: priceDigits,
                 priceCurrency: "RON",
@@ -749,8 +752,20 @@ const structuredData = {
                   value: "1",
                   unitCode: "KGM",
                 },
-              },
-            };
+              };
+            } else if (/pers/i.test(p.pret)) {
+              offer.priceSpecification = {
+                "@type": "UnitPriceSpecification",
+                price: priceDigits,
+                priceCurrency: "RON",
+                referenceQuantity: {
+                  "@type": "QuantitativeValue",
+                  value: "1",
+                  unitText: "persoană",
+                },
+              };
+            }
+            product.offers = offer;
           }
           return { "@type": "ListItem", position: i + 1, item: product };
         }),
