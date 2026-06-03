@@ -340,7 +340,7 @@ const cakeGrid = document.getElementById("cakeGrid");
 
 PRAJITURI.forEach((p, i) => {
   cakeGrid.innerHTML += `
-    <article class="cake-card" data-index="${i}" data-tilt>
+    <article class="cake-card" data-index="${i}" data-tilt tabindex="0" role="button" aria-label="Vezi detalii — ${p.nume}">
       <div class="cake-card-img-wrap">
         <img class="cake-card-img" src="${p.imagini[0]}" alt="${p.nume}" width="600" height="800" loading="lazy" decoding="async" />
         <span class="cake-tag">${p.tag}</span>
@@ -366,6 +366,16 @@ PRAJITURI.forEach((p, i) => {
 cakeGrid.addEventListener("click", (e) => {
   const card = e.target.closest(".cake-card");
   if (card) openModal(parseInt(card.dataset.index));
+});
+
+// Acces de la tastatură (cardurile sunt role="button")
+cakeGrid.addEventListener("keydown", (e) => {
+  if (e.key !== "Enter" && e.key !== " ") return;
+  const card = e.target.closest(".cake-card");
+  if (card) {
+    e.preventDefault();
+    openModal(parseInt(card.dataset.index));
+  }
 });
 
 /* ── Tilt 3D care urmărește cursorul ────────────────────────────── */
@@ -491,8 +501,8 @@ function initBackground() {
 }
 initBackground();
 
-/* ── Modal ──────────────────────────────────────────────────────── */
-const overlay = document.getElementById("modalOverlay");
+/* ── Modal — <dialog> nativ ─────────────────────────────────────── */
+const modal = document.getElementById("modal");
 const modalImg = document.getElementById("modalImg");
 const modalBadge = document.getElementById("modalBadge");
 const modalTag = document.getElementById("modalTag");
@@ -560,25 +570,35 @@ function openModal(index) {
         .join("")
     : "";
 
-  overlay.classList.add("open");
-  document.body.style.overflow = "hidden";
+  // <dialog> nativ: top layer, focus trap, Esc — toate native
+  modal.showModal();
 }
 
 function closeModal() {
-  overlay.classList.remove("open");
-  document.body.style.overflow = "";
+  if (modal.open) modal.close();
 }
 
 document.getElementById("modalClose").addEventListener("click", closeModal);
 document.getElementById("modalCloseBtn").addEventListener("click", closeModal);
-overlay.addEventListener("click", (e) => {
-  if (e.target === overlay) closeModal();
-});
 document.getElementById("modalOrderBtn").addEventListener("click", closeModal);
 
-document.addEventListener("keydown", (e) => {
-  if (e.key === "Escape") closeModal();
-});
+// Light-dismiss (clic în afara dialogului). `closedby="any"` o face nativ;
+// fallback pentru browserele fără suport (ex. Safari) — vezi modern-web-guidance.
+if (
+  typeof HTMLDialogElement !== "undefined" &&
+  !("closedBy" in HTMLDialogElement.prototype)
+) {
+  modal.addEventListener("click", (event) => {
+    if (event.target !== modal) return; // clic pe conținut → ignoră
+    const r = modal.getBoundingClientRect();
+    const inside =
+      r.top <= event.clientY &&
+      event.clientY <= r.top + r.height &&
+      r.left <= event.clientX &&
+      event.clientX <= r.left + r.width;
+    if (!inside) closeModal();
+  });
+}
 
 // Gallery navigation
 galleryPrev.addEventListener("click", () => setGallerySlide(galleryIndex - 1));
@@ -613,7 +633,16 @@ document.getElementById("contactForm").addEventListener("submit", (e) => {
   e.preventDefault();
   const form = e.target;
   const btn = document.getElementById("formSubmitBtn");
+  const errEl = document.getElementById("formError");
 
+  const showError = (msg) => {
+    errEl.textContent = msg;
+    errEl.hidden = false;
+    btn.textContent = "Trimite mesajul ✦";
+    btn.disabled = false;
+  };
+
+  errEl.hidden = true;
   btn.textContent = "Se trimite...";
   btn.disabled = true;
 
@@ -636,14 +665,12 @@ document.getElementById("contactForm").addEventListener("submit", (e) => {
           .querySelectorAll("input, textarea, button[type=submit]")
           .forEach((el) => (el.style.opacity = "0.4"));
       } else {
-        btn.textContent = "Eroare — încearcă din nou";
-        btn.disabled = false;
+        showError("Nu am putut trimite mesajul. Mai încearcă o dată.");
       }
     })
-    .catch(() => {
-      btn.textContent = "Eroare — încearcă din nou";
-      btn.disabled = false;
-    });
+    .catch(() =>
+      showError("Conexiune eșuată. Verifică internetul și încearcă din nou."),
+    );
 });
 
 /* ── Animate on scroll ──────────────────────────────────────────── */

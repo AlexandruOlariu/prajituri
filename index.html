@@ -1052,6 +1052,29 @@
       height: 110px;
     }
 
+    .form-hint {
+      font-size: 0.78rem;
+      color: var(--text-gri);
+    }
+
+    .form-error {
+      color: #ff9bb6;
+      font-weight: 700;
+      font-size: 0.9rem;
+      text-align: center;
+      margin-top: 12px;
+    }
+
+    /* Indicator clar de focus pentru navigare cu tastatura (accesibilitate) */
+    a:focus-visible,
+    button:focus-visible,
+    input:focus-visible,
+    textarea:focus-visible,
+    .cake-card:focus-visible {
+      outline: 3px solid var(--auriu);
+      outline-offset: 2px;
+    }
+
     .form-submit {
       width: 100%;
       padding: 16px;
@@ -1097,51 +1120,75 @@
     }
 
     /* =============================================
-       DETAIL MODAL
+       DETAIL MODAL — <dialog> nativ (top layer, focus trap,
+       Esc + light-dismiss native). Vezi modern-web-guidance.
     ============================================= */
-    .modal-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(10, 4, 8, 0.72);
-      z-index: 2000;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 24px;
-      opacity: 0;
-      pointer-events: none;
-      backdrop-filter: blur(8px);
-      transition: opacity 0.4s;
-      perspective: 1600px;
-    }
-
-    .modal-overlay.open {
-      opacity: 1;
-      pointer-events: all;
-    }
-
     .modal {
-      background: linear-gradient(160deg, rgba(42, 15, 34, 0.96), rgba(21, 8, 16, 0.98));
-      border: 1px solid var(--glass-border);
-      border-radius: 32px;
+      margin: auto;
+      padding: 0;
       max-width: 900px;
-      width: 100%;
+      width: calc(100% - 48px);
       max-height: 90vh;
       overflow: hidden;
       display: grid;
       grid-template-columns: 1fr 1fr;
+      background: linear-gradient(160deg, rgba(42, 15, 34, 0.96), rgba(21, 8, 16, 0.98));
+      border: 1px solid var(--glass-border);
+      border-radius: 32px;
       box-shadow: 0 40px 100px rgba(0, 0, 0, 0.6);
-      transform: rotateX(8deg) scale(0.92) translateY(30px);
-      transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+      color: var(--text);
       scrollbar-width: none;
+      /* Animație de intrare (progressive enhancement via @starting-style) */
+      opacity: 0;
+      transform: perspective(1600px) rotateX(8deg) scale(0.92) translateY(30px);
+      transition:
+        opacity 0.35s ease,
+        transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1),
+        overlay 0.45s allow-discrete,
+        display 0.45s allow-discrete;
+    }
+
+    /* Conținutul devine grilă doar când dialogul e deschis */
+    .modal[open] {
+      opacity: 1;
+      transform: perspective(1600px) rotateX(0) scale(1) translateY(0);
+    }
+
+    @starting-style {
+      .modal[open] {
+        opacity: 0;
+        transform: perspective(1600px) rotateX(8deg) scale(0.92) translateY(30px);
+      }
     }
 
     .modal::-webkit-scrollbar {
       display: none;
     }
 
-    .modal-overlay.open .modal {
-      transform: rotateX(0) scale(1) translateY(0);
+    .modal::backdrop {
+      background: rgba(10, 4, 8, 0.72);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      opacity: 0;
+      transition:
+        opacity 0.4s ease,
+        overlay 0.4s allow-discrete,
+        display 0.4s allow-discrete;
+    }
+
+    .modal[open]::backdrop {
+      opacity: 1;
+    }
+
+    @starting-style {
+      .modal[open]::backdrop {
+        opacity: 0;
+      }
+    }
+
+    /* Blochează derularea paginii cât timp dialogul e deschis (fără JS) */
+    body:has(.modal[open]) {
+      overflow: hidden;
     }
 
     .modal-img-side {
@@ -1537,13 +1584,9 @@
         padding: 28px 24px;
       }
 
-      /* Modal — bottom sheet */
-      .modal-overlay {
-        align-items: flex-end;
-        padding: 0;
-      }
-
+      /* Modal — bottom sheet (dialog lipit de marginea de jos) */
       .modal {
+        margin: auto auto 0;
         grid-template-columns: 1fr;
         max-width: 100%;
         width: 100%;
@@ -1552,11 +1595,20 @@
         overflow-y: auto;
         border-radius: 28px 28px 0 0;
         transform: translateY(100%);
-        transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        transition:
+          transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+          overlay 0.4s allow-discrete,
+          display 0.4s allow-discrete;
       }
 
-      .modal-overlay.open .modal {
+      .modal[open] {
         transform: translateY(0);
+      }
+
+      @starting-style {
+        .modal[open] {
+          transform: translateY(100%);
+        }
       }
 
       .modal-img-side {
@@ -1757,18 +1809,23 @@
           <form id="contactForm">
             <div class="form-group">
               <label for="inputNume">Numele tău</label>
-              <input type="text" id="inputNume" name="Nume" autocomplete="name" placeholder="ex. Maria Ionescu" required />
+              <input type="text" id="inputNume" name="Nume" autocomplete="name"
+                enterkeyhint="next" autocapitalize="words" placeholder="ex. Maria Ionescu" required />
             </div>
             <div class="form-group">
               <label for="inputContact">Email sau telefon</label>
-              <input type="text" id="inputContact" name="Email_Telefon" autocomplete="email tel" placeholder="ex. maria@gmail.com sau 07xx xxx xxx" required />
+              <input type="text" id="inputContact" name="Email_Telefon" autocomplete="email tel"
+                enterkeyhint="next" autocapitalize="none" autocorrect="off" spellcheck="false"
+                aria-describedby="contactHint" placeholder="ex. maria@gmail.com sau 07xx xxx xxx" required />
+              <span id="contactHint" class="form-hint">Ca să te pot contacta înapoi.</span>
             </div>
             <div class="form-group">
               <label for="inputMesaj">Mesajul tău</label>
-              <textarea id="inputMesaj" name="Mesaj"
+              <textarea id="inputMesaj" name="Mesaj" enterkeyhint="send"
                 placeholder="Descrie ce îți dorești — prăjitură, tort personalizat, comandă..."></textarea>
             </div>
             <button type="submit" class="form-submit" id="formSubmitBtn">Trimite mesajul ✦</button>
+            <p class="form-error" id="formError" role="alert" hidden></p>
             <div class="form-success" id="formSuccess" role="status" aria-live="polite">
               ✓ Mesajul a fost trimis! Te contactez în curând. 🎂
             </div>
@@ -1789,8 +1846,7 @@
   <!-- =============================================
        DETAIL MODAL
   ============================================= -->
-  <div class="modal-overlay" id="modalOverlay">
-    <div class="modal" id="modal">
+  <dialog class="modal" id="modal" closedby="any" aria-labelledby="modalTitle">
       <div class="modal-img-side">
         <img src="" alt="" id="modalImg" decoding="async" />
         <span class="modal-img-badge" id="modalBadge"></span>
@@ -1825,8 +1881,7 @@
           <button class="modal-btn-secondary" id="modalCloseBtn">Înapoi</button>
         </div>
       </div>
-    </div>
-  </div>
+  </dialog>
 
   <script src="script.js"></script>
 </body>
