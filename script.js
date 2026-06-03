@@ -342,7 +342,7 @@ PRAJITURI.forEach((p, i) => {
   cakeGrid.innerHTML += `
     <article class="cake-card" data-index="${i}" data-tilt>
       <div class="cake-card-img-wrap">
-        <img class="cake-card-img" src="${p.imagini[0]}" alt="${p.nume}" width="600" height="800" loading="lazy" />
+        <img class="cake-card-img" src="${p.imagini[0]}" alt="${p.nume}" width="600" height="800" loading="lazy" decoding="async" />
         <span class="cake-tag">${p.tag}</span>
       </div>
       <div class="cake-card-body">
@@ -663,8 +663,12 @@ document
   .querySelectorAll("[data-animate]")
   .forEach((el) => observer.observe(el));
 
-/* ── Page URL (folosit în JSON-LD) ─────────────────────────────── */
+/* ── URL-uri absolute (folosite în JSON-LD) ────────────────────── */
 const pageUrl = window.location.origin + window.location.pathname;
+const SITE_ORIGIN = window.location.origin;
+const absUrl = (u) =>
+  /^https?:\/\//.test(u) ? u : SITE_ORIGIN + "/" + u.replace(/^\//, "");
+const telE164 = "+" + CONFIG.whatsappUrl.replace(/\D/g, ""); // +40758341842
 
 /* ── JSON-LD Structured Data ────────────────────────────────────── */
 const structuredData = {
@@ -677,8 +681,9 @@ const structuredData = {
       description:
         "Patiserie artizanală cu prăjituri făcute cu dragoste din cele mai fine ingrediente. Torturi personalizate, macarons parizieni, eclere, cheesecake și tiramisu.",
       url: pageUrl,
-      telephone: CONFIG.whatsapp,
+      telephone: telE164,
       email: CONFIG.email,
+      currenciesAccepted: "RON",
       address: {
         "@type": "PostalAddress",
         addressLocality: "Iași",
@@ -704,37 +709,40 @@ const structuredData = {
         },
       ],
       sameAs: [CONFIG.instagramUrl, CONFIG.facebookUrl, CONFIG.whatsappUrl],
-      image:
-        "https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=1200&q=85",
-      priceRange: "90–220 lei/kg",
+      image: [
+        absUrl("images/og-cover.jpg"),
+        absUrl("images/tort_cioco_1.jpeg"),
+        absUrl("images/choux-cu-insertie-3.jpeg"),
+        absUrl("images/platou-asortament-3.jpeg"),
+      ],
+      priceRange: "70–220 lei/kg",
       servesCuisine: ["Patiserie Artizanală", "Deserturi Fine"],
       foundingDate: CONFIG.anFondare,
+      founder: { "@type": "Person", name: CONFIG.facebook },
       hasOfferCatalog: {
         "@type": "OfferCatalog",
         name: "Specialitățile " + CONFIG.numeSite,
-        itemListElement: PRAJITURI.map((p, i) => ({
-          "@type": "ListItem",
-          position: i + 1,
-          item: {
+        itemListElement: PRAJITURI.map((p, i) => {
+          const priceDigits = p.pret.replace(/[^\d]/g, "");
+          const product = {
             "@type": "Product",
             name: p.nume,
             description: p.descriere,
-            image: p.imagini[0],
+            image: absUrl(p.imagini[0]),
             category: p.categorie,
-            aggregateRating: {
-              "@type": "AggregateRating",
-              ratingValue: "5",
-              bestRating: "5",
-              ratingCount: "1",
-            },
-            offers: {
+            brand: { "@type": "Brand", name: CONFIG.numeSite },
+          };
+          // Adăugăm Offer doar când există un preț numeric (nu „La comandă")
+          if (priceDigits) {
+            product.offers = {
               "@type": "Offer",
-              price: p.pret.replace(/[^\d]/g, ""),
+              price: priceDigits,
               priceCurrency: "RON",
               availability: "https://schema.org/InStock",
+              url: pageUrl + "#prajituri",
               priceSpecification: {
                 "@type": "UnitPriceSpecification",
-                price: p.pret.replace(/[^\d]/g, ""),
+                price: priceDigits,
                 priceCurrency: "RON",
                 referenceQuantity: {
                   "@type": "QuantitativeValue",
@@ -742,9 +750,10 @@ const structuredData = {
                   unitCode: "KGM",
                 },
               },
-            },
-          },
-        })),
+            };
+          }
+          return { "@type": "ListItem", position: i + 1, item: product };
+        }),
       },
     },
     {
@@ -754,6 +763,7 @@ const structuredData = {
       description: CONFIG.heroSubtitlu,
       url: pageUrl,
       inLanguage: "ro-RO",
+      publisher: { "@id": pageUrl + "#business" },
     },
   ],
 };

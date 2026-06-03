@@ -7,6 +7,7 @@
   <meta name="theme-color" content="#160910" />
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
   <link rel="apple-touch-icon" href="favicon.svg" />
+  <link rel="manifest" href="site.webmanifest" />
   <title>Dulce Vis — Patiserie Artizanală Iași &amp; Hârlău | Prăjituri și Torturi</title>
 
   <!-- SEO Primar -->
@@ -16,6 +17,8 @@
     content="prăjituri artizanale, torturi personalizate, patiserie artizanală, macarons parizieni, eclere ciocolată belgiană, cheesecake fructe de pădure, tiramisu, red velvet, comandă prăjituri, Dulce Vis, Bianca Murariu, prăjituri Iași, torturi Iași, patiserie Iași, prăjituri Hârlău, torturi Hârlău, patiserie Hârlău, livrare prăjituri Iași, livrare prăjituri Hârlău" />
   <meta name="author" content="Bianca Murariu" />
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
+  <meta name="geo.region" content="RO-IS" />
+  <meta name="geo.placename" content="Iași, Hârlău" />
   <link rel="canonical" href="https://dulcevis.ro/" />
 
   <!-- Open Graph / Facebook -->
@@ -24,10 +27,12 @@
   <meta property="og:title" content="Dulce Vis — Patiserie Artizanală în Iași și Hârlău" />
   <meta property="og:description"
     content="Prăjituri artizanale făcute cu dragoste din ingrediente fine. Torturi personalizate, macarons parizieni, eclere și cheesecake. Livrare în Iași și Hârlău. Comandă acum!" />
-  <meta property="og:image" content="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=1200&q=85" />
+  <meta property="og:image" content="https://dulcevis.ro/images/og-cover.jpg" />
+  <meta property="og:image:secure_url" content="https://dulcevis.ro/images/og-cover.jpg" />
+  <meta property="og:image:type" content="image/jpeg" />
   <meta property="og:image:width" content="1200" />
-  <meta property="og:image:height" content="800" />
-  <meta property="og:image:alt" content="Tort elegant cu fragi și frișcă naturală — Dulce Vis Patiserie Artizanală" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Masă de dulciuri artizanale — choux, eclere și prăjituri Dulce Vis" />
   <meta property="og:locale" content="ro_RO" />
   <meta property="og:site_name" content="Dulce Vis" />
 
@@ -36,14 +41,15 @@
   <meta name="twitter:title" content="Dulce Vis — Patiserie Artizanală" />
   <meta name="twitter:description"
     content="Prăjituri artizanale făcute cu dragoste din ingrediente fine. Torturi personalizate, macarons, eclere, cheesecake. Livrare în Iași și Hârlău." />
-  <meta name="twitter:image" content="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=1200&q=85" />
+  <meta name="twitter:image" content="https://dulcevis.ro/images/og-cover.jpg" />
+  <meta name="twitter:image:alt" content="Masă de dulciuri artizanale — choux, eclere și prăjituri Dulce Vis" />
 
   <!-- Structured Data (JSON-LD) generat dinamic în script.js cu datele din CONFIG -->
 
   <!-- Performance -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="dns-prefetch" href="https://images.unsplash.com" />
+  <link rel="preload" as="image" href="images/choux-cu-insertie-3.jpeg" fetchpriority="high" />
   <link
     href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Lato:wght@300;400;700&display=swap"
     rel="stylesheet" />
@@ -1618,16 +1624,16 @@
     <section class="hero" id="hero" aria-label="Pagina principală">
       <div class="hero-scene" id="heroScene" aria-hidden="true">
         <div class="hero-photo photo-a" data-depth="0.04">
-          <img src="images/choux-cu-insertie-3.jpeg" alt="" width="460" height="600" loading="eager" fetchpriority="high" />
+          <img src="images/choux-cu-insertie-3.jpeg" alt="" width="460" height="600" loading="eager" fetchpriority="high" decoding="async" />
         </div>
         <div class="hero-photo photo-b" data-depth="0.09">
-          <img src="images/eclere-1.jpeg" alt="" width="380" height="500" loading="lazy" />
+          <img src="images/eclere-1.jpeg" alt="" width="380" height="500" loading="lazy" decoding="async" />
         </div>
         <div class="hero-photo photo-c" data-depth="0.06">
-          <img src="images/tort_cioco_1.jpeg" alt="" width="500" height="640" loading="lazy" />
+          <img src="images/tort_cioco_1.jpeg" alt="" width="500" height="640" loading="lazy" decoding="async" />
         </div>
         <div class="hero-photo photo-d" data-depth="0.11">
-          <img src="images/tarte-fructe-1.jpeg" alt="" width="350" height="460" loading="lazy" />
+          <img src="images/tarte-fructe-1.jpeg" alt="" width="350" height="460" loading="lazy" decoding="async" />
         </div>
         <div class="hero-orb orb-1" data-depth="0.14"></div>
         <div class="hero-orb orb-2" data-depth="0.17"></div>
@@ -1731,7 +1737,7 @@
                 placeholder="Descrie ce îți dorești — prăjitură, tort personalizat, comandă..."></textarea>
             </div>
             <button type="submit" class="form-submit" id="formSubmitBtn">Trimite mesajul ✦</button>
-            <div class="form-success" id="formSuccess">
+            <div class="form-success" id="formSuccess" role="status" aria-live="polite">
               ✓ Mesajul a fost trimis! Te contactez în curând. 🎂
             </div>
           </form>
@@ -1754,7 +1760,7 @@
   <div class="modal-overlay" id="modalOverlay">
     <div class="modal" id="modal">
       <div class="modal-img-side">
-        <img src="" alt="" id="modalImg" />
+        <img src="" alt="" id="modalImg" decoding="async" />
         <span class="modal-img-badge" id="modalBadge"></span>
         <button class="modal-close" id="modalClose" aria-label="Închide">✕</button>
         <button class="modal-gallery-prev" id="modalGalleryPrev" aria-label="Imaginea anterioară">&#8592;</button>

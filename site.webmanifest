@@ -1,0 +1,19 @@
+{
+  "name": "Dulce Vis — Patiserie Artizanală",
+  "short_name": "Dulce Vis",
+  "description": "Prăjituri artizanale, torturi personalizate, macarons, eclere și candy bar de eveniment. Livrare în Iași și Hârlău.",
+  "lang": "ro-RO",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#150810",
+  "theme_color": "#160910",
+  "icons": [
+    {
+      "src": "favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
